@@ -1,6 +1,7 @@
 package robots;
 
 import comportements.Avancer;
+import environnement.Couleur;
 import comportements.ArretUrgence;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -12,7 +13,6 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
-import map.Couleur;
 
 public class GardeNuit {
 	

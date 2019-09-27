@@ -1,4 +1,4 @@
-package map;
+package environnement;
 
 import java.util.ArrayList;
 
