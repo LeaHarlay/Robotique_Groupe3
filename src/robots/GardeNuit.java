@@ -12,6 +12,7 @@ import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
+import map.Couleur;
 
 public class GardeNuit {
 	
@@ -32,7 +33,7 @@ public class GardeNuit {
 
 	public static void main(String[] args) {
 		Button.waitForAnyPress();
-		
+				
 		//Initialisation des moteurs
         Motor.C.setSpeed(90);
         Motor.B.setSpeed(90);
@@ -41,6 +42,10 @@ public class GardeNuit {
         
         // Initialisation des capteurs
 		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
+		
+		Couleur c = new Couleur(color);
+
+		/*
 		EV3UltrasonicSensor ultra = new EV3UltrasonicSensor(SensorPort.S4);
 		float[] captations = new float[4]; // 0..2 Couleurs, 3 ultrason
 		
@@ -54,6 +59,7 @@ public class GardeNuit {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
+		*/
 	}
 
 }
