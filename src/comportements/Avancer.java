@@ -19,6 +19,6 @@ public class Avancer implements Behavior {
 		Motor.C.forward();
 		Delay.msDelay(1000); // Avancer en fonction de la taille d'une case
 		Motor.B.stop(true);
-		Motor.C.stop();
+		Motor.C.stop(true);
 	}
 }

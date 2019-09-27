@@ -26,6 +26,7 @@ public class ArretUrgence implements Behavior {
 	}
 
 	public void suppress() {
+		
 	}
 
 	public void action() {
