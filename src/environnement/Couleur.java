@@ -15,7 +15,7 @@ public class Couleur {
 	public final String ORANGE = "Orange";
 	public final String BLEU = "Bleu";
 	public final String VERT = "Vert";
-	public final int MESURE = 3;
+	public final int NB_MESURE = 3;
 
 	// Seuil RGB des couleurs
 	private ArrayList<int[]> blanc = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Couleur {
 	private ArrayList<int[]> vert = new ArrayList<>();
 
 	// Capteur de couleur
-	EV3ColorSensor capteur;
+	private EV3ColorSensor capteur;
 
 	public Couleur(EV3ColorSensor capteurCouleur) {
 		this.capteur = capteurCouleur;
@@ -34,57 +34,151 @@ public class Couleur {
 
 	// Initialisation des seuils des couleurs
 	public void init() {
-		LCD.drawString("Apprentissage... ", 0, 0);
-		this.initBlanc();
-	}
-
-	// Initialisation des seuils RGB du blanc
-	public void initBlanc() {
-		// Liste des valeurs qui determineront le seuil
-		ArrayList<Integer> valR = new ArrayList<Integer>();
-		ArrayList<Integer> valG = new ArrayList<Integer>();
-		ArrayList<Integer> valB = new ArrayList<Integer>();
-		
-
-		LCD.drawString("Blanc, OK ?", 0, 1);
-		Button.waitForAnyPress();
-
-		// Prise des mesures
-		for (int i = 0; i < this.MESURE; i++) {
-			float[] valeurs = new float[3];
-			valeurs = this.colorRGV();
-			valR.add((int) valeurs[0]);
-			valG.add((int) valeurs[1]);
-			valB.add((int) valeurs[2]);
-		}
-
-		int[] r = { this.min(valR), this.max(valR) };
-		int[] g = { this.min(valG), this.max(valG) };
-		int[] b = { this.min(valB), this.max(valB) };
-
-		this.blanc.add(r);
-		this.blanc.add(g);
-		this.blanc.add(b);
-		
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Blanc : ", 0, 0);
-		LCD.drawString("R {"+this.blanc.get(0)[0]+" ; "+this.blanc.get(0)[1]+"}", 0, 0);
-		LCD.drawString("G {"+this.blanc.get(1)[0]+" ; "+this.blanc.get(1)[1]+"}", 0, 1);
-		LCD.drawString("B {"+this.blanc.get(2)[0]+" ; "+this.blanc.get(2)[1]+"}", 0, 2);
-		
-		Delay.msDelay(5000);
+		LCD.drawString("Initialisation ", 0, 0);
+		this.initBlanc();
+		this.initRouge();
+		this.initOrange();
+		this.initBleu();
+		this.initVert();
+		Delay.msDelay(2000);
+
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("J'ai terminé ! ", 0, 0);
+	}
+
+	// Initialisation des seuils RVB du blanc
+	public void initBlanc() {
+		LCD.drawString("Blanc : ", 0, 1);
+		Button.waitForAnyPress();
+		this.blanc = creationSeuilCouleur(); // Attribution des valeurs à la
+												// couleur Blanche
+
+		// Modification de l'affichage
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Blanc : OK ", 0, 1);
+	}
+
+	// Initialisation des seuils RVB du rouge
+	public void initRouge() {
+		LCD.drawString("Rouge : ", 0, 2);
+		Button.waitForAnyPress();
+		this.rouge = creationSeuilCouleur(); // Attribution des valeurs à la
+												// couleur Blanche
+
+		// Modification de l'affichage
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Blanc : OK ", 0, 1);
+		LCD.drawString("Rouge : OK ", 0, 2);
+	}
+
+	// Initialisation des seuils RVB du orange
+	public void initOrange() {
+		LCD.drawString("Orange : ", 0, 3);
+		Button.waitForAnyPress();
+		this.orange = creationSeuilCouleur(); // Attribution des valeurs à la
+												// couleur Blanche
+
+		// Modification de l'affichage
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Blanc : OK ", 0, 1);
+		LCD.drawString("Rouge : OK ", 0, 2);
+		LCD.drawString("Orange : OK ", 0, 3);
+	}
+
+	// Initialisation des seuils RVB du bleu
+	public void initBleu() {
+		LCD.drawString("Bleu : ", 0, 4);
+		Button.waitForAnyPress();
+		this.bleu = creationSeuilCouleur(); // Attribution des valeurs à la
+											// couleur Blanche
+
+		// Modification de l'affichage
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Blanc : OK ", 0, 1);
+		LCD.drawString("Rouge : OK ", 0, 2);
+		LCD.drawString("Orange : OK ", 0, 3);
+		LCD.drawString("Bleu : OK ", 0, 4);
+	}
+
+	// Initialisation des seuils RVB du vert
+	public void initVert() {
+		LCD.drawString("Vert : ", 0, 5);
+		Button.waitForAnyPress();
+		this.vert = creationSeuilCouleur(); // Attribution des valeurs à la
+											// couleur Blanche
+
+		// Modification de l'affichage
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Blanc : OK ", 0, 1);
+		LCD.drawString("Rouge : OK ", 0, 2);
+		LCD.drawString("Orange : OK ", 0, 3);
+		LCD.drawString("Bleu : OK ", 0, 4);
+		LCD.drawString("Vert : OK ", 0, 5);
+	}
+
+	// Initialise la liste des seuils des valeurs de la couleur perçue
+	public ArrayList<int[]> creationSeuilCouleur() {
+		// Liste des valeurs qui determineront le seuil
+		ArrayList<Integer> valR = new ArrayList<Integer>(); // Listes de toutes
+															// les valeurs de
+															// ROUGE récupérée
+		ArrayList<Integer> valV = new ArrayList<Integer>(); // Listes de toutes
+															// les valeurs de
+															// VERT récupérée
+		ArrayList<Integer> valB = new ArrayList<Integer>(); // Listes de toutes
+															// les valeurs de
+															// BLEU récupérée
+
+		// Prise des mesures
+		for (int i = 0; i < this.NB_MESURE; i++) {
+			float[] valeurs = new float[3];
+			valeurs = this.colorRVB(); // On récupère les valeurs RVB de la
+										// couleur captée
+			// Séparation des valeurs dans la liste correspondante
+			valR.add((int) valeurs[0]); // Valeur 1 : Rouge
+			valV.add((int) valeurs[1]); // Valeur 2 : Vert
+			valB.add((int) valeurs[2]); // Valeur 3 : Bleu
+		}
+
+		// Recherche des valeurs seuils minimales et maximal pour chaque couleur
+		// (RVB)
+		int[] r = { this.min(valR), this.max(valR) };
+		int[] v = { this.min(valV), this.max(valV) };
+		int[] b = { this.min(valB), this.max(valB) };
+
+		// Ajout des seuils dans une liste définissant les seuils RVB pour une
+		// couleur
+		ArrayList<int[]> result = new ArrayList<int[]>();
+		// Ajout en queue des différents seuils
+		result.add(r);
+		result.add(v);
+		result.add(b);
+
+		return result;
 	}
 
 	// Retourne un tableau des valeurs RGB pour une couleur
-	public float[] colorRGV() {
-		SensorMode valeurRGB = this.capteur.getRGBMode();
-		float[] tabRGB = new float[valeurRGB.sampleSize()];
-		valeurRGB.fetchSample(tabRGB, 0);
+	public float[] colorRVB() {
+		SensorMode valeurRVB = this.capteur.getRGBMode();
+		float[] tabRVB = new float[valeurRVB.sampleSize()];
+		valeurRVB.fetchSample(tabRVB, 0);
 		for (int i = 0; i <= 2; i++) {
-			tabRGB[i] = tabRGB[i] * 1000;
+			tabRVB[i] = tabRVB[i] * 1000;
 		}
-		return tabRGB;
+		return tabRVB;
 	}
 
 	// Valeur minimal d'une liste
@@ -108,4 +202,29 @@ public class Couleur {
 		}
 		return valMax;
 	}
+
+	public String couleurTrouve() {
+		float[] valeurs = new float[3];
+		valeurs = this.colorRVB(); // On récupère les valeurs RVB de la couleur
+		String result = "Inconnue";
+		if (correspondanceCouleur(valeurs, this.blanc)) {
+			result = this.BLANC;
+		} else if (correspondanceCouleur(valeurs, this.rouge)) {
+			result = this.ROUGE;
+		} else if (correspondanceCouleur(valeurs, this.orange)) {
+			result = this.ORANGE;
+		} else if (correspondanceCouleur(valeurs, this.bleu)) {
+			result = this.BLEU;
+		} else if (correspondanceCouleur(valeurs, this.vert)) {
+			result = this.VERT;
+		}
+		return result;
+	}
+
+	public boolean correspondanceCouleur(float[] valeurs, ArrayList<int[]> seuil) {
+		return (valeurs[0] <= seuil.get(0)[1] && valeurs[0] >= seuil.get(0)[0])
+				&& (valeurs[1] <= seuil.get(1)[1] && valeurs[1] >= seuil.get(1)[0])
+				&& (valeurs[2] <= seuil.get(2)[1] && valeurs[2] >= seuil.get(2)[0]);
+	}
+
 }

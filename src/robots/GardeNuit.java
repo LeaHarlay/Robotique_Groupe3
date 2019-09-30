@@ -16,35 +16,40 @@ import lejos.utility.Delay;
 
 public class GardeNuit {
 	
-	public static void showColorRGB_ex6() {
-		EV3ColorSensor capteurCouleur;
-		capteurCouleur = new EV3ColorSensor(SensorPort.S3);
-		SensorMode valeurRGB = capteurCouleur.getRGBMode();
-		float[] sample = new float[valeurRGB.sampleSize()];
-		valeurRGB.fetchSample(sample, 0);
-		LCD.drawString("Code couleur : ", 0, 0);
-		for (int i = 0; i <= 2; i++) {
-			float color = sample[i] * 1000;
-			LCD.drawInt((int) color, 0, (i + 1));
-		}
-		Delay.msDelay(5000); // plus besoin du throws Exception
-		capteurCouleur.close();
-	}
 
 	public static void main(String[] args) {
+		LCD.drawString("Hello !!", 0,0);
+		LCD.drawString("Appuis sur", 0,2);
+		LCD.drawString("un bouton :)", 0,3);
 		Button.waitForAnyPress();
 				
 		//Initialisation des moteurs
+		/*
         Motor.C.setSpeed(90);
         Motor.B.setSpeed(90);
         Motor.C.setAcceleration(2000);
         Motor.B.setAcceleration(2000);
+        */
         
         // Initialisation des capteurs
 		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
 		
 		Couleur c = new Couleur(color);
-
+		
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("TERMINEE", 0, 1);
+		Delay.msDelay(3000);
+		
+		for (int i =0;i<5;i++){
+			LCD.clear();
+			LCD.refresh();
+			LCD.drawString("Couleur "+(i+1)+" ?", 0, 0);
+			Button.waitForAnyPress();
+			LCD.drawString(c.couleurTrouve(), 0, 1);
+			Delay.msDelay(5000);
+		}
 		/*
 		EV3UltrasonicSensor ultra = new EV3UltrasonicSensor(SensorPort.S4);
 		float[] captations = new float[4]; // 0..2 Couleurs, 3 ultrason
