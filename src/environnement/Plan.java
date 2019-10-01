@@ -58,8 +58,6 @@ public class Plan {
 				}else {
 					aff=aff+"  "+this.carte[i][j].getcouleur()+"  ";
 				}
-				
-				
 			}
 			aff=aff+"\n";
 		}
