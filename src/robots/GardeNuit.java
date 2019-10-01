@@ -23,14 +23,6 @@ public class GardeNuit {
 		LCD.drawString("un bouton :)", 0,3);
 		Button.waitForAnyPress();
 				
-		//Initialisation des moteurs
-		/*
-        Motor.C.setSpeed(90);
-        Motor.B.setSpeed(90);
-        Motor.C.setAcceleration(2000);
-        Motor.B.setAcceleration(2000);
-        */
-        
         // Initialisation des capteurs
 		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
 		
@@ -50,6 +42,8 @@ public class GardeNuit {
 			LCD.drawString(c.couleurTrouve(), 0, 1);
 			Delay.msDelay(5000);
 		}
+		
+		
 		/*
 		EV3UltrasonicSensor ultra = new EV3UltrasonicSensor(SensorPort.S4);
 		float[] captations = new float[4]; // 0..2 Couleurs, 3 ultrason
