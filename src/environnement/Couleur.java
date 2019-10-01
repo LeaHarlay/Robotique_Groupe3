@@ -1,6 +1,7 @@
 package environnement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -42,6 +43,7 @@ public class Couleur {
 		this.initOrange();
 		this.initBleu();
 		this.initVert();
+
 		Delay.msDelay(2000);
 
 		LCD.clear();
@@ -53,8 +55,7 @@ public class Couleur {
 	public void initBlanc() {
 		LCD.drawString("Blanc : ", 0, 1);
 		Button.waitForAnyPress();
-		this.blanc = creationSeuilCouleur(); // Attribution des valeurs à la
-												// couleur Blanche
+		this.blanc = creationSeuilCouleur();
 
 		// Modification de l'affichage
 		LCD.clear();
@@ -67,8 +68,7 @@ public class Couleur {
 	public void initRouge() {
 		LCD.drawString("Rouge : ", 0, 2);
 		Button.waitForAnyPress();
-		this.rouge = creationSeuilCouleur(); // Attribution des valeurs à la
-												// couleur Blanche
+		this.rouge = creationSeuilCouleur();
 
 		// Modification de l'affichage
 		LCD.clear();
@@ -82,9 +82,8 @@ public class Couleur {
 	public void initOrange() {
 		LCD.drawString("Orange : ", 0, 3);
 		Button.waitForAnyPress();
-		this.orange = creationSeuilCouleur(); // Attribution des valeurs à la
-												// couleur Blanche
-
+		this.orange = creationSeuilCouleur();
+		
 		// Modification de l'affichage
 		LCD.clear();
 		LCD.refresh();
@@ -98,9 +97,8 @@ public class Couleur {
 	public void initBleu() {
 		LCD.drawString("Bleu : ", 0, 4);
 		Button.waitForAnyPress();
-		this.bleu = creationSeuilCouleur(); // Attribution des valeurs à la
-											// couleur Blanche
-
+		this.bleu = creationSeuilCouleur();
+		
 		// Modification de l'affichage
 		LCD.clear();
 		LCD.refresh();
@@ -115,9 +113,8 @@ public class Couleur {
 	public void initVert() {
 		LCD.drawString("Vert : ", 0, 5);
 		Button.waitForAnyPress();
-		this.vert = creationSeuilCouleur(); // Attribution des valeurs à la
-											// couleur Blanche
-
+		this.vert = creationSeuilCouleur();
+		
 		// Modification de l'affichage
 		LCD.clear();
 		LCD.refresh();
@@ -132,21 +129,14 @@ public class Couleur {
 	// Initialise la liste des seuils des valeurs de la couleur perçue
 	public ArrayList<int[]> creationSeuilCouleur() {
 		// Liste des valeurs qui determineront le seuil
-		ArrayList<Integer> valR = new ArrayList<Integer>(); // Listes de toutes
-															// les valeurs de
-															// ROUGE récupérée
-		ArrayList<Integer> valV = new ArrayList<Integer>(); // Listes de toutes
-															// les valeurs de
-															// VERT récupérée
-		ArrayList<Integer> valB = new ArrayList<Integer>(); // Listes de toutes
-															// les valeurs de
-															// BLEU récupérée
+		ArrayList<Integer> valR = new ArrayList<Integer>(); 
+		ArrayList<Integer> valV = new ArrayList<Integer>(); 
+		ArrayList<Integer> valB = new ArrayList<Integer>(); 
 
 		// Prise des mesures
 		for (int i = 0; i < this.NB_MESURE; i++) {
 			float[] valeurs = new float[3];
-			valeurs = this.colorRVB(); // On récupère les valeurs RVB de la
-										// couleur captée
+			valeurs = this.colorRVB(); // On récupère les valeurs RVB 
 			// Séparation des valeurs dans la liste correspondante
 			valR.add((int) valeurs[0]); // Valeur 1 : Rouge
 			valV.add((int) valeurs[1]); // Valeur 2 : Vert
@@ -155,9 +145,9 @@ public class Couleur {
 
 		// Recherche des valeurs seuils minimales et maximal pour chaque couleur
 		// (RVB)
-		int[] r = { this.min(valR), this.max(valR) };
-		int[] v = { this.min(valV), this.max(valV) };
-		int[] b = { this.min(valB), this.max(valB) };
+		int[] r = { this.min(valR)-10, this.max(valR)+10 };
+		int[] v = { this.min(valV)-10, this.max(valV)+10 };
+		int[] b = { this.min(valB)-10, this.max(valB)+10 };
 
 		// Ajout des seuils dans une liste définissant les seuils RVB pour une
 		// couleur
@@ -222,9 +212,17 @@ public class Couleur {
 	}
 
 	public boolean correspondanceCouleur(float[] valeurs, ArrayList<int[]> seuil) {
-		return (valeurs[0] <= seuil.get(0)[1] && valeurs[0] >= seuil.get(0)[0])
-				&& (valeurs[1] <= seuil.get(1)[1] && valeurs[1] >= seuil.get(1)[0])
-				&& (valeurs[2] <= seuil.get(2)[1] && valeurs[2] >= seuil.get(2)[0]);
+		return ((((int)valeurs[0] <= seuil.get(0)[1]) && ((int)valeurs[0] >= seuil.get(0)[0]))
+				&& (((int)valeurs[1] <= seuil.get(1)[1]) && ((int)valeurs[1] >= seuil.get(1)[0]))
+				&& (((int)valeurs[2] <= seuil.get(2)[1]) && ((int)valeurs[2] >= seuil.get(2)[0])));
+	}
+	
+	public void afficheList(ArrayList<int[]> l){
+		for (int i =0;i<l.size();i++){
+			for (int x = 0; x<l.get(i).length;x++){
+				System.out.println(l.get(i)[x]);
+			}
+		}
 	}
 
 }
