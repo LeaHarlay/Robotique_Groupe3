@@ -24,20 +24,22 @@ public class GardeNuit {
 
 	public static void main(String[] args) {
 		Plan p = new Plan();
-		p.initPlateauGardeNuit();
+		p.initPlateauGardeNuit(); //création et initialisation du plan pour la garde de nuit
 		
-		String direction = "Nord";
+		String direction = "Nord"; //direction dans laquelle se trouve le robot au départ
 		
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Button.waitForAnyPress();
-		Couleur c = new Couleur(cs);
+		Couleur c = new Couleur(cs); //initialisation des couleurs
+		
 		LCD.clear();
 		LCD.refresh();
 		LCD.drawString("Appuie pour avancer", 0, 0);
 		Button.waitForAnyPress();
 		LCD.clear();
 		LCD.refresh();
-		allerPosteGarde(cs, p, c, direction);
+		
+		allerPosteGarde(cs, p, c, direction); //se dirige vers le poste de garde au Sud (objectif 1)
 		
 		/*
 		LCD.drawString("Hello !!", 0,0);
@@ -85,11 +87,13 @@ public class GardeNuit {
 	
 	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {
 		
+		//Création du chassis pour piloter le robot
 		Wheel wheel1=WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
 		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C,56.).offset(60);
 		Chassis chassis = new WheeledChassis(new Wheel[] {wheel1,wheel2},2);
 		MovePilot pilot = new MovePilot(chassis);
 		
+		//Création des comportements pour déplacer le robot et pour l'arrêt d'urgence
 		AvancerGardeNuit a = new AvancerGardeNuit(pilot, p, c, d);
         ArretUrgence au = new ArretUrgence(cs);
 		Behavior[] bArray = {a, au}; // du moins prioritaire au plus prioritaire
