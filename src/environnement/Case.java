@@ -29,7 +29,7 @@ public class Case {
 	public String getNom() {
 		return this.nom;
 	}
-	public String getcouleur() {
+	public String getCouleur() {
 		return this.couleur;
 	}
 	public int getValeur() {

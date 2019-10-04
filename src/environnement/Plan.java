@@ -11,10 +11,6 @@ public class Plan {
 	}
 	
 	public void init() {
-		this.position[0]=0;
-		this.position[1]=4;
-		this.adversaire[0]=6;
-		this.adversaire[1]=0;
 		//this.carte = new Case[7][5];
 		//camps militaires
 		this.carte[0][0] = new Case("Camp militaire","rouge",1);
@@ -56,7 +52,7 @@ public class Plan {
 				}else if (this.adversaire[0]==i && this.adversaire[1]==j) {
 					aff = aff+"   toi   ";
 				}else {
-					aff=aff+"  "+this.carte[i][j].getcouleur()+"  ";
+					aff=aff+"  "+this.carte[i][j].getCouleur()+"  ";
 				}
 			}
 			aff=aff+"\n";
@@ -64,59 +60,73 @@ public class Plan {
 		return aff;
 	}
 	
-	public Plan initPlateauSauvageon() {
-		Plan p = new Plan();
+	public void initPlateauSauvageon() {
+		this.adversaire[0]=6;
+		this.adversaire[1]=0;
+		this.position[0]=0;
+		this.position[1]=4;
 		for (int i =0;i<7;i++) {
-			p.carte[i][4].setDecouvert(true);
+			this.carte[i][4].setDecouvert(true);
 		}
 		for (int i=0;i<5;i++) {
-			p.carte[i][3].setDecouvert(true);
+			this.carte[i][3].setDecouvert(true);
 		}
 		for (int i=0;i<4;i++) {
-			p.carte[i][2].setDecouvert(true);
+			this.carte[i][2].setDecouvert(true);
 		}
 		
 		for (int i=0;i<3;i++) {
-			p.carte[i][1].setDecouvert(true);
+			this.carte[i][1].setDecouvert(true);
 		}
-		p.carte[0][0].setDecouvert(true);
+		this.carte[0][0].setDecouvert(true);
 		for (int i=0;i<7;i++) {
 			for (int j=0;j<5;j++) {
-				if (p.carte[i][j].getDecouvert()!=true) {
-					p.carte[i][j].setDecouvert(false);
+				if (this.carte[i][j].getDecouvert()!=true) {
+					this.carte[i][j].setDecouvert(false);
 				}
 			}
 		}
-		return p;
 	}
 	
-	public Plan initPlateauGardeNuit() {
-		Plan p = new Plan();
-		
+	public void initPlateauGardeNuit() {
+		this.position[0]=6;
+		this.position[1]=0;
+		this.adversaire[0]=0;
+		this.adversaire[1]=4;
 		for (int i =0;i<7;i++) {
-			p.carte[i][0].setDecouvert(true);
+			this.carte[i][0].setDecouvert(true);
 		}
 		for (int i=0;i<7;i++) {
-			p.carte[i][1].setDecouvert(true);
+			this.carte[i][1].setDecouvert(true);
 		}
 		for (int i=2;i<7;i++) {
-			p.carte[i][2].setDecouvert(true);
+			this.carte[i][2].setDecouvert(true);
 		}
 		
 		for (int i=4;i<7;i++) {
-			p.carte[i][3].setDecouvert(true);
+			this.carte[i][3].setDecouvert(true);
 		}
 		for (int i=5;i<7;i++) {
-			p.carte[i][4].setDecouvert(true);
+			this.carte[i][4].setDecouvert(true);
 		}
 		for (int i=0;i<7;i++) {
 			for (int j=0;j<5;j++) {
-				if (p.carte[i][j].getDecouvert()!=true) {
-					p.carte[i][j].setDecouvert(false);
+				if (this.carte[i][j].getDecouvert()!=true) {
+					this.carte[i][j].setDecouvert(false);
 				}
 			}
 		}
-		return p;
+	}
+	
+	public int[] getPosition(){
+		return this.position;
+	}
+	public Case[][] getCarte(){
+		return this.carte;
+	}
+	
+	public void setPosition(int[] p) {
+		this.position=p;
 	}
 	
 }
