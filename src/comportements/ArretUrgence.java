@@ -9,12 +9,10 @@ import lejos.robotics.subsumption.Behavior;
 
 public class ArretUrgence implements Behavior {
 	private EV3ColorSensor color;
-	private EV3UltrasonicSensor ultra;
 	private Arbitrator abry;
 
-	public ArretUrgence(EV3ColorSensor c, EV3UltrasonicSensor u) {
+	public ArretUrgence(EV3ColorSensor c) {
 		this.color = c;
-		this.ultra = u;
 	}
 
 	public void setArbitrator(Arbitrator a) {
@@ -33,7 +31,6 @@ public class ArretUrgence implements Behavior {
 		Motor.B.stop(true);
 		Motor.C.stop(true);
 		this.color.close();
-		this.ultra.close();
 		this.abry.stop();
 		System.exit(0);
 	}

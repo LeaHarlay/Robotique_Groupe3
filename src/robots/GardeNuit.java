@@ -1,7 +1,10 @@
 package robots;
 
 import comportements.Avancer;
+import comportements.Emetteur;
+import comportements.Recepteur;
 import environnement.Couleur;
+import environnement.Plan;
 import comportements.ArretUrgence;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -10,6 +13,8 @@ import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.sensor.SensorMode;
+import lejos.remote.nxt.BTConnector;
+import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
@@ -18,13 +23,25 @@ public class GardeNuit {
 	
 
 	public static void main(String[] args) {
-		LCD.drawString("Hello !!", 0,0);
-		LCD.drawString("Appuis sur", 0,2);
-		LCD.drawString("un bouton :)", 0,3);
+		LCD.drawString("Hello !!", 0,1);
+		LCD.drawString("Appuie sur moi :)", 0,4);
 		Button.waitForAnyPress();
+		
+		LCD.clear();
+		LCD.refresh();
 				
-        // Initialisation des capteurs
 		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
+		
+		/*
+		Plan p = new Plan();
+		p.initPlateauGardeNuit();
+		p.affichePlateau();
+		Delay.msDelay(5000);
+		*/
+		
+
+        // Initialisation des capteurs
+		/*
 		
 		Couleur c = new Couleur(color);
 		
@@ -42,23 +59,19 @@ public class GardeNuit {
 			LCD.drawString(c.couleurTrouve(), 0, 1);
 			Delay.msDelay(5000);
 		}
-		
-		
-		/*
-		EV3UltrasonicSensor ultra = new EV3UltrasonicSensor(SensorPort.S4);
-		float[] captations = new float[4]; // 0..2 Couleurs, 3 ultrason
-		
+		*/
+				
 		// Initialisation des comportements
-		Behavior bAvancer = new Avancer(); // Avancer
-		Behavior bArretUrgence = new ArretUrgence(color, ultra); // Arrêt d'urgence
-		Behavior[] bComportements = { bAvancer, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior bEmetteur = new Emetteur(); 
+		//Behavior bRecepteur = new Recepteur(btc);
+		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
+		Behavior[] bComportements = { bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence){
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		*/
 	}
 
 }
