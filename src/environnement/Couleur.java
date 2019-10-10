@@ -1,7 +1,6 @@
 package environnement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;

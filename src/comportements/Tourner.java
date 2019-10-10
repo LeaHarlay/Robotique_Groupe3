@@ -1,6 +1,5 @@
 package comportements;
 
-import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
@@ -10,25 +9,26 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class Tourner implements Behavior {
+	
+	//==================================
+	//Classe non utilisée pour le moment
+	//==================================
+	
 	private int compteur;
 	
 	public Tourner (int c) {
 		this.compteur=c;
 		c=this.compteur;
 	}
-	
 	public boolean takeControl() {
 		return (this.compteur==4);
 	}
-
-
 	public void suppress() {
 		Motor.B.stop(true);
 		Motor.C.stop(true);
 		Motor.B.close();
 		Motor.C.close();
 	}
-
 	public void action() {
 		System.out.println("dans action de tourner, compteur = ");
 		System.out.println(compteur);

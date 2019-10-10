@@ -9,7 +9,8 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class AvancerSauvageon implements Behavior{
-	private int compteur=0;
+	
+	private int compteur=0; // Utile pour savoir quelle action faire
 	private MovePilot pilot;
 	Plan plan;
 	Couleur couleur;
@@ -31,29 +32,36 @@ public class AvancerSauvageon implements Behavior{
 		Motor.C.stop(true);
 	}
 
+	// Permet d'avancer du bon nombre de cases (objectif 1)
 	public void action() {
 		if (this.compteur<4) {
-			LCD.clear();
-			LCD.refresh();
 			pilot.setLinearSpeed(60.);
 			pilot.travel(135);
 			Delay.msDelay(200);
 			this.compteur=this.compteur+1;
+			// Modifie la position du robot (coordonnées sur le plan)
 			this.modifPosition();
+			// Vérification de la couleur
+			LCD.clear();
+			LCD.refresh();
 			if (this.verifierCouleur()) {
-				LCD.drawString("Couleur OK", 1, 1);
+				LCD.drawString("Couleur OK", 0, 1);
 				Delay.msDelay(2000);
 			}else{
-				LCD.drawString("Couleur Différente", 1, 1);
+				LCD.drawString("Couleur Différente", 0, 1);
 				Delay.msDelay(2000);
 			}
-			
 		}
 	}
+	
+	/* Vérifie si la couleur de la case sur laquelle le robot se trouve 
+	correspond à la couleur indiquée sur le plan */
 	public boolean verifierCouleur() {
 		String couleurCase = this.plan.getCarte()[this.plan.getPosition()[0]][this.plan.getPosition()[1]].getCouleur();
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
+	
+	// Modifie la position du robot (appelé après avoir avancé) en fonction de sa direction
 	public void modifPosition() {
 		int[] p = new int [2];
 		if (this.direction.equalsIgnoreCase("Nord")) {

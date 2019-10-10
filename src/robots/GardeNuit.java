@@ -1,8 +1,6 @@
 package robots;
 
-import comportements.Avancer;
 import comportements.AvancerGardeNuit;
-import comportements.AvancerSauvageon;
 import environnement.Couleur;
 import environnement.Plan;
 import comportements.ArretUrgence;
@@ -17,7 +15,6 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class GardeNuit {
 	

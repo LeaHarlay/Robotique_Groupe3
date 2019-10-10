@@ -1,6 +1,5 @@
 package comportements;
 
-import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
@@ -10,6 +9,11 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class Avancer implements Behavior {
+	
+	//==================================
+	//Classe non utilisée pour le moment
+	//==================================
+	
 	private int compteur;
 	
 	public Avancer (int c) {

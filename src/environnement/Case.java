@@ -1,6 +1,7 @@
 package environnement;
 
 public class Case {
+	
 	private String nom;
 	private String couleur;
 	private int valeur;

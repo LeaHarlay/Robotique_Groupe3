@@ -10,8 +10,8 @@ public class Plan {
 		this.init();
 	}
 	
+	//initialisation du plan (nom, couleur et valeur de chacune des cases)
 	public void init() {
-		//this.carte = new Case[7][5];
 		//camps militaires
 		this.carte[0][0] = new Case("Camp militaire","rouge",1);
 		this.carte[5][3] = new Case ("Camp militaire", "rouge",1);
@@ -60,6 +60,8 @@ public class Plan {
 		return aff;
 	}
 	
+	//initialisation de la partie connue du plan pour le sauvageon 
+	//(les booléens permettant de dire qu'une case est découverte sont à True)
 	public void initPlateauSauvageon() {
 		this.adversaire[0]=6;
 		this.adversaire[1]=0;
@@ -88,6 +90,8 @@ public class Plan {
 		}
 	}
 	
+	//initialisation de la partie connue du plan pour la garde de nuit
+	//(les booléens permettant de dire qu'une case est découverte sont à True)
 	public void initPlateauGardeNuit() {
 		this.position[0]=6;
 		this.position[1]=0;
@@ -118,6 +122,7 @@ public class Plan {
 		}
 	}
 	
+	//GETTER
 	public int[] getPosition(){
 		return this.position;
 	}
@@ -125,6 +130,7 @@ public class Plan {
 		return this.carte;
 	}
 	
+	//SETTER
 	public void setPosition(int[] p) {
 		this.position=p;
 	}

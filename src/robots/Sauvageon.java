@@ -1,9 +1,7 @@
 package robots;
 
 import comportements.ArretUrgence;
-import comportements.Avancer;
 import comportements.AvancerSauvageon;
-import comportements.Tourner;
 import environnement.Couleur;
 import environnement.Plan;
 import lejos.hardware.Button;
@@ -11,15 +9,12 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class Sauvageon {
 	

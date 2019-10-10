@@ -9,7 +9,8 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class AvancerGardeNuit implements Behavior{
-	private int compteur=0;
+	
+	private int compteur=0; // Utile pour savoir quelle action faire
 	private MovePilot pilot;
 	Plan plan;
 	Couleur couleur;
@@ -31,6 +32,7 @@ public class AvancerGardeNuit implements Behavior{
 		Motor.C.stop(true);
 	}
 
+	// Permet d'avancer ou de tourner selon à où en est le robot (objectif 1)
 	public void action() {
 		if (this.compteur==0) {
 			this.avancer();
@@ -42,55 +44,73 @@ public class AvancerGardeNuit implements Behavior{
 		this.compteur=this.compteur+1;
 	}
 
+	// Fait avancer le robot jusqu'à la case suivante
 	public void avancer() {
+		//Avance
 		pilot.setLinearSpeed(60.);
 		pilot.travel(135);
 		Delay.msDelay(200);
 		pilot.stop();
+		//Modifie la position du robot (coordonnées sur le plan)
+		this.modifPosition(); 
 		LCD.clear();
 		LCD.refresh();
-		this.modifPosition();
-		LCD.drawString("Position du robot",1,0);
-		LCD.drawInt(this.plan.getPosition()[0],2,0);
-		LCD.drawInt(this.plan.getPosition()[1], 2, 2);
+		Delay.msDelay(2000);
+		// Vérification de la couleur 
+		LCD.clear();
+		LCD.refresh();
 		if (this.verifierCouleur()) {
-			LCD.drawString("Couleur OK", 6, 1);
+			LCD.drawString("Couleur OK", 0, 1);
 			Delay.msDelay(2000);
 		}else{
-			LCD.drawString("Couleur Différente", 6, 1);
+			LCD.drawString("Couleur Différente", 0, 1);
 			Delay.msDelay(2000);
 		}
-		
 	}
+	
+	// Fait tourner le robot à droite
 	public void tournerDroite() {
 		pilot.setLinearSpeed(60.);
 		pilot.setAngularSpeed(60.);
 		pilot.travel(40);
 		Delay.msDelay(200);
-		pilot.rotate(80.); //rotation du robot de 90°
+		pilot.rotate(80.); //rotation du robot de environ 90°
 		Delay.msDelay(200);
 		pilot.travel(-25);
 		pilot.stop();
+		//modifie la direction du robot (Nord, Est, Sud, Ouest)
+		this.modifDirection();
 		LCD.clear();
 		LCD.refresh();
-		this.modifDirection();
+		LCD.drawString("Direction du robot : ",0,1);
+		LCD.drawString(this.direction,0,2);
+		//vérifie si la couleur de la case correspond à la couleur stockée
+		LCD.clear();
+		LCD.refresh();
 		if (this.verifierCouleur()) {
-			LCD.drawString("Couleur OK", 6, 1);
+			LCD.drawString("Couleur OK", 0, 1);
 			Delay.msDelay(2000);
 		}else{
-			LCD.drawString("Couleur Différente", 6, 1);
+			LCD.drawString("Couleur Différente", 0, 2);
 			Delay.msDelay(2000);
 		}
 		
 	}
+	
+	/* Vérifie si la couleur de la case sur laquelle le robot se trouve 
+	correspond à la couleur indiquée sur le plan */
 	public boolean verifierCouleur() {
 		String couleurCase = this.plan.getCarte()[this.plan.getPosition()[0]][this.plan.getPosition()[1]].getCouleur();
-		LCD.drawString("Couleur à trouver",3,0);
-		LCD.drawString(this.plan.getCarte()[this.plan.getPosition()[0]][this.plan.getPosition()[1]].getCouleur(),4,0);
-		LCD.drawString("Couleur trouvée",4,0);
-		LCD.drawString(couleur.couleurTrouve(),5,0);
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Couleur à trouver : ",0,1);
+		LCD.drawString(this.plan.getCarte()[this.plan.getPosition()[0]][this.plan.getPosition()[1]].getCouleur(),0,2);
+		LCD.drawString("Couleur trouvée : ",0,3);
+		LCD.drawString(couleur.couleurTrouve(),0,4);
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
+	
+	// Modifie la direction du robot (Nord, Est, Sud, Ouest) dans le cas d'un angle de 90° à droite 
 	public void modifDirection() {
 		if (this.direction.equalsIgnoreCase("Nord")) {
 			this.direction="Est";
@@ -102,6 +122,8 @@ public class AvancerGardeNuit implements Behavior{
 			this.direction="Nord";
 		}
 	}
+	
+	// Modifie la position du robot (appelé après avoir avancé) en fonction de sa direction
 	public void modifPosition() {
 		int[] p = new int [2];
 		if (this.direction.equalsIgnoreCase("Nord")) {
