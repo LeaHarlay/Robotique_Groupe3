@@ -13,10 +13,13 @@ import lejos.utility.Delay;
 
 public class Recepteur implements Behavior {
 	private NXTConnection btc;
+	private BTConnector bt;
 
 	public boolean takeControl() {
-		BTConnector bt = new BTConnector();
-		this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+		if (this.bt == null) {
+			this.bt = new BTConnector();
+			this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+		}
 		return this.btc != null;
 	}
 
@@ -28,26 +31,22 @@ public class Recepteur implements Behavior {
 		LCD.clear();
 		LCD.refresh();
 		try {
-			//modif ADE
-			//OutputStream requete = this.btc.openDataOutputStream();
 			InputStream reponse = this.btc.openInputStream();
 			DataInputStream dReponse = new DataInputStream(reponse);
-			// modif ADE
-			//DataOutputStream dRequete = new DataOutputStream(requete);
 			int valeur = dReponse.read();
 
 			// Arrêt
 			dReponse.close();
-			btc.close();
-			//modif ADE
-			//dRequete.close();
+			this.btc.close();
+			this.bt.cancel();
 			
 			//Affichage de la réponse
 			LCD.clear();
 			LCD.refresh();
 			System.out.println(valeur);
 			
-			Delay.msDelay(5000);
+			
+			Delay.msDelay(5000);			
 			
 			LCD.clear();
 			LCD.refresh();

@@ -3,7 +3,11 @@ package comportements;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
+
+import environnement.Plan;
+
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 
 import lejos.hardware.Button;
 import lejos.hardware.ev3.EV3;
@@ -26,6 +30,8 @@ public class Emetteur implements Behavior {
 	}
 
 	public void action() {
+		Plan p = new Plan();
+		
 		LCD.clear();
 		LCD.refresh();
 		EV3 ev = LocalEV3.get();
@@ -40,19 +46,17 @@ public class Emetteur implements Behavior {
 			LCD.drawString("connexion", 0, 0);
 			LCD.refresh();
 			
-			//modif ADE
-			//InputStream reponse = btc.openInputStream();
 			OutputStream requete = btc.openOutputStream();
-			//modif ADE
-			//DataInputStream dReponse = new DataInputStream(reponse);
-			DataOutputStream dRequete = new DataOutputStream(requete);
+			//DataOutputStream dRequete = new DataOutputStream(requete);
+			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
 			System.out.println("\n"+"\n"+"Envoi");
-			dRequete.write(12); // Ecrit une valeur dans le flux
-			dRequete.flush(); // force l'envoi
+			//dRequete.write(12); // Ecrit une valeur dans le flux
+			oRequete.writeObject(p);
+			oRequete.flush();
+			//dRequete.flush(); // force l'envoi
 			System.out.println("\n"+"Envoyé");
-			//modif ADE
-			//dReponse.close();
-			dRequete.close();
+			oRequete.close();
+			//dRequete.close();
 			btc.close();
 			
 			LCD.clear();
