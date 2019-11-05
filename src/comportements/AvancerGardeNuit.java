@@ -46,22 +46,22 @@ public class AvancerGardeNuit implements Behavior{
 
 	// Fait avancer le robot jusqu'à la case suivante
 	public void avancer() {
-		//Avance
-		pilot.setLinearSpeed(60.);
-		pilot.travel(135);
-		Delay.msDelay(200);
-		pilot.stop();
-		//Modifie la position du robot (coordonnées sur le plan)
-		this.modifPosition(); 
-		LCD.clear();
-		LCD.refresh();
-		Delay.msDelay(2000);
-		// Vérification de la couleur 
-		LCD.clear();
-		LCD.refresh();
 		if (this.verifierCouleur()) {
 			LCD.drawString("Couleur OK", 0, 1);
 			Delay.msDelay(2000);
+			//Avance
+			pilot.setLinearSpeed(60.);
+			pilot.travel(135);
+			Delay.msDelay(200);
+			pilot.stop();
+			//Modifie la position du robot (coordonnées sur le plan)
+			this.modifPosition(); 
+			LCD.clear();
+			LCD.refresh();
+			Delay.msDelay(2000);
+			// Vérification de la couleur 
+			LCD.clear();
+			LCD.refresh();
 		}else{
 			LCD.drawString("Couleur Différente", 0, 1);
 			Delay.msDelay(2000);
@@ -70,26 +70,26 @@ public class AvancerGardeNuit implements Behavior{
 	
 	// Fait tourner le robot à droite
 	public void tournerDroite() {
-		pilot.setLinearSpeed(60.);
-		pilot.setAngularSpeed(60.);
-		pilot.travel(40);
-		Delay.msDelay(200);
-		pilot.rotate(80.); //rotation du robot de environ 90°
-		Delay.msDelay(200);
-		pilot.travel(-25);
-		pilot.stop();
-		//modifie la direction du robot (Nord, Est, Sud, Ouest)
-		this.modifDirection();
-		LCD.clear();
-		LCD.refresh();
-		LCD.drawString("Direction du robot : ",0,1);
-		LCD.drawString(this.direction,0,2);
-		//vérifie si la couleur de la case correspond à la couleur stockée
-		LCD.clear();
-		LCD.refresh();
 		if (this.verifierCouleur()) {
 			LCD.drawString("Couleur OK", 0, 1);
 			Delay.msDelay(2000);
+			pilot.setLinearSpeed(60.);
+			pilot.setAngularSpeed(60.);
+			pilot.travel(40);
+			Delay.msDelay(200);
+			pilot.rotate(80.); //rotation du robot de environ 90°
+			Delay.msDelay(200);
+			pilot.travel(-25);
+			pilot.stop();
+			//modifie la direction du robot (Nord, Est, Sud, Ouest)
+			this.modifDirection();
+			LCD.clear();
+			LCD.refresh();
+			LCD.drawString("Direction du robot : ",0,1);
+			LCD.drawString(this.direction,0,2);
+			//vérifie si la couleur de la case correspond à la couleur stockée
+			LCD.clear();
+			LCD.refresh();
 		}else{
 			LCD.drawString("Couleur Différente", 0, 2);
 			Delay.msDelay(2000);

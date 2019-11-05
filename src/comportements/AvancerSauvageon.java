@@ -35,18 +35,19 @@ public class AvancerSauvageon implements Behavior{
 	// Permet d'avancer du bon nombre de cases (objectif 1)
 	public void action() {
 		if (this.compteur<4) {
-			pilot.setLinearSpeed(60.);
-			pilot.travel(135);
-			Delay.msDelay(200);
-			this.compteur=this.compteur+1;
-			// Modifie la position du robot (coordonnées sur le plan)
-			this.modifPosition();
-			// Vérification de la couleur
-			LCD.clear();
-			LCD.refresh();
 			if (this.verifierCouleur()) {
 				LCD.drawString("Couleur OK", 0, 1);
 				Delay.msDelay(2000);
+				pilot.setLinearSpeed(60.);
+				pilot.travel(135);
+				Delay.msDelay(200);
+				this.compteur=this.compteur+1;
+				// Modifie la position du robot (coordonnées sur le plan)
+				this.modifPosition();
+				// Vérification de la couleur
+				LCD.clear();
+				LCD.refresh();
+			
 			}else{
 				LCD.drawString("Couleur Différente", 0, 1);
 				Delay.msDelay(2000);

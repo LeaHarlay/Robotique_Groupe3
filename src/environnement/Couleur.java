@@ -16,6 +16,7 @@ public class Couleur {
 	public final String BLEU = "Bleu";
 	public final String VERT = "Vert";
 	public final int NB_MESURE = 3;
+	public final int MARGE = 20; //8% de 255 (les couleurs r,v,b vont de 0 ‡ 255)
 
 	// Seuil RGB des couleurs
 	private ArrayList<int[]> blanc = new ArrayList<>();
@@ -144,9 +145,9 @@ public class Couleur {
 
 		// Recherche des valeurs seuils minimales et maximal pour chaque couleur
 		// (RVB)
-		int[] r = { this.min(valR)-10, this.max(valR)+10 };
-		int[] v = { this.min(valV)-10, this.max(valV)+10 };
-		int[] b = { this.min(valB)-10, this.max(valB)+10 };
+		int[] r = { this.min(valR)-this.MARGE, this.max(valR)+this.MARGE };
+		int[] v = { this.min(valV)-this.MARGE, this.max(valV)+this.MARGE };
+		int[] b = { this.min(valB)-this.MARGE, this.max(valB)+this.MARGE };
 
 		// Ajout des seuils dans une liste d√©finissant les seuils RVB pour une
 		// couleur
