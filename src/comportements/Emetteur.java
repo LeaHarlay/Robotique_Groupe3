@@ -33,22 +33,25 @@ public class Emetteur implements Behavior {
 			
 		try {
 			BTConnector bt = new BTConnector();
-			BTConnection btc = bt.connect("00:16:53:43:AD:EE", NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
+			BTConnection btc = bt.connect("00:16:53:43:9E:2F", NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
 
 
 			LCD.clear();
 			LCD.drawString("connexion", 0, 0);
 			LCD.refresh();
-
-			InputStream reponse = btc.openInputStream();
+			
+			//modif ADE
+			//InputStream reponse = btc.openInputStream();
 			OutputStream requete = btc.openOutputStream();
-			DataInputStream dReponse = new DataInputStream(reponse);
+			//modif ADE
+			//DataInputStream dReponse = new DataInputStream(reponse);
 			DataOutputStream dRequete = new DataOutputStream(requete);
 			System.out.println("\n"+"\n"+"Envoi");
 			dRequete.write(12); // Ecrit une valeur dans le flux
 			dRequete.flush(); // force l'envoi
 			System.out.println("\n"+"Envoyé");
-			dReponse.close();
+			//modif ADE
+			//dReponse.close();
 			dRequete.close();
 			btc.close();
 			

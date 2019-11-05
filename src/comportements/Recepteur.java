@@ -21,7 +21,6 @@ public class Recepteur implements Behavior {
 	}
 
 	public void suppress() {
-
 	}
 
 	public void action() {
@@ -29,16 +28,19 @@ public class Recepteur implements Behavior {
 		LCD.clear();
 		LCD.refresh();
 		try {
-			OutputStream requete = this.btc.openDataOutputStream();
+			//modif ADE
+			//OutputStream requete = this.btc.openDataOutputStream();
 			InputStream reponse = this.btc.openInputStream();
 			DataInputStream dReponse = new DataInputStream(reponse);
-			DataOutputStream dRequete = new DataOutputStream(requete);
+			// modif ADE
+			//DataOutputStream dRequete = new DataOutputStream(requete);
 			int valeur = dReponse.read();
 
 			// Arrêt
 			dReponse.close();
 			btc.close();
-			dRequete.close();
+			//modif ADE
+			//dRequete.close();
 			
 			//Affichage de la réponse
 			LCD.clear();
