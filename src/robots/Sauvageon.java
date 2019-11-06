@@ -27,8 +27,8 @@ public class Sauvageon {
 
 	public static void main(String[] args) {
 
-// OBJECTIF 1
-
+		// OBJECTIF 1
+		/*
 		Plan p = new Plan();
 		p.initPlateauSauvageon(); // création et initialisation du plan pour les sauvageons
 
@@ -46,7 +46,7 @@ public class Sauvageon {
 		LCD.refresh();
 
 		allerPosteGarde(cs, p, c, direction);// se dirige vers le poste de garde au Nord (objectif 1)
-
+		 */
 		// OBJECTIF 2
 		LCD.drawString("Hello !!", 0, 1);
 		LCD.drawString("Appuie sur moi :)", 0, 4);
@@ -60,8 +60,9 @@ public class Sauvageon {
 		// Initialisation des comportements
 		// Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
+		Behavior bEmetteur = new Emetteur();
 		Behavior bArretUrgence = new ArretUrgence(color); // ArrÃªt d'urgence
-		Behavior[] bComportements = { bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = { bEmetteur,bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;

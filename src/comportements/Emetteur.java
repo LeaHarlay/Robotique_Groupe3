@@ -3,6 +3,7 @@ package comportements;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import environnement.Case;
 import environnement.Plan;
@@ -22,8 +23,11 @@ import lejos.utility.Delay;
 
 public class Emetteur implements Behavior {
 	
+	private String bluetoothRobot1="00:16:53:43:EB:88";
+	private String bluetoothRobot2="00:16:53:43:9E:2F";
+	
 	public boolean takeControl() {
-		return Button.RIGHT.isDown();
+		return Button.UP.isDown();
 	}
 
 	public void suppress() {
@@ -31,7 +35,11 @@ public class Emetteur implements Behavior {
 	}
 
 	public void action() {
-		Case c = new Case("C MOI", "vert", 5);
+		Plan p = new Plan();
+		//Case[][] carte = p.getCarte();
+		//int [] position = p.getPosition();
+		p.initPlateauGardeNuit();
+		int[][] aEnvoyer = preparationEnvoi(p.getCarte(), p.getPosition());
 		
 		LCD.clear();
 		LCD.refresh();
@@ -40,8 +48,7 @@ public class Emetteur implements Behavior {
 			
 		try {
 			BTConnector bt = new BTConnector();
-			BTConnection btc = bt.connect("00:16:53:43:9E:2F", NXTConnection.PACKET);//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
-
+			BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
 
 			LCD.clear();
 			LCD.drawString("connexion", 0, 0);
@@ -52,7 +59,7 @@ public class Emetteur implements Behavior {
 			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
 			System.out.println("Envoi");
 			//dRequete.write(12); // Ecrit une valeur dans le flux
-			oRequete.writeObject(c);
+			oRequete.writeObject(aEnvoyer);
 			System.out.println("Je l'envoie");
 			oRequete.flush();
 			//dRequete.flush(); // force l'envoi
@@ -60,11 +67,51 @@ public class Emetteur implements Behavior {
 			oRequete.close();
 			//dRequete.close();
 			btc.close();
-			
 			LCD.clear();
 			Delay.msDelay(5000);
-			
 		} catch (Exception e) {
 		}
+		
+		try {
+			BTConnector bt = new BTConnector();
+			BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
+
+			LCD.clear();
+			LCD.drawString("connexion", 0, 0);
+			LCD.refresh();
+			
+			OutputStream requete = btc.openOutputStream();
+			//DataOutputStream dRequete = new DataOutputStream(requete);
+			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
+			System.out.println("Envoi");
+			//dRequete.write(12); // Ecrit une valeur dans le flux
+			oRequete.writeObject(aEnvoyer);
+			System.out.println("Je l'envoie");
+			oRequete.flush();
+			//dRequete.flush(); // force l'envoi
+			System.out.println("EnvoyÃ©");
+			oRequete.close();
+			//dRequete.close();
+			btc.close();
+			LCD.clear();
+			Delay.msDelay(5000);
+		} catch (Exception e) {
+		}
+	}
+	
+	public static int[][] preparationEnvoi(Case [][] carte, int [] position){
+		int [][] resultat = new int[7][5];
+		for (int i = 0 ; i<7 ; i++) {
+			for (int j = 0; j<5;j++) {
+				if (position[0] == i && position[1] == j) {
+					resultat[i][j] = 2; //position du joueur
+				}else if (carte[i][j].getDecouvert()) {
+					resultat[i][j] = 1; //case découverte
+				}else {
+					resultat[i][j] = 0; //case non découverte
+				}
+			}
+		}
+		return resultat;
 	}
 }

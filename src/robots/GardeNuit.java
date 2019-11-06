@@ -33,7 +33,7 @@ public class GardeNuit {
 		LCD.drawString("Hello !!", 0, 1);
 		LCD.drawString("Appuie sur moi :)", 0, 4);
 		Button.waitForAnyPress();
-		
+		/*
 		//Essai comportements
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		ArrayList<String> liste = new ArrayList<>();
@@ -46,7 +46,7 @@ public class GardeNuit {
 		Arbitrator arby = new Arbitrator(bArray);
 		au.setArbitrator(arby);
 		arby.go();
-
+		*/
 		// OBJECTIF 1
 
 		/*
@@ -69,7 +69,7 @@ public class GardeNuit {
 
 		// OBJECTIF 2
 
-		/*
+		
 		LCD.clear();
 		LCD.refresh();
 
@@ -77,16 +77,16 @@ public class GardeNuit {
 
 		// Initialisation des comportements
 		Behavior bEmetteur = new Emetteur();
-		// Behavior bRecepteur = new Recepteur(btc);
+		Behavior bRecepteur = new Recepteur();
 		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
-		Behavior[] bComportements = { bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = {bEmetteur, bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		*/
+		
 	}
 
 	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {
