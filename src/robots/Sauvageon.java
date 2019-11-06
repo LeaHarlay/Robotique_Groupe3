@@ -25,6 +25,7 @@ public class Sauvageon {
 
 		// Début de sécurité
 		LCD.drawString("Appuyer", 0, 0);
+
 		Button.waitForAnyPress();
 
 		// Création du chassis pour piloter le robot
@@ -58,6 +59,7 @@ public class Sauvageon {
 		LCD.clear();
 		LCD.refresh();
 		LCD.drawString("Loading ... Press", 0, 0);
+
 		Button.waitForAnyPress();
 
 		LCD.clear();
@@ -71,6 +73,7 @@ public class Sauvageon {
 		Arbitrator arby = new Arbitrator(behavior);
 		arretUrgence.setArbitrator(arby);
 		arby.go();
+
 
 		// OBJECTIF 2
 

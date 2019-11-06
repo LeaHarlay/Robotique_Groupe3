@@ -31,7 +31,7 @@ public class GardeNuit {
 		// Début de sécurité
 		LCD.drawString("Appuyer", 0, 0);
 		Button.waitForAnyPress();
-
+		
 		// Création du chassis pour piloter le robot
 		Wheel wheel1 = WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
 		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 56.).offset(60);
@@ -46,8 +46,10 @@ public class GardeNuit {
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Couleur couleur = new Couleur(cs); // Création des seuils des couleurs
 
+
 		LCD.clear();
 		LCD.refresh();
+
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
