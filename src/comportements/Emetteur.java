@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.OutputStream;
 
+import environnement.Case;
 import environnement.Plan;
 
 import java.io.InputStream;
@@ -30,7 +31,7 @@ public class Emetteur implements Behavior {
 	}
 
 	public void action() {
-		Plan p = new Plan();
+		Case c = new Case("C MOI", "vert", 5);
 		
 		LCD.clear();
 		LCD.refresh();
@@ -49,12 +50,13 @@ public class Emetteur implements Behavior {
 			OutputStream requete = btc.openOutputStream();
 			//DataOutputStream dRequete = new DataOutputStream(requete);
 			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-			System.out.println("\n"+"\n"+"Envoi");
+			System.out.println("Envoi");
 			//dRequete.write(12); // Ecrit une valeur dans le flux
-			oRequete.writeObject(p);
+			oRequete.writeObject(c);
+			System.out.println("Je l'envoie");
 			oRequete.flush();
 			//dRequete.flush(); // force l'envoi
-			System.out.println("\n"+"Envoyé");
+			System.out.println("Envoyé");
 			oRequete.close();
 			//dRequete.close();
 			btc.close();

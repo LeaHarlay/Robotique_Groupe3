@@ -3,8 +3,11 @@ package comportements;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 
+import environnement.Case;
+import environnement.Plan;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
@@ -32,18 +35,29 @@ public class Recepteur implements Behavior {
 		LCD.refresh();
 		try {
 			InputStream reponse = this.btc.openInputStream();
-			DataInputStream dReponse = new DataInputStream(reponse);
-			int valeur = dReponse.read();
+			//DataInputStream dReponse = new DataInputStream(reponse);
+			ObjectInputStream oReponse = new ObjectInputStream(reponse);
+			//int valeur = dReponse.read();
+			Object valeurO = oReponse.readObject();
 
 			// Arrêt
-			dReponse.close();
+			//dReponse.close();
+			oReponse.close();
 			this.btc.close();
 			this.bt.cancel();
 			
 			//Affichage de la réponse
 			LCD.clear();
 			LCD.refresh();
-			System.out.println(valeur);
+			//System.out.println(valeur);
+			System.out.println("Je vais afficher...");
+			if (valeurO instanceof Case) {
+				valeurO = (Case) valeurO;
+				System.out.println(((Case) valeurO).getNom());
+				
+			}else {
+				System.out.println("Ca n'a pas march�");
+			}
 			
 			
 			Delay.msDelay(5000);			
