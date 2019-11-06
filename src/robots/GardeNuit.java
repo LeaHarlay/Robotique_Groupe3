@@ -1,6 +1,9 @@
 package robots;
 
 import comportements.AvancerGardeNuit;
+import comportements.Avancer;
+import comportements.Emetteur;
+import comportements.Recepteur;
 import environnement.Couleur;
 import environnement.Plan;
 import comportements.ArretUrgence;
@@ -13,6 +16,10 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.sensor.SensorMode;
+import lejos.remote.nxt.BTConnector;
+import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
@@ -20,13 +27,20 @@ public class GardeNuit {
 	
 
 	public static void main(String[] args) {
+
+				LCD.drawString("Hello !!", 0,1);
+		LCD.drawString("Appuie sur moi :)", 0,4);
+Button.waitForAnyPress();
+
+		// OBJECTIF 1
+
+/*
 		Plan p = new Plan();
 		p.initPlateauGardeNuit(); //création et initialisation du plan pour la garde de nuit
 		
 		String direction = "Nord"; //direction dans laquelle se trouve le robot au départ
 		
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
-		Button.waitForAnyPress();
 		Couleur c = new Couleur(cs); //initialisation des couleurs
 		
 		LCD.clear();
@@ -38,48 +52,29 @@ public class GardeNuit {
 		
 		allerPosteGarde(cs, p, c, direction); //se dirige vers le poste de garde au Sud (objectif 1)
 		
-		/*
-		LCD.drawString("Hello !!", 0,0);
-		LCD.drawString("Appuis sur", 0,2);
-		LCD.drawString("un bouton :)", 0,3);
-		Button.waitForAnyPress();
-				
-        // Initialisation des capteurs
-		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
-		
-		Couleur c = new Couleur(color);
+		*/
+
+
+// OBJECTIF 2
+
+
 		
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Initialisation ", 0, 0);
-		LCD.drawString("TERMINEE", 0, 1);
-		Delay.msDelay(3000);
-		
-		for (int i =0;i<5;i++){
-			LCD.clear();
-			LCD.refresh();
-			LCD.drawString("Couleur "+(i+1)+" ?", 0, 0);
-			Button.waitForAnyPress();
-			LCD.drawString(c.couleurTrouve(), 0, 1);
-			Delay.msDelay(5000);
-		}
-		*/
-		
-		/*
-		EV3UltrasonicSensor ultra = new EV3UltrasonicSensor(SensorPort.S4);
-		float[] captations = new float[4]; // 0..2 Couleurs, 3 ultrason
+				
+		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
 		
 		// Initialisation des comportements
-		Behavior bAvancer = new Avancer(); // Avancer
-		Behavior bArretUrgence = new ArretUrgence(color, ultra); // ArrÃªt d'urgence
-		Behavior[] bComportements = { bAvancer, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior bEmetteur = new Emetteur(); 
+		//Behavior bRecepteur = new Recepteur(btc);
+		Behavior bArretUrgence = new ArretUrgence(color); // ArrÃªt d'urgence
+		Behavior[] bComportements = { bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence){
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		*/
 	}
 	
 	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {

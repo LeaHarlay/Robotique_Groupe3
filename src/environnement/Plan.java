@@ -1,5 +1,9 @@
 package environnement;
 
+import java.util.ArrayList;
+
+import lejos.hardware.lcd.LCD;
+
 public class Plan {
 	
 	private Case[][] carte = new Case[7][5];
@@ -15,14 +19,14 @@ public class Plan {
 		//camps militaires
 		this.carte[0][0] = new Case("Camp militaire","rouge",1);
 		this.carte[5][3] = new Case ("Camp militaire", "rouge",1);
-		//cases de départ
-		this.carte[0][4] = new Case("Case départ","blanc",1);
-		this.carte[6][0] = new Case("Case départ","blanc",1);
-		//marécages
+		//cases de dï¿½part
+		this.carte[0][4] = new Case("Case dï¿½part","blanc",1);
+		this.carte[6][0] = new Case("Case dï¿½part","blanc",1);
+		//marï¿½cages
 		for (int i=1;i<4;i++) {
-			this.carte[4][i] = new Case("Marécage","orange",5);
+			this.carte[4][i] = new Case("Marï¿½cage","orange",5);
 		}
-		this.carte[2][4] = new Case("Marécage","orange",5);
+		this.carte[2][4] = new Case("Marï¿½cage","orange",5);
 		//mur
 		for (int i=0;i<3;i++) {
 			this.carte[i][1] = new Case("Mur","bleu",10);
@@ -133,6 +137,34 @@ public class Plan {
 	//SETTER
 	public void setPosition(int[] p) {
 		this.position=p;
+				}
+
+	
+	public void affichePlateau(){
+		ArrayList<String> line = new ArrayList<String>();
+		for (int x=0;x<7;x++) {
+			for (int y=0;y<5;y++) {
+				if (this.carte[x][y].getDecouvert()){
+					LCD.drawString("x", y, x);
+				} else {
+					LCD.drawString(".", y, x);
+				}
+			}
+			System.out.println(line);
+			line.clear();
+		}
+	}
+	
+	public void afficheChemin(){
+		for (int x=0;x<7;x++) {
+			for (int y=0;y<5;y++) {
+				if (this.carte[x][y].getChemin()){
+					LCD.drawString("x", y, x);
+				} else {
+					LCD.drawString(".", y, x);
+				}
+			}
+		}
 	}
 	
 }
