@@ -23,6 +23,7 @@ public class GestionRobot {
 		//Plan p = new Plan();
 		//p.initPlateauSauvageon();	
 		
+		/*
 		Avancer a = new Avancer(compteur);
 		Tourner t = new Tourner(compteur); 
         ArretUrgence au = new ArretUrgence(cs);
@@ -32,6 +33,7 @@ public class GestionRobot {
 		arby.go();
 		//a.setCompteur(compteur);
 		
+		*/
 		Delay.msDelay(1000);
 	}
 

@@ -6,6 +6,9 @@ import comportements.Emetteur;
 import comportements.Recepteur;
 import environnement.Couleur;
 import environnement.Plan;
+
+import java.util.ArrayList;
+
 import comportements.ArretUrgence;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -30,6 +33,19 @@ public class GardeNuit {
 		LCD.drawString("Hello !!", 0, 1);
 		LCD.drawString("Appuie sur moi :)", 0, 4);
 		Button.waitForAnyPress();
+		
+		//Essai comportements
+		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
+		ArrayList<String> liste = new ArrayList<>();
+		liste.add("Avancer");
+		liste.add("Avancer");
+		liste.add("Pas Avancer");
+		Avancer a = new Avancer(liste);
+		ArretUrgence au = new ArretUrgence(cs);
+		Behavior[] bArray = { a, au }; // du moins prioritaire au plus prioritaire
+		Arbitrator arby = new Arbitrator(bArray);
+		au.setArbitrator(arby);
+		arby.go();
 
 		// OBJECTIF 1
 
@@ -40,8 +56,8 @@ public class GardeNuit {
 		 * String direction = "Nord"; //direction dans laquelle se trouve le robot au
 		 * départ
 		 * 
-		 * EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3); Couleur c = new
-		 * Couleur(cs); //initialisation des couleurs
+		 * EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3); 
+		 * Couleur c = new Couleur(cs); //initialisation des couleurs
 		 * 
 		 * LCD.clear(); LCD.refresh(); LCD.drawString("Appuie pour avancer", 0, 0);
 		 * Button.waitForAnyPress(); LCD.clear(); LCD.refresh();
@@ -53,6 +69,7 @@ public class GardeNuit {
 
 		// OBJECTIF 2
 
+		/*
 		LCD.clear();
 		LCD.refresh();
 
@@ -69,6 +86,7 @@ public class GardeNuit {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
+		*/
 	}
 
 	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {
