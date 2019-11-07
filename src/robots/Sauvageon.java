@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import comportements.ArretUrgence;
 import comportements.Avancer;
+import comportements.Emetteur;
+import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
 import environnement.Plan;
@@ -66,35 +68,31 @@ public class Sauvageon {
 		LCD.refresh();
 
 		// Création des comportements
-		Avancer avancer = new Avancer(pilot, plan, couleur, direction, deplacement);
-		Tourner tourner = new Tourner(pilot, direction, deplacement);
-		ArretUrgence arretUrgence = new ArretUrgence(cs);
-		Behavior[] behavior = { avancer, tourner, arretUrgence }; // - vers +
+		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
+		Tourner bTourner = new Tourner(pilot, direction, deplacement);
+		ArretUrgence bArretUrgence = new ArretUrgence(cs);
+		Behavior[] behavior = { bAvancer, bTourner, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
-		arretUrgence.setArbitrator(arby);
-		arby.go();
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arby);
+		}
+		arby.go() ;
 
 
 		// OBJECTIF 2
 
-		/*
-		 * LCD.drawString("Hello !!", 0, 1); LCD.drawString("Appuie sur moi :)",
-		 * 0, 4); Button.waitForAnyPress();
-		 * 
-		 * EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
-		 * 
-		 * LCD.clear(); LCD.refresh();
-		 * 
-		 * // Initialisation des comportements // Behavior bEmetteur = new
-		 * Emetteur(); Behavior bRecepteur = new Recepteur(); Behavior
-		 * bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
-		 * Behavior[] bComportements = { bRecepteur, bArretUrgence }; // du
-		 * moins prioritaire au plus prioritaire Arbitrator arbitrator = new
-		 * Arbitrator(bComportements); if (bArretUrgence instanceof
-		 * ArretUrgence) { ArretUrgence b = (ArretUrgence) bArretUrgence;
-		 * b.setArbitrator(arbitrator); } arbitrator.go();
-		 * 
-		 */
+		// Behavior bEmetteur = new Emetteur();
+		Behavior bRecepteur = new Recepteur();
+		Behavior bEmetteur = new Emetteur();
+		//Behavior bArretUrgence = new ArretUrgence(cs); // ArrÃªt d'urgence
+		Behavior[] bComportements = { bEmetteur,bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Arbitrator arbitrator = new Arbitrator(bComportements);
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arbitrator);
+		}
+		arbitrator.go();
 
 	}
 }

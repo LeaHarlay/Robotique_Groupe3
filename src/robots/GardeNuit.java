@@ -19,9 +19,6 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-import lejos.hardware.sensor.SensorMode;
-import lejos.remote.nxt.BTConnector;
-import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
@@ -31,7 +28,7 @@ public class GardeNuit {
 		// Début de sécurité
 		LCD.drawString("Appuyer", 0, 0);
 		Button.waitForAnyPress();
-		
+
 		// Création du chassis pour piloter le robot
 		Wheel wheel1 = WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
 		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 56.).offset(60);
@@ -46,10 +43,8 @@ public class GardeNuit {
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Couleur couleur = new Couleur(cs); // Création des seuils des couleurs
 
-
 		LCD.clear();
 		LCD.refresh();
-
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
@@ -67,35 +62,35 @@ public class GardeNuit {
 		LCD.refresh();
 		LCD.drawString("Loading ... Press", 0, 0);
 		Button.waitForAnyPress();
-		
+
 		LCD.clear();
 		LCD.refresh();
-		
+
 		// Création des comportements
-		Avancer avancer = new Avancer(pilot, plan, couleur, direction, deplacement);
-		Tourner tourner = new Tourner(pilot,direction, deplacement);
-		ArretUrgence arretUrgence = new ArretUrgence(cs);
-		Behavior[] behavior = { avancer, tourner, arretUrgence }; // - vers +
+		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
+		Tourner bTourner = new Tourner(pilot, direction, deplacement);
+		ArretUrgence bArretUrgence = new ArretUrgence(cs);
+		Behavior[] behavior = { bAvancer, bTourner, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
-		arretUrgence.setArbitrator(arby);
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arby);
+		}
 		arby.go();
 
 		// OBJECTIF 2
 
-		/*
-		 * LCD.clear(); LCD.refresh();
-		 * 
-		 * EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
-		 * 
-		 * // Initialisation des comportements Behavior bEmetteur = new
-		 * Emetteur(); // Behavior bRecepteur = new Recepteur(btc); Behavior
-		 * bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
-		 * Behavior[] bComportements = { bEmetteur, bArretUrgence }; // du moins
-		 * prioritaire au plus prioritaire Arbitrator arbitrator = new
-		 * Arbitrator(bComportements); if (bArretUrgence instanceof
-		 * ArretUrgence) { ArretUrgence b = (ArretUrgence) bArretUrgence;
-		 * b.setArbitrator(arbitrator); } arbitrator.go();
-		 */
+		// Initialisation des comportements
+		Behavior bEmetteur = new Emetteur();
+		Behavior bRecepteur = new Recepteur();
+		// Behavior bArretUrgence = new ArretUrgence(cs); // ArrÃªt d'urgence
+		Behavior[] bComportements = { bEmetteur, bRecepteur, bArretUrgence };
+		Arbitrator arbitrator = new Arbitrator(bComportements);
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arbitrator);
+		}
+		arbitrator.go();
 	}
 
 }
