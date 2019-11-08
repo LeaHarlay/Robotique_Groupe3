@@ -56,7 +56,7 @@ public class Recepteur implements Behavior {
 			//System.out.println(valeur);
 			
 			//System.out.println("Je vais afficher...");
-			affichageObjetReçu(valeurO);
+			affichageObjetRecu(valeurO);
 			//System.out.println(valeurO);
 			
 			/*if (valeurO instanceof Case) {
@@ -64,7 +64,7 @@ public class Recepteur implements Behavior {
 				System.out.println(((Case) valeurO).getNom());
 				
 			}else {
-				System.out.println("Ca n'a pas marché");
+				System.out.println("Ca n'a pas marchï¿½");
 			}*/
 			
 			
@@ -77,7 +77,7 @@ public class Recepteur implements Behavior {
 		}
 	}
 	
-	public static void affichageObjetReçu(Object valeur){
+	public static void affichageObjetRecu(Object valeur){
 		if (valeur instanceof int[][]) {
 			int[][] val = (int[][]) valeur;
 			for (int i = 0 ; i<7 ; i++) {
@@ -96,8 +96,8 @@ public class Recepteur implements Behavior {
 				
 			}
 		}else {
-			//LCD.drawString("Pas même objet",0,2);
-			System.out.println("Pas même objet");
+			//LCD.drawString("Pas mï¿½me objet",0,2);
+			System.out.println("Pas mï¿½me objet");
 			
 		}
 

@@ -11,11 +11,11 @@ import lejos.utility.Delay;
 
 public class Avancer implements Behavior {
 
-	private ArrayList<String> listActions;
+	private ArrayList<String> listActions; // Chemin du robot vers le poste de garde
 	private MovePilot pilot;
-	private Plan plan;
-	private Couleur couleur;
-	private ArrayList<String> direction;
+	private Plan plan; // Cartographie
+	private Couleur couleur; // Seuils de detection des couleurs
+	private ArrayList<String> direction; // Orientation du robot
 
 	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
 		this.listActions = actions;
@@ -34,61 +34,48 @@ public class Avancer implements Behavior {
 	}
 
 	public void action() {
-		// Avance
-		pilot.setLinearSpeed(60.);
-		pilot.travel(135);
-		Delay.msDelay(200);
+		LCD.drawString(this.plan.getPosition()[0]+","+this.plan.getPosition()[1],0,7);
+		pilot.setLinearSpeed(60.); // Vitesse
+		pilot.travel(135); // Distance 1 case + Ligne noir
 		
-		// Modifie la position du robot (coordonn�es sur le plan)
-		this.modifPosition();
-		Delay.msDelay(1000);
+		this.modifPosition(); // Modifie la position dans le plan
+		
 		LCD.clear();
 		LCD.refresh();
 		if (this.plan.verifierCouleur(this.couleur)) {
-			LCD.drawString("Je suis sur", 0, 3);
-			LCD.drawString("le bon chemin", 0, 4);
+			LCD.drawString("Je suis sur", 0, 4);
+			LCD.drawString("le bon chemin", 0, 5);
 		} else {
-			LCD.drawString("Je suis PERDU !", 0, 3);
-			LCD.drawString("  0_o  ", 0, 4);
+			LCD.drawString("Je suis PERDU !", 0, 4);
+			LCD.drawString("  0_o  ", 0, 5);
 		}
-		Delay.msDelay(2000);
+		Delay.msDelay(1000);
 		this.listActions.remove(0);
 	}
 
-
-	// Modifie la direction +90 degres
-	public void modifDirection() {
-		if (this.direction.get(0).equalsIgnoreCase("Nord")) {
-			this.direction.set(0, "Est");
-		} else if (this.direction.get(0).equalsIgnoreCase("Est")) {
-			this.direction.set(0, "Sud") ;
-		} else if (this.direction.get(0).equalsIgnoreCase("Sud")) {
-			this.direction.set(0, "Ouest");
-		} else {
-			this.direction.set(0, "Nord");
-		}
-	}
-
-	// Modifie la position du robot 
-	public void modifPosition() {
+	/**
+	 * Modification de la position 
+	 * Change la position du robot sur la cartographie
+	 */
+	public void modifPosition() {	
 		int[] p = new int[2];
 		if (this.direction.get(0).equalsIgnoreCase("Nord")) {
 			p[0] = this.plan.getPosition()[0] - 1;
 			p[1] = this.plan.getPosition()[1];
-			this.plan.setPosition(p);
 		} else if (this.direction.get(0).equalsIgnoreCase("Est")) {
 			p[0] = this.plan.getPosition()[0];
 			p[1] = this.plan.getPosition()[1] + 1;
-			this.plan.setPosition(p);
 		} else if (this.direction.get(0).equalsIgnoreCase("Sud")) {
 			p[0] = this.plan.getPosition()[0] + 1;
 			p[1] = this.plan.getPosition()[1];
-			this.plan.setPosition(p);
 		} else {
 			p[0] = this.plan.getPosition()[0];
 			p[1] = this.plan.getPosition()[1] - 1;
-			this.plan.setPosition(p);
 		}
+		this.plan.setPosition(p);
+		
+		// Découverte de la case
+		this.plan.caseDecouverte();
 	}
 
 }

@@ -20,13 +20,16 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 
 public class Sauvageon {
 
 	public static void main(String[] args) {
 
 		// Début de sécurité
-		LCD.drawString("Appuyer", 0, 0);
+		LCD.drawString("SAUVAGEON - O", 0, 0);
+		LCD.drawString("Appuyez sur une", 0, 1);
+		LCD.drawString("touche", 0, 2);
 
 		Button.waitForAnyPress();
 
@@ -39,8 +42,6 @@ public class Sauvageon {
 		// Initialisation du capteur de couleur
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Creer les couleurs ?", 0, 0);
-		Button.waitForAnyPress();
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Couleur couleur = new Couleur(cs); // Création des seuils des couleurs
 
@@ -49,7 +50,7 @@ public class Sauvageon {
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
-		plan.initPlateauGardeNuit(); // Initialisation du plan
+		plan.initPlateauSauvageon();; // Initialisation du plan
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Ouest");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
@@ -60,10 +61,15 @@ public class Sauvageon {
 
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Loading ... Press", 0, 0);
+		
+		LCD.drawString("Appuyez sur", 0, 0);
+		LCD.drawString("une touche", 0, 1);
+		LCD.drawString("pour lancer le", 0, 2);
+		LCD.drawString("programme", 0, 3);
 
 		Button.waitForAnyPress();
 
+		Delay.msDelay(2000);
 		LCD.clear();
 		LCD.refresh();
 
@@ -71,7 +77,7 @@ public class Sauvageon {
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
-		Behavior[] behavior = { bAvancer, bTourner, bArretUrgence }; // - vers +
+		Behavior[] behavior = {bAvancer, bTourner, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
@@ -82,7 +88,9 @@ public class Sauvageon {
 
 		// OBJECTIF 2
 
+
 		// Behavior bEmetteur = new Emetteur();
+		/*
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
 		//Behavior bArretUrgence = new ArretUrgence(cs); // ArrÃªt d'urgence
@@ -93,6 +101,6 @@ public class Sauvageon {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-
+		*/
 	}
 }
