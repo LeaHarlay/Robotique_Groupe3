@@ -6,6 +6,9 @@ import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
 import environnement.Plan;
+
+import java.util.ArrayList;
+
 import comportements.ArretUrgence;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -42,6 +45,8 @@ public class GardeNuit {
 
 		LCD.clear();
 		LCD.refresh();
+		
+		/*
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
@@ -74,13 +79,14 @@ public class GardeNuit {
 			b.setArbitrator(arby);
 		}
 		arby.go();
+		*/
 
 		// OBJECTIF 2
 
 		// Initialisation des comportements
 		Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
-		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
+		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
 		Behavior[] bComportements = {bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 
 		Arbitrator arbitrator = new Arbitrator(bComportements);

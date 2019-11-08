@@ -48,6 +48,7 @@ public class Sauvageon {
 		LCD.clear();
 		LCD.refresh();
 
+		/*
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauGardeNuit(); // Initialisation du plan
@@ -79,14 +80,14 @@ public class Sauvageon {
 			b.setArbitrator(arby);
 		}
 		arby.go() ;
-
+		*/
 
 		// OBJECTIF 2
 
 		// Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
-		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
+		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
 		Behavior[] bComportements = { bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {

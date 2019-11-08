@@ -13,6 +13,8 @@ public class Recepteur implements Behavior {
 	private NXTConnection btc;
 	private BTConnector bt;
 	InputStream reponse;
+	ObjectInputStream oReponse;
+	Object valeurO ;
 
 	public boolean takeControl() {
 			if (this.bt == null) {
@@ -20,7 +22,14 @@ public class Recepteur implements Behavior {
 			}
 			this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
 			reponse = this.btc.openInputStream();
-			return (reponse != null);
+			try {
+				oReponse = new ObjectInputStream(reponse);
+				valeurO = oReponse.readObject();
+				return (valeurO != null);
+			}catch(Exception e) {
+				return false;
+			}
+			
 			//return this.btc != null;
 	}
 	public void suppress() {
@@ -35,9 +44,11 @@ public class Recepteur implements Behavior {
 			//InputStream reponse = this.btc.openInputStream();
 			
 			//DataInputStream dReponse = new DataInputStream(reponse);
-			ObjectInputStream oReponse = new ObjectInputStream(reponse);
+			//ObjectInputStream oReponse = new ObjectInputStream(reponse);
+			
+			
 			//int valeur = dReponse.read();
-			Object valeurO = oReponse.readObject();
+			//Object valeurO = oReponse.readObject();
 
 			// Arrêt
 			//dReponse.close();
