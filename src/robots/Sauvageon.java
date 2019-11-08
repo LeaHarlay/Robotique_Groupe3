@@ -3,7 +3,6 @@ package robots;
 import comportements.ArretUrgence;
 import comportements.AvancerSauvageon;
 import environnement.Couleur;
-import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.Recepteur;
 import environnement.Plan;
@@ -12,10 +11,6 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
-import lejos.remote.nxt.BTConnector;
-import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
@@ -62,7 +57,7 @@ public class Sauvageon {
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
 		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
-		Behavior[] bComportements = { bEmetteur,bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = { bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;

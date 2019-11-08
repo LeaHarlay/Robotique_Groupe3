@@ -1,14 +1,10 @@
 package robots;
 
 import comportements.AvancerGardeNuit;
-import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.Recepteur;
 import environnement.Couleur;
 import environnement.Plan;
-
-import java.util.ArrayList;
-
 import comportements.ArretUrgence;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -19,10 +15,6 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
-import lejos.remote.nxt.BTConnector;
-import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
@@ -79,7 +71,7 @@ public class GardeNuit {
 		Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
 		Behavior bArretUrgence = new ArretUrgence(color); // Arrêt d'urgence
-		Behavior[] bComportements = {bEmetteur, bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = {bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
