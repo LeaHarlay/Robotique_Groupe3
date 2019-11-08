@@ -3,6 +3,7 @@ package robots;
 import java.util.ArrayList;
 
 import comportements.ArretUrgence;
+import environnement.Couleur;
 import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.Recepteur;
@@ -48,6 +49,7 @@ public class Sauvageon {
 		LCD.clear();
 		LCD.refresh();
 
+		/*
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauSauvageon();; // Initialisation du plan
@@ -84,7 +86,7 @@ public class Sauvageon {
 			b.setArbitrator(arby);
 		}
 		arby.go() ;
-
+		*/
 
 		// OBJECTIF 2
 
@@ -93,8 +95,8 @@ public class Sauvageon {
 		/*
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
-		//Behavior bArretUrgence = new ArretUrgence(cs); // ArrÃªt d'urgence
-		Behavior[] bComportements = { bEmetteur,bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
+		Behavior[] bComportements = { bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;

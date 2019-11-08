@@ -1,16 +1,9 @@
 package comportements;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-
 import environnement.Case;
 import environnement.Plan;
-
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
-
 import lejos.hardware.Button;
 import lejos.hardware.ev3.EV3;
 import lejos.hardware.ev3.LocalEV3;
@@ -23,8 +16,9 @@ import lejos.utility.Delay;
 
 public class Emetteur implements Behavior {
 	
-	private String bluetoothRobot1="00:16:53:43:EB:88";
-	private String bluetoothRobot2="00:16:53:43:9E:2F";
+	private String bluetoothRobot1="00:16:53:43:63:D4";
+	private String bluetoothRobot2="00:16:53:43:4E:26";
+	private BTConnector bt;
 	
 	public boolean takeControl() {
 		return Button.UP.isDown();
@@ -36,8 +30,6 @@ public class Emetteur implements Behavior {
 
 	public void action() {
 		Plan p = new Plan();
-		//Case[][] carte = p.getCarte();
-		//int [] position = p.getPosition();
 		p.initPlateauGardeNuit();
 		int[][] aEnvoyer = preparationEnvoi(p.getCarte(), p.getPosition());
 		
@@ -45,11 +37,18 @@ public class Emetteur implements Behavior {
 		LCD.refresh();
 		EV3 ev = LocalEV3.get();
 		System.out.println("--"+ev.getName()+"--");
+		
+		try {
+			if (bt == null) {
+				bt = new BTConnector();
+			}
+		}catch (Exception e){
+			
+		}
 			
 		try {
-			BTConnector bt = new BTConnector();
+			//BTConnector bt = new BTConnector();
 			BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
-
 			LCD.clear();
 			LCD.drawString("connexion", 0, 0);
 			LCD.refresh();
@@ -73,7 +72,7 @@ public class Emetteur implements Behavior {
 		}
 		
 		try {
-			BTConnector bt = new BTConnector();
+			//BTConnector bt = new BTConnector();
 			BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
 
 			LCD.clear();

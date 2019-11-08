@@ -1,13 +1,7 @@
 package comportements;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.OutputStream;
-
-import environnement.Case;
-import environnement.Plan;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
@@ -18,18 +12,26 @@ import lejos.utility.Delay;
 public class Recepteur implements Behavior {
 	private NXTConnection btc;
 	private BTConnector bt;
+	InputStream reponse;
+	ObjectInputStream oReponse;
+	Object valeurO ;
 
 	public boolean takeControl() {
-		if (Button.ENTER.isDown()){
 			if (this.bt == null) {
 				this.bt = new BTConnector();
-				this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
 			}
-			return this.btc != null;
-		}
-		return false;
+			this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+			reponse = this.btc.openInputStream();
+			try {
+				oReponse = new ObjectInputStream(reponse);
+				valeurO = oReponse.readObject();
+				return (valeurO != null);
+			}catch(Exception e) {
+				return false;
+			}
+			
+			//return this.btc != null;
 	}
-
 	public void suppress() {
 	}
 
@@ -38,11 +40,15 @@ public class Recepteur implements Behavior {
 		LCD.clear();
 		LCD.refresh();
 		try {
-			InputStream reponse = this.btc.openInputStream();
+			//this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+			//InputStream reponse = this.btc.openInputStream();
+			
 			//DataInputStream dReponse = new DataInputStream(reponse);
-			ObjectInputStream oReponse = new ObjectInputStream(reponse);
+			//ObjectInputStream oReponse = new ObjectInputStream(reponse);
+			
+			
 			//int valeur = dReponse.read();
-			Object valeurO = oReponse.readObject();
+			//Object valeurO = oReponse.readObject();
 
 			// Arrêt
 			//dReponse.close();
@@ -67,12 +73,12 @@ public class Recepteur implements Behavior {
 				System.out.println("Ca n'a pas march�");
 			}*/
 			
+			Delay.msDelay(5000);
 			
-			Delay.msDelay(5000);			
+			System.out.println("\n\n\n\n\n\n\n");
 			
 			LCD.clear();
 			LCD.refresh();
-
 		} catch (Exception e) {
 		}
 	}
@@ -93,7 +99,6 @@ public class Recepteur implements Behavior {
 				}
 				System.out.println(tab[0]+tab[1]+tab[2]+tab[3]+tab[4]);
 				//LCD.drawString(tab[0]+tab[1]+tab[2]+tab[3]+tab[4],0,i);
-				
 			}
 		}else {
 			//LCD.drawString("Pas m�me objet",0,2);
