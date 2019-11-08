@@ -1,10 +1,14 @@
 package robots;
 
+import java.util.ArrayList;
+
 import comportements.ArretUrgence;
-import comportements.AvancerSauvageon;
 import environnement.Couleur;
+import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.Recepteur;
+import comportements.Tourner;
+import environnement.Couleur;
 import environnement.Plan;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -22,37 +26,63 @@ public class Sauvageon {
 
 	public static void main(String[] args) {
 
-		// OBJECTIF 1
-		/*
-		Plan p = new Plan();
-		p.initPlateauSauvageon(); // crÈation et initialisation du plan pour les sauvageons
+		// D√©but de s√©curit√©
+		LCD.drawString("Appuyer", 0, 0);
 
-		String direction = "Ouest"; // direction dans laquelle se trouve le robot au dÈpart
+		Button.waitForAnyPress();
 
+		// Cr√©ation du chassis pour piloter le robot
+		Wheel wheel1 = WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
+		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 56.).offset(60);
+		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, 2);
+		MovePilot pilot = new MovePilot(chassis);
+
+		// Initialisation du capteur de couleur
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Creer les couleurs ?", 0, 0);
+		Button.waitForAnyPress();
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
-		Button.waitForAnyPress();
-		Couleur c = new Couleur(cs); // initialisation des couleurs
+		Couleur couleur = new Couleur(cs); // Cr√©ation des seuils des couleurs
 
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Appuie pour avancer", 0, 0);
+
+		// Param√®tre de d√©placement du garde de nuit
+		Plan plan = new Plan(); // Carte
+		plan.initPlateauGardeNuit(); // Initialisation du plan
+		ArrayList<String> direction = new ArrayList<>();
+		direction.add("Ouest");// direction initiale
+		ArrayList<String> deplacement = new ArrayList<>();
+		deplacement.add("Avancer");
+		deplacement.add("Avancer");
+		deplacement.add("Avancer");
+		deplacement.add("Avancer");
+
+		LCD.clear();
+		LCD.refresh();
+		LCD.drawString("Loading ... Press", 0, 0);
+
 		Button.waitForAnyPress();
+
 		LCD.clear();
 		LCD.refresh();
 
-		allerPosteGarde(cs, p, c, direction);// se dirige vers le poste de garde au Nord (objectif 1)
-		 */
+		// Cr√©ation des comportements
+		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
+		Tourner bTourner = new Tourner(pilot, direction, deplacement);
+		ArretUrgence bArretUrgence = new ArretUrgence(cs);
+		Behavior[] behavior = { bAvancer, bTourner, bArretUrgence }; // - vers +
+		Arbitrator arby = new Arbitrator(behavior);
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arby);
+		}
+		arby.go() ;
+
+
 		// OBJECTIF 2
-		LCD.drawString("Hello !!", 0, 1);
-		LCD.drawString("Appuie sur moi :)", 0, 4);
-		Button.waitForAnyPress();
 
-		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
-
-		LCD.clear();
-		LCD.refresh();
-
-		// Initialisation des comportements
 		// Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
@@ -64,24 +94,6 @@ public class Sauvageon {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-
-	}
-
-	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {
-
-		// CrÈation du chassis pour piloter le robot
-		Wheel wheel1 = WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
-		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 56.).offset(60);
-		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, 2);
-		MovePilot pilot = new MovePilot(chassis);
-
-		// CrÈation des comportements pour dÈplacer le robot et pour l'arrÍt d'urgence
-		AvancerSauvageon a = new AvancerSauvageon(pilot, p, c, d);
-		ArretUrgence au = new ArretUrgence(cs);
-		Behavior[] bArray = { a, au }; // du moins prioritaire au plus prioritaire
-		Arbitrator arby = new Arbitrator(bArray);
-		au.setArbitrator(arby);
-		arby.go();
 
 	}
 }
