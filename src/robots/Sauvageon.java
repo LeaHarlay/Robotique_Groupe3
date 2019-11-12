@@ -40,6 +40,7 @@ public class Sauvageon {
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, 2);
 		MovePilot pilot = new MovePilot(chassis);
 
+		
 		// Initialisation du capteur de couleur
 		LCD.clear();
 		LCD.refresh();
@@ -48,6 +49,7 @@ public class Sauvageon {
 
 		LCD.clear();
 		LCD.refresh();
+		
 
 		/*
 		// Paramètre de déplacement du garde de nuit
@@ -92,7 +94,7 @@ public class Sauvageon {
 
 
 		// Behavior bEmetteur = new Emetteur();
-		/*
+		
 		Behavior bRecepteur = new Recepteur();
 		Behavior bEmetteur = new Emetteur();
 		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
@@ -103,6 +105,6 @@ public class Sauvageon {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		*/
+		
 	}
 }

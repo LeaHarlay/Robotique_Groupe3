@@ -90,7 +90,7 @@ public class GardeNuit {
 
 		// OBJECTIF 2
 
-		/*
+		
 		// Initialisation des comportements
 		Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
@@ -103,7 +103,7 @@ public class GardeNuit {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		*/
+		
 	}
 
 }
