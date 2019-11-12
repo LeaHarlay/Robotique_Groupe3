@@ -20,8 +20,8 @@ public class Plan {
 		this.carte[0][0] = new Case("Camp militaire", "rouge", 1);
 		this.carte[5][3] = new Case("Camp militaire", "rouge", 1);
 		// cases de d�part
-		this.carte[0][4] = new Case("Case d�part", "blanc", 1);
-		this.carte[6][0] = new Case("Case d�part", "blanc", 1);
+		this.carte[0][4] = new Case("Case d�part", "blanc", 0);
+		this.carte[6][0] = new Case("Case d�part", "blanc", 0);
 		// mar�cages
 		for (int i = 1; i < 4; i++) {
 			this.carte[4][i] = new Case("Mar�cage", "orange", 5);
@@ -129,6 +129,9 @@ public class Plan {
 	// GETTER
 	public int[] getPosition() {
 		return this.position;
+	}
+	public int[] getVilleAdversaire() {
+		return this.villeAdversaire;
 	}
 
 	public Case[][] getCarte() {
