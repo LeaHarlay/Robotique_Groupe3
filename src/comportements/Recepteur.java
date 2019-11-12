@@ -2,6 +2,8 @@ package comportements;
 
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+
+import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
@@ -9,6 +11,8 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 public class Recepteur implements Behavior {
+	//private String bluetoothRobot1="00:16:53:43:EB:88";
+	//private String bluetoothRobot2="00:16:53:43:B3:FB";
 	private NXTConnection btc;
 	private BTConnector bt;
 	InputStream reponse;
@@ -16,12 +20,16 @@ public class Recepteur implements Behavior {
 	Object valeurO ;
 
 	public boolean takeControl() {
+		if(Button.ENTER.isDown()) {
 			if (this.bt == null) {
 				this.bt = new BTConnector();
 			}
-			this.btc = this.bt.waitForConnection(1000, NXTConnection.PACKET);
-			this.reponse = this.btc.openInputStream();
 			try {
+				System.out.println("methode");
+				this.btc = this.bt.waitForConnection(1000, NXTConnection.PACKET);
+				System.out.println("btc :"+this.btc);
+				this.reponse = this.btc.openInputStream();
+				System.out.println("reponse : "+this.reponse);
 				this.oReponse = new ObjectInputStream(reponse);
 				this.valeurO = this.oReponse.readObject();
 				this.oReponse.close();
@@ -31,6 +39,27 @@ public class Recepteur implements Behavior {
 			}catch(Exception e) {
 				return false;
 			}
+			/*
+			try{
+				System.out.println("methode");
+				this.btc = this.bt.connect(bluetoothRobot2, NXTConnection.PACKET);
+				System.out.println("btc :"+this.btc);
+				this.reponse = this.btc.openInputStream();
+				System.out.println("reponse : "+this.reponse);
+				this.oReponse = new ObjectInputStream(reponse);
+				this.valeurO = this.oReponse.readObject();
+				this.oReponse.close();
+				this.btc.close();
+				this.bt.cancel();
+			}catch(Exception e) {
+				return false;
+			}
+			Delay.msDelay(1000);
+			return (this.valeurO != null);
+			*/
+		}else {
+			return false;
+		}
 			
 			//return this.btc != null;
 	}

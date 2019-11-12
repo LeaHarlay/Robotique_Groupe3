@@ -16,8 +16,8 @@ import lejos.utility.Delay;
 
 public class Emetteur implements Behavior {
 	
-	private String bluetoothRobot1="00:16:53:43:63:D4";
-	private String bluetoothRobot2="00:16:53:43:4E:26";
+	private String bluetoothRobot1="00:16:53:43:EB:88";
+	private String bluetoothRobot2="00:16:53:43:B3:FB";
 	private BTConnector bt;
 	
 	public boolean takeControl() {

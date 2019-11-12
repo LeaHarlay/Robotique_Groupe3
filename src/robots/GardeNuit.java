@@ -95,7 +95,7 @@ public class GardeNuit {
 		Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
 		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
-		Behavior[] bComportements = {bRecepteur, bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = {bRecepteur,bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 
 		Arbitrator arbitrator = new Arbitrator(bComportements);
 		if (bArretUrgence instanceof ArretUrgence) {
