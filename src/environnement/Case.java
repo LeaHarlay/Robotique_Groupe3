@@ -1,6 +1,7 @@
 package environnement;
 
 public class Case {
+	
 	private String nom;
 	private String couleur;
 	private int valeur;
@@ -34,7 +35,7 @@ public class Case {
 	public String getNom() {
 		return this.nom;
 	}
-	public String getcouleur() {
+	public String getCouleur() {
 		return this.couleur;
 	}
 	public int getValeur() {

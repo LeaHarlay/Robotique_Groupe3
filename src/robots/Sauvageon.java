@@ -1,6 +1,8 @@
 package robots;
 
 import comportements.ArretUrgence;
+import comportements.AvancerSauvageon;
+import environnement.Couleur;
 import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.Recepteur;
@@ -20,78 +22,70 @@ import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class Sauvageon {
 
 	public static void main(String[] args) {
-		// LEA
-		LCD.drawString("Hello !!", 0,1);
-		LCD.drawString("Appuie sur moi :)", 0,4);
+
+// OBJECTIF 1
+
+		Plan p = new Plan();
+		p.initPlateauSauvageon(); // création et initialisation du plan pour les sauvageons
+
+		String direction = "Ouest"; // direction dans laquelle se trouve le robot au départ
+
+		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Button.waitForAnyPress();
-				
-		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
-		
+		Couleur c = new Couleur(cs); // initialisation des couleurs
+
 		LCD.clear();
 		LCD.refresh();
-		
-		
+		LCD.drawString("Appuie pour avancer", 0, 0);
+		Button.waitForAnyPress();
+		LCD.clear();
+		LCD.refresh();
+
+		allerPosteGarde(cs, p, c, direction);// se dirige vers le poste de garde au Nord (objectif 1)
+
+		// OBJECTIF 2
+		LCD.drawString("Hello !!", 0, 1);
+		LCD.drawString("Appuie sur moi :)", 0, 4);
+		Button.waitForAnyPress();
+
+		EV3ColorSensor color = new EV3ColorSensor(SensorPort.S3);
+
+		LCD.clear();
+		LCD.refresh();
+
 		// Initialisation des comportements
-		//Behavior bEmetteur = new Emetteur(); 
+		// Behavior bEmetteur = new Emetteur();
 		Behavior bRecepteur = new Recepteur();
 		Behavior bArretUrgence = new ArretUrgence(color); // ArrÃªt d'urgence
-		Behavior[] bComportements = {bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+		Behavior[] bComportements = { bRecepteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
 		Arbitrator arbitrator = new Arbitrator(bComportements);
-		if (bArretUrgence instanceof ArretUrgence){
+		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		
-		
-		
-		
-		
-		// AMELIE
-		/*
-		//Plan p = new Plan();
-		//System.out.println(p);
-		Button.waitForAnyPress();
-		
-		Wheel wheel1=WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
-		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C,56.).offset(60);
-		Chassis chassis = new WheeledChassis(new Wheel[] {wheel1,wheel2},2);
-		MovePilot pilot = new MovePilot(chassis);
-		pilot.setLinearSpeed(60.);
-		pilot.setAngularSpeed(60.);
-		
-		pilot.travel(135);
-		Delay.msDelay(200);
-		pilot.travel(40);
-		Delay.msDelay(200);
-		while (pilot.isMoving()) Thread.yield();
-		pilot.rotate(78.); //rotation du robot de 90ï¿½
-		LCD.drawInt((int)(pilot.getMovement().getDistanceTraveled()), 0, 0);
-		Delay.msDelay(200);
-		pilot.travel(-15);
 
-		pilot.stop();
-		
-		/*
-		Button.waitForAnyPress();
-		pilot.travel(120);
-		Delay.msDelay(1000);
-		Motor.B.setSpeed(60);
-		Motor.C.setSpeed(60);
-		Motor.B.forward();
-		Motor.C.forward();
-		Delay.msDelay(4000);
-		Motor.C.stop(true);
-		Motor.B.stop();
-		Motor.B.close();
-		Motor.C.close();
-		pilot.stop();*/
-		//Motor.C.rotate(386);
-		
+	}
+
+	public static void allerPosteGarde(EV3ColorSensor cs, Plan p, Couleur c, String d) {
+
+		// Création du chassis pour piloter le robot
+		Wheel wheel1 = WheeledChassis.modelWheel(Motor.B, 56.).offset(-60.);
+		Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 56.).offset(60);
+		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, 2);
+		MovePilot pilot = new MovePilot(chassis);
+
+		// Création des comportements pour déplacer le robot et pour l'arrêt d'urgence
+		AvancerSauvageon a = new AvancerSauvageon(pilot, p, c, d);
+		ArretUrgence au = new ArretUrgence(cs);
+		Behavior[] bArray = { a, au }; // du moins prioritaire au plus prioritaire
+		Arbitrator arby = new Arbitrator(bArray);
+		au.setArbitrator(arby);
+		arby.go();
+
 	}
 }

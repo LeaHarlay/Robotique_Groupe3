@@ -14,11 +14,8 @@ public class Plan {
 		this.init();
 	}
 	
+	//initialisation du plan (nom, couleur et valeur de chacune des cases)
 	public void init() {
-		this.position[0]=0;
-		this.position[1]=4;
-		this.adversaire[0]=6;
-		this.adversaire[1]=0;
 		//camps militaires
 		this.carte[0][0] = new Case("Camp militaire","rouge",1);
 		this.carte[5][3] = new Case ("Camp militaire", "rouge",1);
@@ -59,7 +56,7 @@ public class Plan {
 				}else if (this.adversaire[0]==i && this.adversaire[1]==j) {
 					aff = aff+"   toi   ";
 				}else {
-					aff=aff+"  "+this.carte[i][j].getcouleur()+"  ";
+					aff=aff+"  "+this.carte[i][j].getCouleur()+"  ";
 				}
 			}
 			aff=aff+"\n";
@@ -67,8 +64,13 @@ public class Plan {
 		return aff;
 	}
 	
-	
+	//initialisation de la partie connue du plan pour le sauvageon 
+	//(les booléens permettant de dire qu'une case est découverte sont à True)
 	public void initPlateauSauvageon() {
+		this.adversaire[0]=6;
+		this.adversaire[1]=0;
+		this.position[0]=0;
+		this.position[1]=4;
 		for (int i =0;i<7;i++) {
 			this.carte[i][4].setDecouvert(true);
 		}
@@ -92,8 +94,13 @@ public class Plan {
 		}
 	}
 	
+	//initialisation de la partie connue du plan pour la garde de nuit
+	//(les booléens permettant de dire qu'une case est découverte sont à True)
 	public void initPlateauGardeNuit() {
-		
+		this.position[0]=6;
+		this.position[1]=0;
+		this.adversaire[0]=0;
+		this.adversaire[1]=4;
 		for (int i =0;i<7;i++) {
 			this.carte[i][0].setDecouvert(true);
 		}
@@ -118,6 +125,20 @@ public class Plan {
 			}
 		}
 	}
+	
+	//GETTER
+	public int[] getPosition(){
+		return this.position;
+	}
+	public Case[][] getCarte(){
+		return this.carte;
+	}
+	
+	//SETTER
+	public void setPosition(int[] p) {
+		this.position=p;
+				}
+
 	
 	public void affichePlateau(){
 		ArrayList<String> line = new ArrayList<String>();
