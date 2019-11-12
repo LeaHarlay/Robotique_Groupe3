@@ -2,7 +2,6 @@ package comportements;
 
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
@@ -20,12 +19,15 @@ public class Recepteur implements Behavior {
 			if (this.bt == null) {
 				this.bt = new BTConnector();
 			}
-			this.btc = bt.waitForConnection(1000, NXTConnection.PACKET);
-			reponse = this.btc.openInputStream();
+			this.btc = this.bt.waitForConnection(1000, NXTConnection.PACKET);
+			this.reponse = this.btc.openInputStream();
 			try {
-				oReponse = new ObjectInputStream(reponse);
-				valeurO = oReponse.readObject();
-				return (valeurO != null);
+				this.oReponse = new ObjectInputStream(reponse);
+				this.valeurO = this.oReponse.readObject();
+				this.oReponse.close();
+				this.btc.close();
+				this.bt.cancel();
+				return (this.valeurO != null);
 			}catch(Exception e) {
 				return false;
 			}
@@ -52,9 +54,10 @@ public class Recepteur implements Behavior {
 
 			// Arrêt
 			//dReponse.close();
+			/*
 			oReponse.close();
 			this.btc.close();
-			this.bt.cancel();
+			this.bt.cancel();*/
 			
 			//Affichage de la réponse
 			LCD.clear();
@@ -62,7 +65,7 @@ public class Recepteur implements Behavior {
 			//System.out.println(valeur);
 			
 			//System.out.println("Je vais afficher...");
-			affichageObjetRecu(valeurO);
+			affichageObjetRecu(this.valeurO);
 			//System.out.println(valeurO);
 			
 			/*if (valeurO instanceof Case) {
