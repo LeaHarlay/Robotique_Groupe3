@@ -17,7 +17,10 @@ import lejos.utility.Delay;
 public class Emetteur implements Behavior {
 	
 	private String bluetoothRobot1="00:16:53:43:EB:88";
+	private String nomRobot1="Joffrey5";
+	
 	private String bluetoothRobot2="00:16:53:43:B3:FB";
+	//private String nomRobot2="";
 	private BTConnector bt;
 	
 	public boolean takeControl() {
@@ -45,57 +48,68 @@ public class Emetteur implements Behavior {
 		}catch (Exception e){
 			
 		}
-			
-		try {
-			//BTConnector bt = new BTConnector();
-			BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
-			LCD.clear();
-			LCD.drawString("connexion", 0, 0);
-			LCD.refresh();
-			
-			OutputStream requete = btc.openOutputStream();
-			//DataOutputStream dRequete = new DataOutputStream(requete);
-			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-			System.out.println("Envoi");
-			//dRequete.write(12); // Ecrit une valeur dans le flux
-			oRequete.writeObject(aEnvoyer);
-			System.out.println("Je l'envoie");
-			oRequete.flush();
-			//dRequete.flush(); // force l'envoi
-			System.out.println("Envoyé");
-			oRequete.close();
-			//dRequete.close();
-			btc.close();
-			LCD.clear();
-			Delay.msDelay(5000);
-		} catch (Exception e) {
-		}
 		
-		try {
-			//BTConnector bt = new BTConnector();
-			BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
+		if ((ev.getName()).equalsIgnoreCase(nomRobot1)) {
+			try {
+				LCD.clear();
+				LCD.drawString("connexion", 0, 0);
+				LCD.refresh();
+				
+				//BTConnector bt = new BTConnector();
+				BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
+				//BTConnection btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+				
+				OutputStream requete = btc.openOutputStream();
+				//DataOutputStream dRequete = new DataOutputStream(requete);
+				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
+				System.out.println("Envoi");
+				//dRequete.write(12); // Ecrit une valeur dans le flux
+				oRequete.writeObject(aEnvoyer);
+				System.out.println("Je l'envoie");
+				oRequete.flush();
+				//dRequete.flush(); // force l'envoi
+				System.out.println("Envoyé");
+				oRequete.close();
+				//dRequete.close();
+				btc.close();
+				LCD.clear();
+				Delay.msDelay(2000);
+			} catch (Exception e) {
+				System.out.println("catch emetteur b1");
+			}
+		}else {
+			try {
+				
+				LCD.clear();
+				LCD.drawString("connexion", 0, 0);
+				LCD.refresh();
+				
+				//BTConnector bt = new BTConnector();
+				BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);//le premier param�tre est l'adresse du r�cepteur affich� sur l'�cra de l'�metteur apr�s association (pair) bluetooth
 
-			LCD.clear();
-			LCD.drawString("connexion", 0, 0);
-			LCD.refresh();
-			
-			OutputStream requete = btc.openOutputStream();
-			//DataOutputStream dRequete = new DataOutputStream(requete);
-			ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-			System.out.println("Envoi");
-			//dRequete.write(12); // Ecrit une valeur dans le flux
-			oRequete.writeObject(aEnvoyer);
-			System.out.println("Je l'envoie");
-			oRequete.flush();
-			//dRequete.flush(); // force l'envoi
-			System.out.println("Envoyé");
-			oRequete.close();
-			//dRequete.close();
-			btc.close();
-			LCD.clear();
-			Delay.msDelay(5000);
-		} catch (Exception e) {
+				OutputStream requete = btc.openOutputStream();
+				//DataOutputStream dRequete = new DataOutputStream(requete);
+				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
+				System.out.println("Envoi");
+				//dRequete.write(12); // Ecrit une valeur dans le flux
+				oRequete.writeObject(aEnvoyer);
+				System.out.println("Je l'envoie");
+				oRequete.flush();
+				//dRequete.flush(); // force l'envoi
+				System.out.println("Envoyé");
+				oRequete.close();
+				//dRequete.close();
+				btc.close();
+				LCD.clear();
+				Delay.msDelay(2000);
+			} catch (Exception e) {
+				System.out.println("catch emetteur b2");
+			}
 		}
+			
+		
+		
+		
 	}
 	
 	public static int[][] preparationEnvoi(Case [][] carte, int [] position){
