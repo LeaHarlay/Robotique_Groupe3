@@ -8,7 +8,7 @@ public class Plan {
 
 	private Case[][] carte = new Case[7][5];
 	private int[] position = new int[2];
-	private int[] adversaire = new int[2];
+	private int[] villeAdversaire = new int[2];
 
 	public Plan() {
 		this.init();
@@ -53,7 +53,7 @@ public class Plan {
 			for (int j = 0; j < 5; j++) {
 				if (this.position[0] == i && this.position[1] == j) {
 					aff = aff + "   moi   ";
-				} else if (this.adversaire[0] == i && this.adversaire[1] == j) {
+				} else if (this.villeAdversaire[0] == i && this.villeAdversaire[1] == j) {
 					aff = aff + "   toi   ";
 				} else {
 					aff = aff + "  " + this.carte[i][j].getCouleur() + "  ";
@@ -67,8 +67,8 @@ public class Plan {
 	// initialisation de la partie connue du plan pour le sauvageon
 	// (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
 	public void initPlateauSauvageon() {
-		this.adversaire[0] = 6;
-		this.adversaire[1] = 0;
+		this.villeAdversaire[0] = 6;
+		this.villeAdversaire[1] = 0;
 		this.position[0] = 0;
 		this.position[1] = 4;
 		for (int i = 0; i < 7; i++) {
@@ -99,8 +99,8 @@ public class Plan {
 	public void initPlateauGardeNuit() {
 		this.position[0] = 6;
 		this.position[1] = 0;
-		this.adversaire[0] = 0;
-		this.adversaire[1] = 4;
+		this.villeAdversaire[0] = 0;
+		this.villeAdversaire[1] = 4;
 		for (int i = 0; i < 7; i++) {
 			this.carte[i][0].setDecouvert(true);
 		}
@@ -145,9 +145,11 @@ public class Plan {
 		for (int x = 0; x < 7; x++) {
 			for (int y = 0; y < 5; y++) {
 				if (this.carte[x][y].getDecouvert()) {
-					LCD.drawString("x", y, x);
+					line.add("x");
+					//LCD.drawString("x", y, x);
 				} else {
-					LCD.drawString(".", y, x);
+					line.add(".");
+					//LCD.drawString(".", y, x);
 				}
 			}
 			System.out.println(line);
@@ -171,8 +173,14 @@ public class Plan {
 		LCD.clear();
 		LCD.refresh();	
 		String couleurCase = this.getCarte()[this.getPosition()[0]][this.getPosition()[1]].getCouleur();
-		LCD.drawString("Je vois du "+ couleur.couleurTrouve(), 0, 1);		
+		LCD.drawString("Je vois du "+ couleur.couleurTrouve(), 0, 3);		
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
+	}
+	
+	public void caseDecouverte(){
+		if (!this.carte[this.position[0]][this.position[1]].getDecouvert()){
+			this.carte[this.position[0]][this.position[1]].setDecouvert(true);
+		}
 	}
 
 }

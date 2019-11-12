@@ -73,7 +73,7 @@ public class Recepteur implements Behavior {
 				System.out.println(((Case) valeurO).getNom());
 				
 			}else {
-				System.out.println("Ca n'a pas marché");
+				System.out.println("Ca n'a pas marchï¿½");
 			}*/
 			
 			Delay.msDelay(5000);
@@ -104,8 +104,8 @@ public class Recepteur implements Behavior {
 				//LCD.drawString(tab[0]+tab[1]+tab[2]+tab[3]+tab[4],0,i);
 			}
 		}else {
-			//LCD.drawString("Pas même objet",0,2);
-			System.out.println("Pas même objet");
+			//LCD.drawString("Pas mï¿½me objet",0,2);
+			System.out.println("Pas mï¿½me objet");
 			
 		}
 

@@ -7,9 +7,9 @@ import lejos.utility.Delay;
 
 public class Tourner implements Behavior {
 
-	private ArrayList<String> listActions;
+	private ArrayList<String> listActions; // Chemin du robot vers le poste de garde
 	private MovePilot pilot;
-	private ArrayList<String> direction;
+	private ArrayList<String> direction; // Orientation du robot
 
 	public Tourner(MovePilot pi, ArrayList<String> d, ArrayList<String> actions) {
 		this.listActions = actions;
@@ -32,17 +32,20 @@ public class Tourner implements Behavior {
 		pilot.setAngularSpeed(60.);
 		pilot.travel(40);
 		Delay.msDelay(200);
-		pilot.rotate(80.); // rotation du robot de environ 90�
+		pilot.rotate(80.); // rotation du robot de environ 90°
 		Delay.msDelay(200);
 		pilot.travel(-25);
 
-		// Modifie la position du robot (coordonn�es sur le plan)
+		// Modifie la position du robot (coordonnées sur le plan)
 		this.modifDirection();
 		this.listActions.remove(0);
-		Delay.msDelay(1000);
+		Delay.msDelay(500);
 	}
 
-	// Modifie la direction + 90 degres
+	/**
+	 * Modification de l'orientation
+	 * Change l'orientation du robot par une rotation  par default de 90°
+	 */
 	public void modifDirection() {
 		if (this.direction.get(0).equalsIgnoreCase("Nord")) {
 			this.direction.set(0, "Est");
