@@ -9,7 +9,7 @@ public class TestIA {
 		Plan plan = new Plan();
 		plan.initPlateauGardeNuit();
 		IA ia = new IA(plan);
-		//ia.runIA();
+		ia.runIA();
 	
 	}
 

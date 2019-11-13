@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Noeud {
 
 	private int[] position = new int[2];
-	private Noeud predecesseur;
+	private int[] predecesseur = new int[2];
 	private int coutTotal;
 	private int valeurDeplacement;
 	private boolean traite;
@@ -15,6 +15,7 @@ public class Noeud {
 		this.position[1] = y;
 		this.valeurDeplacement = val;
 		this.traite = false;
+		this.coutTotal= 0;
 	}
 
 	public int[] getPosition() {
@@ -26,20 +27,17 @@ public class Noeud {
 		this.position[1] = y;
 	}
 
-	public Noeud getPredecesseur() {
-		return predecesseur;
-	}
-
-	public void setPredecesseur(Noeud predecesseur) {
-		this.predecesseur = predecesseur;
-	}
 
 	public int getCoutTotal() {
 		return coutTotal;
 	}
 
-	public void setCoutTotal(int coutTotal) {
-		this.coutTotal = coutTotal;
+	public void setCoutTotal(Noeud n) {
+		if (!this.isTraite() || ((this.isTraite() && this.coutTotal > (n.getCoutTotal()+n.getValeurDeplacement())) && this.coutTotal != 0)){
+			this.traite=true; // Le noeud aura été traité au moins une fois
+			this.coutTotal = n.getCoutTotal() + n.getValeurDeplacement(); // Son coût total est ajouté
+			this.setPredecesseur(n.getPosition()) ; // Ajout des coordonnées du noeud prédecesseur
+		}
 	}
 
 	public int getValeurDeplacement() {
@@ -59,11 +57,19 @@ public class Noeud {
 	}
 	
 	public String toString(){
-		return Integer.toString(this.coutTotal);
+		return "V = "+this.valeurDeplacement +"CT = "+this.coutTotal + ","+this.traite;
 	}
 	
 	public boolean isEgal(Noeud n){
 		return (this.position[0] == n.getPosition()[0]) && (this.position[1] == n.getPosition()[1]);
 	}
 
+	public int[] getPredecesseur() {
+		return predecesseur;
+	}
+
+	public void setPredecesseur(int[] predecesseur) {
+		this.predecesseur = predecesseur;
+	}
+	
 }
