@@ -33,6 +33,10 @@ public class Noeud {
 	}
 
 	public void setCoutTotal(Noeud n) {
+		System.out.println("isTrait : " + this.isTraite());
+		System.out.println("cout total sup : " + (this.isTraite() && this.coutTotal > (n.getCoutTotal()+n.getValeurDeplacement())));
+		System.out.println("cout total = 0  : " + (this.coutTotal != 0));
+		System.out.println("reponse  : " + (!this.isTraite() || ((this.isTraite() && this.coutTotal > (n.getCoutTotal()+n.getValeurDeplacement())) && this.coutTotal != 0)));
 		if (!this.isTraite() || ((this.isTraite() && this.coutTotal > (n.getCoutTotal()+n.getValeurDeplacement())) && this.coutTotal != 0)){
 			this.traite=true; // Le noeud aura été traité au moins une fois
 			this.coutTotal = n.getCoutTotal() + n.getValeurDeplacement(); // Son coût total est ajouté
@@ -57,7 +61,7 @@ public class Noeud {
 	}
 	
 	public String toString(){
-		return "V = "+this.valeurDeplacement +"CT = "+this.coutTotal + ","+this.traite;
+		return "["+this.position[0] +","+this.position[1] +"] " + this.getCoutTotal() + " " + this.isTraite();
 	}
 	
 	public boolean isEgal(Noeud n){

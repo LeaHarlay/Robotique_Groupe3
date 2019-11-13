@@ -83,7 +83,7 @@ public class IA implements Parametre {
 		}
 		Noeud min = lSommetRestant.get(cmpt);
 		for (int i = (cmpt + 1); i < lSommetRestant.size(); i++) {
-			if (lSommetRestant.get(i).getCoutTotal() < min.getCoutTotal()) {
+			if ((lSommetRestant.get(i).getCoutTotal() < min.getCoutTotal()) && !lSommetRestant.get(cmpt).isTraite()) {
 				min = lSommetRestant.get(i);
 			}
 		}
@@ -97,7 +97,7 @@ public class IA implements Parametre {
 	}
 
 	public void traiteNoeudsAdjacent() {
-		System.out.println("["+this.sMarque.getPosition()[0]+','+this.sMarque.getPosition()[1]+']');
+		System.out.println("["+this.sMarque.getPosition()[0]+','+this.sMarque.getPosition()[1]+"] valeur : "+this.sMarque.getValeurDeplacement());
 		ArrayList<String> lesDeplacementsPossibles = this.deplacementPossible();
 		System.out.println(lesDeplacementsPossibles);
 		System.out.println("Contain HAUT : "+lesDeplacementsPossibles.contains(HAUT));
@@ -106,7 +106,9 @@ public class IA implements Parametre {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0] - 1)
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1])) {
+						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
+						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
@@ -117,7 +119,9 @@ public class IA implements Parametre {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0] + 1)
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1])) {
+						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
+						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
@@ -128,7 +132,9 @@ public class IA implements Parametre {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0])
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1] - 1)) {
+						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
+						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
@@ -139,12 +145,13 @@ public class IA implements Parametre {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0])
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1] + 1)) {
+						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
+						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
 		}
-		System.out.println(lSommetRestant);
 	}
 
 	public ArrayList<String> deplacementPossible() {
