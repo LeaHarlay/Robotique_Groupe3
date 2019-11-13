@@ -52,6 +52,8 @@ public class IA implements Parametre {
 				Noeud n = new Noeud(x, y, this.plan.getCarte()[x][y].getValeur());
 				if ((this.plan.getPosition()[0] == x) && (this.plan.getPosition()[1] == y)) {
 					this.sMarque = n;
+					this.sMarque.setTraite(true);
+					lSommetMarque.add(this.sMarque);
 				} else {
 					lSommetRestant.add(n);
 				}
@@ -69,10 +71,8 @@ public class IA implements Parametre {
 			this.trouveMin();
 			System.out.println("\n");
 		}
-
-		System.out.println(" Valeur des sommets marqué = " + this.lSommetMarque);
-		System.out.println(" Nombre des sommets marqué = " + this.lSommetMarque.size());
-
+		System.out.println(" Sommets restants = " + this.lSommetRestant);
+		System.out.println(" Sommets marqué = " + this.lSommetMarque);
 	}
 
 	public void trouveMin() {
@@ -192,5 +192,11 @@ public class IA implements Parametre {
 			}
 		}
 		return trouve;
+	}
+	
+	public void afficheCheminPlusCourt(){
+		ArrayList<int[]> chemin = new ArrayList<>();
+		//Partir de sFinal (= le dernier ajouté ou isEgal)
+		
 	}
 }
