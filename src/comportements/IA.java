@@ -64,15 +64,12 @@ public class IA implements Parametre {
 	public void runIA() {
 		this.traiteNoeudsAdjacent();
 		this.trouveMin();
-		System.out.println("\n");
 
 		while (!this.sMarque.isEgal(sFinal)) {
 			this.traiteNoeudsAdjacent();
 			this.trouveMin();
-			System.out.println("\n");
 		}
-		System.out.println(" Sommets restants = " + this.lSommetRestant);
-		System.out.println(" Sommets marqué = " + this.lSommetMarque);
+		this.afficheCheminPlusCourt();
 	}
 
 	public void trouveMin() {
@@ -80,74 +77,56 @@ public class IA implements Parametre {
 		int cmpt = 0;
 		while (cmpt < lSommetRestant.size() && !lSommetRestant.get(cmpt).isTraite()) {
 			cmpt++;
-		}
+		}	
 		Noeud min = lSommetRestant.get(cmpt);
 		for (int i = (cmpt + 1); i < lSommetRestant.size(); i++) {
-			if ((lSommetRestant.get(i).getCoutTotal() < min.getCoutTotal()) && !lSommetRestant.get(cmpt).isTraite()) {
+			if ((lSommetRestant.get(i).getCoutTotal() < min.getCoutTotal()) && lSommetRestant.get(i).isTraite()) {
 				min = lSommetRestant.get(i);
 			}
 		}
 		this.sMarque = min;// Devient le noeud marqué
-		lSommetMarque.add(min);
+		lSommetMarque.add(min);	
 		lSommetRestant.remove(min);// Supprimer de la liste lSommetRestant
-
-		System.out.println("Liste noeuds restants = " + lSommetRestant);
-		System.out.println("Nombre noeuds restants = " + lSommetRestant.size());
-		System.out.println("Noeud marqué = " + this.sMarque);
 	}
 
 	public void traiteNoeudsAdjacent() {
-		System.out.println("["+this.sMarque.getPosition()[0]+','+this.sMarque.getPosition()[1]+"] valeur : "+this.sMarque.getValeurDeplacement());
 		ArrayList<String> lesDeplacementsPossibles = this.deplacementPossible();
-		System.out.println(lesDeplacementsPossibles);
-		System.out.println("Contain HAUT : "+lesDeplacementsPossibles.contains(HAUT));
 		if (lesDeplacementsPossibles.contains(HAUT)) {
 			if (this.isSommetRestant((this.sMarque.getPosition()[0] - 1), this.sMarque.getPosition()[1])) {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0] - 1)
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1])) {
-						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
-						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
 		}
-		System.out.println("Contain BAS : "+lesDeplacementsPossibles.contains(BAS));
 		if (lesDeplacementsPossibles.contains(BAS)) {
 			if (this.isSommetRestant((this.sMarque.getPosition()[0] + 1), this.sMarque.getPosition()[1])) {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0] + 1)
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1])) {
-						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
-						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
 		}
-		System.out.println("Contain GAUCHE : "+lesDeplacementsPossibles.contains(GAUCHE));
 		if (lesDeplacementsPossibles.contains(GAUCHE)) {
 			if (this.isSommetRestant((this.sMarque.getPosition()[0]), this.sMarque.getPosition()[1] - 1)) {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0])
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1] - 1)) {
-						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
-						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
 		}
-		System.out.println("Contain DROITE : "+lesDeplacementsPossibles.contains(DROITE));
 		if (lesDeplacementsPossibles.contains(DROITE)) {
 			if (this.isSommetRestant((this.sMarque.getPosition()[0]), this.sMarque.getPosition()[1] + 1)) {
 				for (int i = 0; i < lSommetRestant.size(); i++) {
 					if ((lSommetRestant.get(i).getPosition()[0] == this.sMarque.getPosition()[0])
 							&& (lSommetRestant.get(i).getPosition()[1] == this.sMarque.getPosition()[1] + 1)) {
-						System.out.println("Avant MAJ : "+ lSommetRestant.get(i));
 						lSommetRestant.get(i).setCoutTotal(this.sMarque);
-						System.out.println("Après MAJ : "+ lSommetRestant.get(i));
 					}
 				}
 			}
@@ -195,8 +174,27 @@ public class IA implements Parametre {
 	}
 	
 	public void afficheCheminPlusCourt(){
-		ArrayList<int[]> chemin = new ArrayList<>();
-		//Partir de sFinal (= le dernier ajouté ou isEgal)
+		ArrayList<Noeud> chemin = new ArrayList<>();	
+		int predecesseur_ord = this.lSommetMarque.get(this.lSommetMarque.size()-1).getPredecesseur()[0];
+		int predecesseur_abs = this.lSommetMarque.get(this.lSommetMarque.size()-1).getPredecesseur()[1];
+		chemin.add(this.lSommetMarque.get(this.lSommetMarque.size()-1));
+		this.lSommetMarque.remove(this.lSommetMarque.size()-1);
 		
+		while ((predecesseur_ord != this.plan.getPosition()[0]) || (predecesseur_abs != this.plan.getPosition()[1])){
+			for (int i = 0; i < lSommetMarque.size(); i++) {
+				if ((lSommetMarque.get(i).getPosition()[0] == predecesseur_ord) && (lSommetMarque.get(i).getPosition()[1] == predecesseur_abs)) {
+					predecesseur_ord = lSommetMarque.get(i).getPredecesseur()[0]; 
+					predecesseur_abs = lSommetMarque.get(i).getPredecesseur()[1];
+					chemin.add(lSommetMarque.get(i));
+					this.lSommetMarque.remove(i);
+				}
+				
+			}
+		}
+		for(int x=0;x<chemin.size();x++){
+			this.plan.getCarte()[chemin.get(x).getPosition()[0]][chemin.get(x).getPosition()[1]].setChemin(true);
+		}
+		this.plan.afficheChemin();
 	}
+	
 }
