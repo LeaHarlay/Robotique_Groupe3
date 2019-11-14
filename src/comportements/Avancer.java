@@ -11,10 +11,10 @@ import lejos.utility.Delay;
 
 public class Avancer implements Behavior {
 
-	private ArrayList<String> listActions; // Chemin du robot vers le poste de garde
+	private ArrayList<String> listActions; // Chemin du robot vers sa destination
 	private MovePilot pilot;
 	private Plan plan; // Cartographie
-	private Couleur couleur; // Seuils de detection des couleurs
+	private Couleur couleur; // Seuils de détection des couleurs
 	private ArrayList<String> direction; // Orientation du robot
 
 	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
@@ -36,7 +36,7 @@ public class Avancer implements Behavior {
 	public void action() {
 		LCD.drawString(this.plan.getPosition()[0]+","+this.plan.getPosition()[1],0,7);
 		pilot.setLinearSpeed(60.); // Vitesse
-		pilot.travel(135); // Distance 1 case + Ligne noir
+		pilot.travel(135); // Distance 1 case + Ligne noire
 		
 		this.modifPosition(); // Modifie la position dans le plan
 		

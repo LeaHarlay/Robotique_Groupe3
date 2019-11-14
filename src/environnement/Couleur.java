@@ -37,7 +37,7 @@ public class Couleur {
 	public void init() {
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Initialisation ", 0, 0);
+		LCD.drawString("Initialisation des couleurs", 0, 0);
 		this.initBlanc();
 		this.initRouge();
 		this.initOrange();

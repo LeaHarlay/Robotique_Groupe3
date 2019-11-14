@@ -2,6 +2,7 @@ package robots;
 
 import comportements.Avancer;
 import comportements.Emetteur;
+import comportements.Objectif1;
 import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
@@ -48,7 +49,6 @@ public class GardeNuit {
 		LCD.clear();
 		LCD.refresh();
 		
-		/*
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
@@ -56,11 +56,6 @@ public class GardeNuit {
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Nord");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
-		deplacement.add("Avancer");
-		deplacement.add("Droite");
-		deplacement.add("Avancer");
-		deplacement.add("Avancer");
-		deplacement.add("Avancer");
 
 		LCD.clear();
 		LCD.refresh();
@@ -78,31 +73,17 @@ public class GardeNuit {
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
-		ArretUrgence bArretUrgence = new ArretUrgence(cs);
-		Behavior[] behavior = {bAvancer, bTourner, bArretUrgence }; // - vers +
+		ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
+		Emetteur bEmetteur = new Emetteur();
+		Objectif1 bObjectif1 = new Objectif1(deplacement,"GardeNuit");
+		Recepteur bRecepteur = new Recepteur();
+		Behavior[] behavior = {bObjectif1 ,bAvancer, bTourner, bRecepteur, bEmetteur, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arby);
 		}
 		arby.go();
-		*/
-
-		// OBJECTIF 2
-
-		
-		// Initialisation des comportements
-		Behavior bEmetteur = new Emetteur();
-		Behavior bRecepteur = new Recepteur();
-		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
-		Behavior[] bComportements = {bRecepteur,bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
-
-		Arbitrator arbitrator = new Arbitrator(bComportements);
-		if (bArretUrgence instanceof ArretUrgence) {
-			ArretUrgence b = (ArretUrgence) bArretUrgence;
-			b.setArbitrator(arbitrator);
-		}
-		arbitrator.go();
 		
 	}
 

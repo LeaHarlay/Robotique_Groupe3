@@ -25,7 +25,6 @@ public class Recepteur implements Behavior {
 	}
 
 	public void action() {
-
 		if (this.bt == null) {
 			this.bt = new BTConnector();
 		}
@@ -59,6 +58,10 @@ public class Recepteur implements Behavior {
 		}
 	}
 
+	/**
+	 * Affiche le tableau reçu afin de voir la carte connue par l'adversaire et sa position
+	 * 
+	 */
 	public static void affichageObjetRecu(Object valeur) {
 		if (valeur instanceof int[][]) {
 			int[][] val = (int[][]) valeur;
@@ -74,10 +77,8 @@ public class Recepteur implements Behavior {
 					}
 				}
 				System.out.println(tab[0] + tab[1] + tab[2] + tab[3] + tab[4]);
-				// LCD.drawString(tab[0]+tab[1]+tab[2]+tab[3]+tab[4],0,i);
 			}
 		} else {
-			// LCD.drawString("Pas mï¿½me objet",0,2);
 			System.out.println("Pas mï¿½me objet");
 
 		}

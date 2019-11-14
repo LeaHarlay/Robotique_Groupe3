@@ -18,9 +18,7 @@ public class Emetteur implements Behavior {
 	
 	private String bluetoothRobot1="00:16:53:43:EB:88";
 	private String nomRobot1="Joffrey5";
-	
 	private String bluetoothRobot2="00:16:53:43:B3:FB";
-	//private String nomRobot2="";
 	private BTConnector bt;
 	
 	public boolean takeControl() {
@@ -28,7 +26,6 @@ public class Emetteur implements Behavior {
 	}
 
 	public void suppress() {
-		
 	}
 
 	public void action() {
@@ -55,27 +52,20 @@ public class Emetteur implements Behavior {
 				LCD.drawString("connexion", 0, 0);
 				LCD.refresh();
 				
-				//BTConnector bt = new BTConnector();
-				BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
-				//BTConnection btc = bt.waitForConnection(1000, NXTConnection.PACKET);
+				//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
+				BTConnection btc = bt.connect(bluetoothRobot2, NXTConnection.PACKET);
 				
 				OutputStream requete = btc.openOutputStream();
-				//DataOutputStream dRequete = new DataOutputStream(requete);
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
 				System.out.println("Envoi");
-				//dRequete.write(12); // Ecrit une valeur dans le flux
 				oRequete.writeObject(aEnvoyer);
-				System.out.println("Je l'envoie");
 				oRequete.flush();
-				//dRequete.flush(); // force l'envoi
 				System.out.println("EnvoyÃ©");
 				oRequete.close();
-				//dRequete.close();
 				btc.close();
 				LCD.clear();
 				Delay.msDelay(2000);
 			} catch (Exception e) {
-				System.out.println("catch emetteur b1");
 			}
 		}else {
 			try {
@@ -84,26 +74,20 @@ public class Emetteur implements Behavior {
 				LCD.drawString("connexion", 0, 0);
 				LCD.refresh();
 				
-				//BTConnector bt = new BTConnector();
-				BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
-
+				//le premier paramï¿½tre est l'adresse du rï¿½cepteur affichï¿½ sur l'ï¿½cra de l'ï¿½metteur aprï¿½s association (pair) bluetooth
+				BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);
+				
 				OutputStream requete = btc.openOutputStream();
-				//DataOutputStream dRequete = new DataOutputStream(requete);
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
 				System.out.println("Envoi");
-				//dRequete.write(12); // Ecrit une valeur dans le flux
 				oRequete.writeObject(aEnvoyer);
-				System.out.println("Je l'envoie");
 				oRequete.flush();
-				//dRequete.flush(); // force l'envoi
 				System.out.println("EnvoyÃ©");
 				oRequete.close();
-				//dRequete.close();
 				btc.close();
 				LCD.clear();
 				Delay.msDelay(2000);
 			} catch (Exception e) {
-				System.out.println("catch emetteur b2");
 			}
 		}
 			
@@ -111,7 +95,11 @@ public class Emetteur implements Behavior {
 		
 		
 	}
-	
+	/**
+	 * Prépare le tableau à envoyer
+	 * Met des 0,1,2 dans un tableau afin d'envoyer la carte connue et la position du robot
+	 * 
+	 */
 	public static int[][] preparationEnvoi(Case [][] carte, int [] position){
 		int [][] resultat = new int[7][5];
 		for (int i = 0 ; i<7 ; i++) {
