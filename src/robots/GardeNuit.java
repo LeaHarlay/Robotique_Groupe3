@@ -86,7 +86,25 @@ public class GardeNuit {
 			b.setArbitrator(arby);
 		}
 		arby.go();
+
+		/*
+
+		// OBJECTIF 2
+
 		
+		// Initialisation des comportements
+		Behavior bEmetteur = new Emetteur();
+		Behavior bRecepteur = new Recepteur();
+		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
+		Behavior[] bComportements = {bRecepteur,bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
+
+		Arbitrator arbitrator = new Arbitrator(bComportements);
+		if (bArretUrgence instanceof ArretUrgence) {
+			ArretUrgence b = (ArretUrgence) bArretUrgence;
+			b.setArbitrator(arbitrator);
+		}
+		arbitrator.go();
+		*/
 	}
 
 }
