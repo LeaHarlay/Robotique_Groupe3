@@ -22,7 +22,8 @@ public class IntelligenceArtificielle implements Behavior{
 	}
 
 	public void action() {
-		//Cherche le chemin le plus court
+		IA ia = new IA(plan);
+		ia.runIA();
 	}
 	
 	

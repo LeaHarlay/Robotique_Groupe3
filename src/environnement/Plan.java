@@ -130,6 +130,7 @@ public class Plan {
 	public int[] getPosition() {
 		return this.position;
 	}
+
 	public int[] getVilleAdversaire() {
 		return this.villeAdversaire;
 	}
@@ -149,10 +150,10 @@ public class Plan {
 			for (int y = 0; y < 5; y++) {
 				if (this.carte[x][y].getDecouvert()) {
 					line.add("x");
-					//LCD.drawString("x", y, x);
+					// LCD.drawString("x", y, x);
 				} else {
 					line.add(".");
-					//LCD.drawString(".", y, x);
+					// LCD.drawString(".", y, x);
 				}
 			}
 			System.out.println(line);
@@ -164,29 +165,35 @@ public class Plan {
 		ArrayList<String> line = new ArrayList<String>();
 		for (int x = 0; x < 7; x++) {
 			for (int y = 0; y < 5; y++) {
-				if (this.carte[x][y].getChemin()) {
-					line.add("x");
-					//LCD.drawString("x", y, x);
+				if ((this.getVilleAdversaire()[0] == x) && (this.getVilleAdversaire()[1] == y)) {
+					//line.add("V");
+					LCD.drawString("V", y, x);
+				} else if ((this.getPosition()[0] == x) && (this.getPosition()[1] == y)) {
+					//line.add("R");
+					LCD.drawString("R", y, x);
+				} else if (this.carte[x][y].getChemin()) {
+					//line.add("x");
+					LCD.drawString("x", y, x);
 				} else {
-					line.add(".");
-					//LCD.drawString(".", y, x);
+					//line.add(".");
+					LCD.drawString(".", y, x);
 				}
 			}
-			System.out.println(line);
-			line.clear();
+			//System.out.println(line);
+			//line.clear();
 		}
 	}
-	
+
 	public boolean verifierCouleur(Couleur couleur) {
 		LCD.clear();
-		LCD.refresh();	
+		LCD.refresh();
 		String couleurCase = this.getCarte()[this.getPosition()[0]][this.getPosition()[1]].getCouleur();
-		LCD.drawString("Je vois du "+ couleur.couleurTrouve(), 0, 3);		
+		LCD.drawString("Je vois du " + couleur.couleurTrouve(), 0, 3);
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
-	
-	public void caseDecouverte(){
-		if (!this.carte[this.position[0]][this.position[1]].getDecouvert()){
+
+	public void caseDecouverte() {
+		if (!this.carte[this.position[0]][this.position[1]].getDecouvert()) {
 			this.carte[this.position[0]][this.position[1]].setDecouvert(true);
 		}
 	}
