@@ -2,6 +2,7 @@ package robots;
 
 import comportements.Avancer;
 import comportements.Emetteur;
+import comportements.IntelligenceArtificielle;
 import comportements.Objectif1;
 import comportements.Recepteur;
 import comportements.Tourner;
@@ -77,7 +78,8 @@ public class GardeNuit {
 		Emetteur bEmetteur = new Emetteur();
 		Objectif1 bObjectif1 = new Objectif1(deplacement,"GardeNuit");
 		Recepteur bRecepteur = new Recepteur();
-		Behavior[] behavior = {bObjectif1 ,bAvancer, bTourner, bRecepteur, bEmetteur, bArretUrgence }; // - vers +
+		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
+		Behavior[] behavior = {bObjectif1 ,bAvancer, bTourner, bRecepteur, bEmetteur,bIA, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;

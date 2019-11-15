@@ -8,7 +8,6 @@ import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class Recepteur implements Behavior {
 	private NXTConnection btc;
@@ -33,7 +32,6 @@ public class Recepteur implements Behavior {
 		LCD.clear();
 		LCD.refresh();
 		try {
-			System.out.println("methode1");
 			this.btc = this.bt.waitForConnection(1000, NXTConnection.PACKET);
 			this.reponse = this.btc.openInputStream();
 			this.oReponse = new ObjectInputStream(reponse);
@@ -47,14 +45,14 @@ public class Recepteur implements Behavior {
 			LCD.refresh();
 
 			affichageObjetRecu(this.valeurO);
-			Delay.msDelay(5000);
+			//Delay.msDelay(5000);
 
-			System.out.println("\n\n\n\n\n\n\n");
+			//System.out.println("\n\n\n\n\n\n\n");
 
 			LCD.clear();
 			LCD.refresh();
 		} catch (Exception e) {
-			System.out.println("catch recepteur");
+			//System.out.println("catch recepteur");
 		}
 	}
 

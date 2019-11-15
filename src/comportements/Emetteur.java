@@ -57,10 +57,10 @@ public class Emetteur implements Behavior {
 				
 				OutputStream requete = btc.openOutputStream();
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-				System.out.println("Envoi");
+				System.out.println("Envoi de la carte");
 				oRequete.writeObject(aEnvoyer);
 				oRequete.flush();
-				System.out.println("EnvoyÃ©");
+				System.out.println("Envoyé");
 				oRequete.close();
 				btc.close();
 				LCD.clear();
@@ -79,10 +79,10 @@ public class Emetteur implements Behavior {
 				
 				OutputStream requete = btc.openOutputStream();
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-				System.out.println("Envoi");
+				System.out.println("Envoi de la carte");
 				oRequete.writeObject(aEnvoyer);
 				oRequete.flush();
-				System.out.println("EnvoyÃ©");
+				System.out.println("Envoyé");
 				oRequete.close();
 				btc.close();
 				LCD.clear();
