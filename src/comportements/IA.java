@@ -191,6 +191,15 @@ public class IA implements Parametre {
 				
 			}
 		}
+		
+		// Changement des booleans pour afficher le nouveau chemin
+		// On vide si il y avait un ancien chemin
+		for (int x = 0; x < 7; x++) {
+			for (int y = 0; y < 5; y++) {
+				this.plan.getCarte()[x][y].setChemin(false);
+			}
+		}
+		// On met les booleans poàur le nouveau chemin
 		for(int x=0;x<chemin.size();x++){
 			this.plan.getCarte()[chemin.get(x).getPosition()[0]][chemin.get(x).getPosition()[1]].setChemin(true);
 		}

@@ -162,7 +162,10 @@ public class Plan {
 	}
 
 	public void afficheChemin() {
-		ArrayList<String> line = new ArrayList<String>();
+		//ArrayList<String> line = new ArrayList<String>();
+		
+		LCD.clear();
+		LCD.refresh();
 		for (int x = 0; x < 7; x++) {
 			for (int y = 0; y < 5; y++) {
 				if ((this.getVilleAdversaire()[0] == x) && (this.getVilleAdversaire()[1] == y)) {

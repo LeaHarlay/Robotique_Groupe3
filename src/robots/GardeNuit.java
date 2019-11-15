@@ -2,6 +2,7 @@ package robots;
 
 import comportements.Avancer;
 import comportements.Emetteur;
+import comportements.IntelligenceArtificielle;
 import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
@@ -48,7 +49,7 @@ public class GardeNuit {
 		LCD.clear();
 		LCD.refresh();
 		
-		/*
+		
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
@@ -78,15 +79,16 @@ public class GardeNuit {
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
+		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
-		Behavior[] behavior = {bAvancer, bTourner, bArretUrgence }; // - vers +
+		Behavior[] behavior = {bAvancer, bTourner,bIA, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arby);
 		}
 		arby.go();
-		*/
+		/*
 
 		// OBJECTIF 2
 
@@ -103,7 +105,7 @@ public class GardeNuit {
 			b.setArbitrator(arbitrator);
 		}
 		arbitrator.go();
-		
+		*/
 	}
 
 }
