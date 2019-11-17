@@ -1,7 +1,5 @@
 package environnement;
 
-import java.util.ArrayList;
-
 public class Noeud {
 
 	private int[] position = new int[2];

@@ -3,7 +3,6 @@ package robots;
 import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.IntelligenceArtificielle;
-import comportements.Objectif1;
 import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
@@ -57,6 +56,11 @@ public class GardeNuit {
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Nord");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
+		deplacement.add("Avancer");
+		deplacement.add("Droite");
+		deplacement.add("Avancer");
+		deplacement.add("Avancer");
+		deplacement.add("Avancer");
 
 		LCD.clear();
 		LCD.refresh();
@@ -76,10 +80,9 @@ public class GardeNuit {
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		Emetteur bEmetteur = new Emetteur();
-		Objectif1 bObjectif1 = new Objectif1(deplacement,"GardeNuit");
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
-		Behavior[] behavior = {bObjectif1 ,bAvancer, bTourner, bRecepteur, bEmetteur,bIA, bArretUrgence }; // - vers +
+		Behavior[] behavior = {bAvancer, bTourner, bRecepteur, bEmetteur,bIA, bArretUrgence }; // - vers +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
