@@ -191,7 +191,8 @@ public class Plan {
 		LCD.clear();
 		LCD.refresh();
 		String couleurCase = this.getCarte()[this.getPosition()[0]][this.getPosition()[1]].getCouleur();
-		LCD.drawString("Je vois du " + couleur.couleurTrouve(), 0, 3);
+		System.out.println("\n\nJe vois du " + couleur.couleurTrouve());
+		//LCD.drawString("Je vois du " + couleur.couleurTrouve(), 0, 3);
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
 
