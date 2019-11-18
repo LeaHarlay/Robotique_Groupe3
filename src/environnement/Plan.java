@@ -20,13 +20,13 @@ public class Plan {
 		this.carte[0][0] = new Case("Camp militaire", "rouge", 1);
 		this.carte[5][3] = new Case("Camp militaire", "rouge", 1);
 		// cases de d�part
-		this.carte[0][4] = new Case("Case d�part", "blanc", 0);
-		this.carte[6][0] = new Case("Case d�part", "blanc", 0);
+		this.carte[0][4] = new Case("Case départ", "blanc", 0);
+		this.carte[6][0] = new Case("Case départ", "blanc", 0);
 		// mar�cages
 		for (int i = 1; i < 4; i++) {
-			this.carte[4][i] = new Case("Mar�cage", "orange", 5);
+			this.carte[4][i] = new Case("Marécage", "orange", 5);
 		}
-		this.carte[2][4] = new Case("Mar�cage", "orange", 5);
+		this.carte[2][4] = new Case("Marécage", "orange", 5);
 		// mur
 		for (int i = 0; i < 3; i++) {
 			this.carte[i][1] = new Case("Mur", "bleu", 10);
@@ -144,44 +144,35 @@ public class Plan {
 		this.position = p;
 	}
 
-	public void affichePlateau() {
-		ArrayList<String> line = new ArrayList<String>();
-		for (int x = 0; x < 7; x++) {
-			for (int y = 0; y < 5; y++) {
-				if (this.carte[x][y].getDecouvert()) {
-					line.add("x");
-					// LCD.drawString("x", y, x);
-				} else {
-					line.add(".");
-					// LCD.drawString(".", y, x);
-				}
-			}
-			System.out.println(line);
-			line.clear();
-		}
-	}
 
 	public void afficheChemin() {
 		//ArrayList<String> line = new ArrayList<String>();
-		
+		String[] line = new String[5];
 		LCD.clear();
 		LCD.refresh();
+		
 		for (int x = 0; x < 7; x++) {
 			for (int y = 0; y < 5; y++) {
 				if ((this.getVilleAdversaire()[0] == x) && (this.getVilleAdversaire()[1] == y)) {
-					//line.add("V");
-					LCD.drawString("V", y, x);
+					line[y] = " v "; // ville adverse
+					//line.add("v");
+					//LCD.drawString("V", y, x);
 				} else if ((this.getPosition()[0] == x) && (this.getPosition()[1] == y)) {
-					//line.add("R");
-					LCD.drawString("R", y, x);
+					line[y] = " o "; // position actuelle
+					//line.add("o");
+					//LCD.drawString("R", y, x);
 				} else if (this.carte[x][y].getChemin()) {
+					line[y] = " x "; // chemin
 					//line.add("x");
-					LCD.drawString("x", y, x);
+					//LCD.drawString("x", y, x);
 				} else {
-					//line.add(".");
-					LCD.drawString(".", y, x);
+					line[y] = " _ "; // autre
+					//line.add("_");
+					//LCD.drawString(".", y, x);
 				}
 			}
+			System.out.println(line[0] + line[1] + line[2] + line[3] + line[4]);
+			line = new String[5];			
 			//System.out.println(line);
 			//line.clear();
 		}

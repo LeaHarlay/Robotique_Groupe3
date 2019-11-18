@@ -8,6 +8,7 @@ import environnement.Parametre;
 import environnement.Plan;
 import lejos.hardware.Button;
 import lejos.robotics.subsumption.Behavior;
+import lejos.utility.Delay;
 
 public class IntelligenceArtificielle implements Behavior, Parametre {
 
@@ -67,6 +68,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 			this.trouveMin();
 		}
 		this.afficheCheminPlusCourt();
+		Delay.msDelay(5000);
 	}
 
 	public void trouveMin() {

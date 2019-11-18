@@ -58,9 +58,9 @@ public class GardeNuit {
 		ArrayList<String> deplacement = new ArrayList<>();
 		deplacement.add("Avancer");
 		deplacement.add("Droite");
-		deplacement.add("Avancer");
-		deplacement.add("Avancer");
-		deplacement.add("Avancer");
+		for (int i = 0;i<3;i++) {
+			deplacement.add("Avancer");
+		}
 
 		LCD.clear();
 		LCD.refresh();

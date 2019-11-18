@@ -58,7 +58,7 @@ public class Sauvageon {
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Ouest");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
-		for (int i = 0;i<4;i++) {
+		for (int i = 0;i<5;i++) {
 			deplacement.add("Avancer");
 		}
 
