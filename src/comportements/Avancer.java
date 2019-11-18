@@ -34,7 +34,6 @@ public class Avancer implements Behavior {
 	}
 
 	public void action() {
-		LCD.drawString(this.plan.getPosition()[0]+","+this.plan.getPosition()[1],0,7);
 		pilot.setLinearSpeed(60.); // Vitesse
 		pilot.travel(135); // Distance 1 case + Ligne noire
 		
@@ -43,11 +42,15 @@ public class Avancer implements Behavior {
 		LCD.clear();
 		LCD.refresh();
 		if (this.plan.verifierCouleur(this.couleur)) {
-			LCD.drawString("Je suis sur", 0, 4);
-			LCD.drawString("le bon chemin", 0, 5);
+			System.out.println("\n\nJe suis sur");
+			System.out.println("le bon chemin");
+			//LCD.drawString("Je suis sur", 0, 4);
+			//LCD.drawString("le bon chemin", 0, 5);
 		} else {
-			LCD.drawString("Je suis PERDU !", 0, 4);
-			LCD.drawString("  0_o  ", 0, 5);
+			System.out.println("\n\nJe suis PERDU !");
+			System.out.println("  0_o  ");
+			//LCD.drawString("Je suis PERDU !", 0, 4);
+			//LCD.drawString("  0_o  ", 0, 5);
 		}
 		Delay.msDelay(1000);
 		this.listActions.remove(0);
