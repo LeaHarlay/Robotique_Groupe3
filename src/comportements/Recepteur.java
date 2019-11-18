@@ -57,7 +57,7 @@ public class Recepteur implements Behavior {
 	}
 
 	/**
-	 * Affiche le tableau reçu afin de voir la carte connue par l'adversaire et sa position
+	 * Affiche le tableau reï¿½u afin de voir la carte connue par l'adversaire et sa position
 	 * 
 	 */
 	public static void affichageObjetRecu(Object valeur) {
@@ -77,7 +77,7 @@ public class Recepteur implements Behavior {
 				System.out.println(tab[0] + tab[1] + tab[2] + tab[3] + tab[4]);
 			}
 		} else {
-			System.out.println("Pas mï¿½me objet");
+			System.out.println("Pas mÃªme objet");
 
 		}
 

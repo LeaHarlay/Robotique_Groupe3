@@ -58,7 +58,7 @@ public class Sauvageon {
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Ouest");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
-		for (int i = 0;i<5;i++) {
+		for (int i = 0;i<4;i++) {
 			deplacement.add("Avancer");
 		}
 
@@ -80,7 +80,7 @@ public class Sauvageon {
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
 		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
-		Emetteur bEmetteur = new Emetteur();
+		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
 		Behavior[] behavior = {bAvancer, bTourner, bRecepteur, bEmetteur, bIA ,bArretUrgence }; // - vers +

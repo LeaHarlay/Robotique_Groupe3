@@ -16,7 +16,7 @@ public class Couleur {
 	public final String BLEU = "Bleu";
 	public final String VERT = "Vert";
 	public final int NB_MESURE = 3;
-	public final int MARGE = 20; //8% de 255 (les couleurs r,v,b vont de 0 à 255)
+	public final int MARGE = 20; //8% de 255 (les couleurs r,v,b vont de 0 ï¿½ 255)
 
 	// Seuil RGB des couleurs
 	private ArrayList<int[]> blanc = new ArrayList<>();
@@ -37,18 +37,13 @@ public class Couleur {
 	public void init() {
 		LCD.clear();
 		LCD.refresh();
-		LCD.drawString("Initialisation des couleurs", 0, 0);
+		LCD.drawString("Initialisation", 0, 0);
 		this.initBlanc();
 		this.initRouge();
 		this.initOrange();
 		this.initBleu();
 		this.initVert();
-
-		Delay.msDelay(2000);
-
-		LCD.clear();
-		LCD.refresh();
-		LCD.drawString("J'ai terminÃ© ! ", 0, 0);
+		Delay.msDelay(1000);
 	}
 
 	// Initialisation des seuils RVB du blanc
@@ -61,7 +56,7 @@ public class Couleur {
 		LCD.clear();
 		LCD.refresh();
 		LCD.drawString("Initialisation ", 0, 0);
-		LCD.drawString("Blanc : OK ", 0, 1);
+		LCD.drawString("Blanc : OK ", 0, 2);
 	}
 
 	// Initialisation des seuils RVB du rouge

@@ -16,7 +16,7 @@ import lejos.utility.Delay;
 
 public class Emetteur implements Behavior {
 	
-
+	private Plan plan; // Cartographie
 	private String bluetoothRobot1="00:16:53:43:8E:49";
 	private String nomRobot1="Jon7";
 	private String bluetoothRobot2="00:16:53:43:AD:EE";
@@ -24,6 +24,10 @@ public class Emetteur implements Behavior {
 
 	private BTConnector bt;
 	
+	public Emetteur(Plan p) {
+		this.plan = p;
+	}
+
 	public boolean takeControl() {
 		return Button.UP.isDown();
 	}
@@ -32,9 +36,8 @@ public class Emetteur implements Behavior {
 	}
 
 	public void action() {
-		Plan p = new Plan();
-		p.initPlateauGardeNuit();
-		int[][] aEnvoyer = preparationEnvoi(p.getCarte(), p.getPosition());
+
+		int[][] aEnvoyer = preparationEnvoi(this.plan.getCarte(), this.plan.getPosition());
 		
 		LCD.clear();
 		LCD.refresh();
@@ -60,10 +63,10 @@ public class Emetteur implements Behavior {
 				
 				OutputStream requete = btc.openOutputStream();
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-				System.out.println("Envoi de la carte");
+				System.out.println("\nEnvoi de la carte");
 				oRequete.writeObject(aEnvoyer);
 				oRequete.flush();
-				System.out.println("Envoyé");
+				System.out.println("EnvoyÃ©");
 				oRequete.close();
 				btc.close();
 				LCD.clear();
@@ -82,10 +85,10 @@ public class Emetteur implements Behavior {
 				
 				OutputStream requete = btc.openOutputStream();
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
-				System.out.println("Envoi de la carte");
+				System.out.println("\nEnvoi de la carte");
 				oRequete.writeObject(aEnvoyer);
 				oRequete.flush();
-				System.out.println("Envoyé");
+				System.out.println("EnvoyÃ©");
 				oRequete.close();
 				btc.close();
 				LCD.clear();
@@ -99,7 +102,7 @@ public class Emetteur implements Behavior {
 		
 	}
 	/**
-	 * Prépare le tableau à envoyer
+	 * Prï¿½pare le tableau ï¿½ envoyer
 	 * Met des 0,1,2 dans un tableau afin d'envoyer la carte connue et la position du robot
 	 * 
 	 */
@@ -108,11 +111,11 @@ public class Emetteur implements Behavior {
 		for (int i = 0 ; i<7 ; i++) {
 			for (int j = 0; j<5;j++) {
 				if (position[0] == i && position[1] == j) {
-					resultat[i][j] = 2; //position du joueur
+					resultat[i][j] = 2; //position du robot
 				}else if (carte[i][j].getDecouvert()) {
-					resultat[i][j] = 1; //case découverte
+					resultat[i][j] = 1; //case dï¿½couverte
 				}else {
-					resultat[i][j] = 0; //case non découverte
+					resultat[i][j] = 0; //case non dï¿½couverte
 				}
 			}
 		}

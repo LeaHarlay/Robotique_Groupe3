@@ -80,7 +80,7 @@ public class GardeNuit {
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
 		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
-		Emetteur bEmetteur = new Emetteur();
+		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
 		Behavior[] behavior = {bAvancer, bTourner, bRecepteur, bEmetteur,bIA, bArretUrgence }; // - vers +
