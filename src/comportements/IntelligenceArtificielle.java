@@ -68,7 +68,6 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 			this.trouveMin();
 		}
 		this.afficheCheminPlusCourt();
-		Delay.msDelay(5000);
 	}
 
 	public void trouveMin() {

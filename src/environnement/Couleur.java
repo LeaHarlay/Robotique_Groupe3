@@ -56,7 +56,7 @@ public class Couleur {
 		LCD.clear();
 		LCD.refresh();
 		LCD.drawString("Initialisation ", 0, 0);
-		LCD.drawString("Blanc : OK ", 0, 2);
+		LCD.drawString("Blanc : OK ", 0, 1);
 	}
 
 	// Initialisation des seuils RVB du rouge
