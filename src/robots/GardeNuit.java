@@ -78,7 +78,6 @@ public class GardeNuit {
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
-		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
@@ -91,24 +90,6 @@ public class GardeNuit {
 		}
 		arby.go();
 
-		/*
-
-		// OBJECTIF 2
-
-		
-		// Initialisation des comportements
-		Behavior bEmetteur = new Emetteur();
-		Behavior bRecepteur = new Recepteur();
-		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
-		Behavior[] bComportements = {bRecepteur,bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
-
-		Arbitrator arbitrator = new Arbitrator(bComportements);
-		if (bArretUrgence instanceof ArretUrgence) {
-			ArretUrgence b = (ArretUrgence) bArretUrgence;
-			b.setArbitrator(arbitrator);
-		}
-		arbitrator.go();
-		*/
 	}
 
 }

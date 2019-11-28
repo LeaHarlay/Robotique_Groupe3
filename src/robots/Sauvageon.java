@@ -78,7 +78,6 @@ public class Sauvageon {
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
-		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();

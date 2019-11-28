@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import lejos.hardware.lcd.LCD;
 
-public class Plan {
+public class Plan implements Parametre{
 
-	private Case[][] carte = new Case[7][5];
+	private Case[][] carte = new Case[LONGUEUR_PLATEAU][LARGEUR_PLATEAU];
 	private int[] position = new int[2];
 	private int[] villeAdversaire = new int[2];
 
