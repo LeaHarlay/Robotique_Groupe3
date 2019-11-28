@@ -31,8 +31,6 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	public void action() {
-		//IA ia = new IA(plan);
-		//ia.runIA();
 		this.initIA();
 		this.runIA();
 	}
