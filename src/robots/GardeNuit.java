@@ -31,7 +31,7 @@ public class GardeNuit {
 		LCD.drawString("GARDE NUIT - N", 0, 0);
 		LCD.drawString("Appuyez sur une", 0, 1);
 		LCD.drawString("touche", 0, 2);
-		
+
 		Button.waitForAnyPress();
 
 		// Création du chassis pour piloter le robot
@@ -48,7 +48,6 @@ public class GardeNuit {
 
 		LCD.clear();
 		LCD.refresh();
-		
 
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
@@ -58,7 +57,7 @@ public class GardeNuit {
 		ArrayList<String> deplacement = new ArrayList<>();
 		deplacement.add("Avancer");
 		deplacement.add("Droite");
-		for (int i = 0;i<3;i++) {
+		for (int i = 0; i < 3; i++) {
 			deplacement.add("Avancer");
 		}
 
@@ -71,44 +70,26 @@ public class GardeNuit {
 		Button.waitForAnyPress();
 
 		Delay.msDelay(2000);
-		
+
 		LCD.clear();
 		LCD.refresh();
 
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
-		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
-		Behavior[] behavior = {bAvancer, bTourner, bRecepteur, bEmetteur,bIA, bArretUrgence }; // - vers +
+		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence }; // -
+																									// vers
+																									// +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arby);
 		}
 		arby.go();
-
-		/*
-
-		// OBJECTIF 2
-
-		
-		// Initialisation des comportements
-		Behavior bEmetteur = new Emetteur();
-		Behavior bRecepteur = new Recepteur();
-		Behavior bArretUrgence = new ArretUrgence(cs); // Arrêt d'urgence
-		Behavior[] bComportements = {bRecepteur,bEmetteur, bArretUrgence }; // du moins prioritaire au plus prioritaire
-
-		Arbitrator arbitrator = new Arbitrator(bComportements);
-		if (bArretUrgence instanceof ArretUrgence) {
-			ArretUrgence b = (ArretUrgence) bArretUrgence;
-			b.setArbitrator(arbitrator);
-		}
-		arbitrator.go();
-		*/
 	}
 
 }

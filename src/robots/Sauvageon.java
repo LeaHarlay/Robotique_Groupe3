@@ -40,7 +40,6 @@ public class Sauvageon {
 		Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 }, 2);
 		MovePilot pilot = new MovePilot(chassis);
 
-		
 		// Initialisation du capteur de couleur
 		LCD.clear();
 		LCD.refresh();
@@ -49,16 +48,15 @@ public class Sauvageon {
 
 		LCD.clear();
 		LCD.refresh();
-		
 
-		
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
-		plan.initPlateauSauvageon();; // Initialisation du plan
+		plan.initPlateauSauvageon();
+		; // Initialisation du plan
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Ouest");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
-		for (int i = 0;i<4;i++) {
+		for (int i = 0; i < 4; i++) {
 			deplacement.add("Avancer");
 		}
 
@@ -78,18 +76,19 @@ public class Sauvageon {
 		// Création des comportements
 		Avancer bAvancer = new Avancer(pilot, plan, couleur, direction, deplacement);
 		Tourner bTourner = new Tourner(pilot, direction, deplacement);
-		//ArretUrgence bArretUrgence = new ArretUrgence(cs, pilot);
 		ArretUrgence bArretUrgence = new ArretUrgence(cs);
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
-		Behavior[] behavior = {bAvancer, bTourner, bRecepteur, bEmetteur, bIA ,bArretUrgence }; // - vers +
+		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence }; // -
+																									// vers
+																									// +
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
 			b.setArbitrator(arby);
 		}
 		arby.go();
-		
+
 	}
 }
