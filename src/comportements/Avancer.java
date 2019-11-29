@@ -17,9 +17,9 @@ public class Avancer implements Behavior, Parametre {
 	private MovePilot pilot;
 	private Plan plan; // Cartographie
 	private Couleur couleur; // Seuils de d�tection des couleurs
-	private ArrayList<String> direction; // Orientation du robot
+	private String direction; // Orientation du robot
 
-	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
+	public Avancer(MovePilot pi, Plan p, Couleur c, String d, ArrayList<String> actions) {
 		this.listActions = actions;
 		this.pilot = pi;
 		this.plan = p;
@@ -60,13 +60,13 @@ public class Avancer implements Behavior, Parametre {
 	 */
 	public void modifPosition() {
 		int[] p = new int[2];
-		if (this.direction.get(0).equalsIgnoreCase(NORD)) {
+		if (this.direction.equalsIgnoreCase(NORD)) {
 			p[0] = this.plan.getPosition()[0] - 1;
 			p[1] = this.plan.getPosition()[1];
-		} else if (this.direction.get(0).equalsIgnoreCase(EST)) {
+		} else if (this.direction.equalsIgnoreCase(EST)) {
 			p[0] = this.plan.getPosition()[0];
 			p[1] = this.plan.getPosition()[1] + 1;
-		} else if (this.direction.get(0).equalsIgnoreCase(SUD)) {
+		} else if (this.direction.equalsIgnoreCase(SUD)) {
 			p[0] = this.plan.getPosition()[0] + 1;
 			p[1] = this.plan.getPosition()[1];
 		} else {

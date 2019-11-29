@@ -53,8 +53,7 @@ public class Sauvageon implements Parametre {
 		// Paramètre de déplacement du sauvageon
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauSauvageon();
-		ArrayList<String> direction = new ArrayList<>();
-		direction.add(OUEST);// direction initiale
+		String direction = OUEST;// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
 		for (int i = 0; i < 4; i++) {
 			deplacement.add(AVANCER);

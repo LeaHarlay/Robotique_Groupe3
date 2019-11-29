@@ -53,8 +53,7 @@ public class GardeNuit implements Parametre {
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauGardeNuit(); // Initialisation du plan
-		ArrayList<String> direction = new ArrayList<>();
-		direction.add(NORD);// direction initiale
+		String direction = NORD;// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
 		deplacement.add(AVANCER);
 		deplacement.add(DROITE);

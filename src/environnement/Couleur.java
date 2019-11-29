@@ -152,7 +152,7 @@ public class Couleur implements Parametre {
 		SensorMode valeurRVB = this.capteur.getRGBMode();
 		float[] tabRVB = new float[valeurRVB.sampleSize()];
 		valeurRVB.fetchSample(tabRVB, 0);
-		for (int i = 0; i <= 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			tabRVB[i] = tabRVB[i] * 1000;
 		}
 		return tabRVB;
