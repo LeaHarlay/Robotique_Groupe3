@@ -12,9 +12,9 @@ public class Tourner implements Behavior, Parametre {
 	private ArrayList<String> listActions; // Chemin du robot vers le poste de
 											// garde
 	private MovePilot pilot;
-	private String direction; // Orientation du robot
+	private ArrayList<String> direction; // Orientation du robot
 
-	public Tourner(MovePilot pi, String d, ArrayList<String> actions) {
+	public Tourner(MovePilot pi, ArrayList<String> d, ArrayList<String> actions) {
 		this.listActions = actions;
 		this.pilot = pi;
 		this.direction = d;
@@ -50,14 +50,14 @@ public class Tourner implements Behavior, Parametre {
 	 * rotation par default de 90°
 	 */
 	public void modifDirection() {
-		if (this.direction.equalsIgnoreCase(NORD)) {
-			this.direction = EST;
-		} else if (this.direction.equalsIgnoreCase(EST)) {
-			this.direction = SUD;
-		} else if (this.direction.equalsIgnoreCase(SUD)) {
-			this.direction = OUEST;
+		if (this.direction.get(0).equalsIgnoreCase(NORD)) {
+			this.direction.set(0, EST);
+		} else if (this.direction.get(0).equalsIgnoreCase(EST)) {
+			this.direction.set(0, SUD);
+		} else if (this.direction.get(0).equalsIgnoreCase(SUD)) {
+			this.direction.set(0, OUEST);
 		} else {
-			this.direction = NORD;
+			this.direction.set(0, NORD);
 		}
 	}
 

@@ -2,9 +2,9 @@ package environnement;
 
 public interface Parametre {
 	// Bluetooth
-	final String ROBOT1 = "00:16:53:43:8E:49";	
-	final String ROBOT1_NAME = "Jon7";
-	final String ROBOT2 = "00:16:53:43:AD:EE";
+	final String ROBOT1 = "00:16:53:43:96:91";	
+	final String ROBOT1_NAME = "Sansa2";
+	final String ROBOT2 = "00:16:53:43:B3:FB";
 	
 	// Dimension de la carte
 	final int LARGEUR_PLATEAU = 5;
