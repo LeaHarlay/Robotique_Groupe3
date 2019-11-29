@@ -8,7 +8,6 @@ import environnement.Parametre;
 import environnement.Plan;
 import lejos.hardware.Button;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class IntelligenceArtificielle implements Behavior, Parametre {
 

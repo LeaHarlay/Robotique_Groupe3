@@ -1,7 +1,5 @@
 package environnement;
 
-import java.util.ArrayList;
-
 import lejos.hardware.lcd.LCD;
 
 public class Plan implements Parametre{
@@ -63,9 +61,10 @@ public class Plan implements Parametre{
 		}
 		return aff;
 	}
-
-	// initialisation de la partie connue du plan pour le sauvageon
-	// (les boolï¿½ens permettant de dire qu'une case est dï¿½couverte sont ï¿½ True)
+	/**
+	 * Initialisation de la partie connue du plan pour le sauvageon
+	 * (les booléens permettant de dire qu'une case est découverte sont à True)
+	 */
 	public void initPlateauSauvageon() {
 		this.villeAdversaire[0] = 6;
 		this.villeAdversaire[1] = 0;
@@ -85,8 +84,8 @@ public class Plan implements Parametre{
 			this.carte[i][1].setDecouvert(true);
 		}
 		this.carte[0][0].setDecouvert(true);
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < LONGUEUR_PLATEAU; i++) {
+			for (int j = 0; j < LARGEUR_PLATEAU; j++) {
 				if (this.carte[i][j].getDecouvert() != true) {
 					this.carte[i][j].setDecouvert(false);
 				}
@@ -94,8 +93,10 @@ public class Plan implements Parametre{
 		}
 	}
 
-	// initialisation de la partie connue du plan pour la garde de nuit
-	// (les boolï¿½ens permettant de dire qu'une case est dï¿½couverte sont ï¿½ True)
+	/**
+	 * Initialisation de la partie connur du plan pour le garde de nuit
+	 * (les booléens permettant de dire qu'une case est découverte sont à True)
+	 */
 	public void initPlateauGardeNuit() {
 		this.position[0] = 6;
 		this.position[1] = 0;
@@ -117,8 +118,8 @@ public class Plan implements Parametre{
 		for (int i = 5; i < 7; i++) {
 			this.carte[i][4].setDecouvert(true);
 		}
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < LONGUEUR_PLATEAU; i++) {
+			for (int j = 0; j < LARGEUR_PLATEAU; j++) {
 				if (this.carte[i][j].getDecouvert() != true) {
 					this.carte[i][j].setDecouvert(false);
 				}
@@ -155,26 +156,16 @@ public class Plan implements Parametre{
 			for (int y = 0; y < 5; y++) {
 				if ((this.getVilleAdversaire()[0] == x) && (this.getVilleAdversaire()[1] == y)) {
 					line[y] = " v "; // ville adverse
-					//line.add("v");
-					//LCD.drawString("V", y, x);
 				} else if ((this.getPosition()[0] == x) && (this.getPosition()[1] == y)) {
 					line[y] = " o "; // position actuelle
-					//line.add("o");
-					//LCD.drawString("R", y, x);
 				} else if (this.carte[x][y].getChemin()) {
 					line[y] = " x "; // chemin
-					//line.add("x");
-					//LCD.drawString("x", y, x);
 				} else {
 					line[y] = " _ "; // autre
-					//line.add("_");
-					//LCD.drawString(".", y, x);
 				}
 			}
 			System.out.println(line[0] + line[1] + line[2] + line[3] + line[4]);
-			line = new String[5];			
-			//System.out.println(line);
-			//line.clear();
+			line = new String[5];
 		}
 	}
 
@@ -183,7 +174,6 @@ public class Plan implements Parametre{
 		LCD.refresh();
 		String couleurCase = this.getCarte()[this.getPosition()[0]][this.getPosition()[1]].getCouleur();
 		System.out.println("\n\nJe vois du " + couleur.couleurTrouve());
-		//LCD.drawString("Je vois du " + couleur.couleurTrouve(), 0, 3);
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
 

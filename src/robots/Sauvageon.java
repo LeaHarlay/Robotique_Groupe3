@@ -49,10 +49,9 @@ public class Sauvageon {
 		LCD.clear();
 		LCD.refresh();
 
-		// Paramètre de déplacement du garde de nuit
+		// Paramètre de déplacement du sauvageon
 		Plan plan = new Plan(); // Carte
-		plan.initPlateauSauvageon();
-		; // Initialisation du plan
+		plan.initPlateauSauvageon(); // Initialisation du plan
 		ArrayList<String> direction = new ArrayList<>();
 		direction.add("Ouest");// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
@@ -80,9 +79,7 @@ public class Sauvageon {
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
-		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence }; // -
-																									// vers
-																									// +
+		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence };
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;

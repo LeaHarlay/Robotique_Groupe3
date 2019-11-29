@@ -44,13 +44,9 @@ public class Avancer implements Behavior {
 		if (this.plan.verifierCouleur(this.couleur)) {
 			System.out.println("\n\nJe suis sur");
 			System.out.println("le bon chemin");
-			//LCD.drawString("Je suis sur", 0, 4);
-			//LCD.drawString("le bon chemin", 0, 5);
 		} else {
 			System.out.println("\n\nJe suis PERDU !");
 			System.out.println("  0_o  ");
-			//LCD.drawString("Je suis PERDU !", 0, 4);
-			//LCD.drawString("  0_o  ", 0, 5);
 		}
 		Delay.msDelay(1000);
 		this.listActions.remove(0);
@@ -76,7 +72,6 @@ public class Avancer implements Behavior {
 			p[1] = this.plan.getPosition()[1] - 1;
 		}
 		this.plan.setPosition(p);
-		
 		// Découverte de la case
 		this.plan.caseDecouverte();
 	}
