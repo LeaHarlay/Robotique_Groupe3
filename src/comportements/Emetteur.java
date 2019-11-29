@@ -19,10 +19,10 @@ public class Emetteur implements Behavior, Parametre {
 
 	private Plan plan; // Cartographie
 	// Num�ro Bluetooth et nom du premier robot :
-	private String bluetoothRobot1 = "00:16:53:43:8E:49";
-	private String nomRobot1 = "Jon7";
+	private String bluetoothRobot1 = ROBOT1;
+	private String nomRobot1 = ROBOT1_NAME;
 	// Num�ro Bluetooth du deuxi�me robot
-	private String bluetoothRobot2 = "00:16:53:43:AD:EE";
+	private String bluetoothRobot2 = ROBOT2;
 
 	private BTConnector bt;
 
