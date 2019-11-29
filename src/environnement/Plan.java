@@ -61,9 +61,10 @@ public class Plan implements Parametre {
 		}
 		return aff;
 	}
-
-	// initialisation de la partie connue du plan pour le sauvageon
-	// (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	/**
+	 * Initialisation de la partie connue du plan pour le sauvageon
+	 * (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	 */
 	public void initPlateauSauvageon() {
 		this.villeAdversaire[0] = 6;
 		this.villeAdversaire[1] = 0;
@@ -83,8 +84,8 @@ public class Plan implements Parametre {
 			this.carte[i][1].setDecouvert(true);
 		}
 		this.carte[0][0].setDecouvert(true);
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 5; j++) {
+		for (int i = 0; i < LONGUEUR_PLATEAU; i++) {
+			for (int j = 0; j < LARGEUR_PLATEAU; j++) {
 				if (this.carte[i][j].getDecouvert() != true) {
 					this.carte[i][j].setDecouvert(false);
 				}
@@ -92,8 +93,10 @@ public class Plan implements Parametre {
 		}
 	}
 
-	// initialisation de la partie connue du plan pour la garde de nuit
-	// (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	/**
+	 * Initialisation de la partie connur du plan pour le garde de nuit
+	 * (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	 */
 	public void initPlateauGardeNuit() {
 		this.position[0] = 6;
 		this.position[1] = 0;
@@ -116,7 +119,7 @@ public class Plan implements Parametre {
 			this.carte[i][4].setDecouvert(true);
 		}
 		for (int i = 0; i < LONGUEUR_PLATEAU; i++) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < LARGEUR_PLATEAU; j++) {
 				if (this.carte[i][j].getDecouvert() != true) {
 					this.carte[i][j].setDecouvert(false);
 				}

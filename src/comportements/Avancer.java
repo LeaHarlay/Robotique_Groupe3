@@ -74,7 +74,7 @@ public class Avancer implements Behavior, Parametre {
 			p[1] = this.plan.getPosition()[1] - 1;
 		}
 		this.plan.setPosition(p);
-
+		
 		// Découverte de la case
 		this.plan.caseDecouverte();
 	}

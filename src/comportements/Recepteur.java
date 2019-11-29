@@ -46,7 +46,6 @@ public class Recepteur implements Behavior, Parametre {
 			LCD.refresh();
 
 			affichageObjetRecu(this.valeurO);
-
 			LCD.clear();
 			LCD.refresh();
 		} catch (Exception e) {

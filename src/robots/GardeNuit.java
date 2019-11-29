@@ -82,9 +82,7 @@ public class GardeNuit implements Parametre {
 		Emetteur bEmetteur = new Emetteur(plan);
 		Recepteur bRecepteur = new Recepteur();
 		IntelligenceArtificielle bIA = new IntelligenceArtificielle(plan);
-		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence }; // -
-																									// vers
-																									// +
+		Behavior[] behavior = { bAvancer, bTourner, bRecepteur, bEmetteur, bIA, bArretUrgence };
 		Arbitrator arby = new Arbitrator(behavior);
 		if (bArretUrgence instanceof ArretUrgence) {
 			ArretUrgence b = (ArretUrgence) bArretUrgence;
