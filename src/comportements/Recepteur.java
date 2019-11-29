@@ -3,13 +3,14 @@ package comportements;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
+import environnement.Parametre;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
 
-public class Recepteur implements Behavior {
+public class Recepteur implements Behavior, Parametre {
 	private NXTConnection btc;
 	private BTConnector bt;
 	InputStream reponse;
@@ -45,27 +46,24 @@ public class Recepteur implements Behavior {
 			LCD.refresh();
 
 			affichageObjetRecu(this.valeurO);
-			//Delay.msDelay(5000);
-
-			//System.out.println("\n\n\n\n\n\n\n");
 
 			LCD.clear();
 			LCD.refresh();
 		} catch (Exception e) {
-			//System.out.println("catch recepteur");
 		}
 	}
 
 	/**
-	 * Affiche le tableau re�u afin de voir la carte connue par l'adversaire et sa position
+	 * Affiche le tableau re�u afin de voir la carte connue par l'adversaire et
+	 * sa position
 	 * 
 	 */
 	public static void affichageObjetRecu(Object valeur) {
 		if (valeur instanceof int[][]) {
 			int[][] val = (int[][]) valeur;
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < LONGUEUR_PLATEAU; i++) {
 				String[] tab = new String[5];
-				for (int j = 0; j < 5; j++) {
+				for (int j = 0; j < LARGEUR_PLATEAU; j++) {
 					if (val[i][j] == 0) {
 						tab[j] = " x "; // connu
 					} else if (val[i][j] == 1) {

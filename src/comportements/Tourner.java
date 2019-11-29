@@ -1,13 +1,16 @@
 package comportements;
 
 import java.util.ArrayList;
+
+import environnement.Parametre;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class Tourner implements Behavior {
+public class Tourner implements Behavior, Parametre {
 
-	private ArrayList<String> listActions; // Chemin du robot vers le poste de garde
+	private ArrayList<String> listActions; // Chemin du robot vers le poste de
+											// garde
 	private MovePilot pilot;
 	private ArrayList<String> direction; // Orientation du robot
 
@@ -18,7 +21,7 @@ public class Tourner implements Behavior {
 	}
 
 	public boolean takeControl() {
-		return (!this.listActions.isEmpty() && this.listActions.get(0).equals("Droite"));
+		return (!this.listActions.isEmpty() && this.listActions.get(0).equals(DROITE));
 	}
 
 	public void suppress() {
@@ -43,18 +46,18 @@ public class Tourner implements Behavior {
 	}
 
 	/**
-	 * Modification de l'orientation
-	 * Change l'orientation du robot par une rotation  par default de 90°
+	 * Modification de l'orientation Change l'orientation du robot par une
+	 * rotation par default de 90°
 	 */
 	public void modifDirection() {
-		if (this.direction.get(0).equalsIgnoreCase("Nord")) {
-			this.direction.set(0, "Est");
-		} else if (this.direction.get(0).equalsIgnoreCase("Est")) {
-			this.direction.set(0, "Sud");
-		} else if (this.direction.get(0).equalsIgnoreCase("Sud")) {
-			this.direction.set(0, "Ouest");
+		if (this.direction.get(0).equalsIgnoreCase(NORD)) {
+			this.direction.set(0, EST);
+		} else if (this.direction.get(0).equalsIgnoreCase(EST)) {
+			this.direction.set(0, SUD);
+		} else if (this.direction.get(0).equalsIgnoreCase(SUD)) {
+			this.direction.set(0, OUEST);
 		} else {
-			this.direction.set(0, "Nord");
+			this.direction.set(0, NORD);
 		}
 	}
 

@@ -6,6 +6,7 @@ import comportements.IntelligenceArtificielle;
 import comportements.Recepteur;
 import comportements.Tourner;
 import environnement.Couleur;
+import environnement.Parametre;
 import environnement.Plan;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class GardeNuit {
+public class GardeNuit implements Parametre {
 
 	public static void main(String[] args) {
 		// Début de sécurité
@@ -53,12 +54,12 @@ public class GardeNuit {
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauGardeNuit(); // Initialisation du plan
 		ArrayList<String> direction = new ArrayList<>();
-		direction.add("Nord");// direction initiale
+		direction.add(NORD);// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
-		deplacement.add("Avancer");
-		deplacement.add("Droite");
+		deplacement.add(AVANCER);
+		deplacement.add(DROITE);
 		for (int i = 0; i < 3; i++) {
-			deplacement.add("Avancer");
+			deplacement.add(AVANCER);
 		}
 
 		LCD.clear();

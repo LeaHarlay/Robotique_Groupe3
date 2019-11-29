@@ -1,6 +1,5 @@
 package comportements;
 
-
 import java.util.ArrayList;
 
 import environnement.Noeud;
@@ -8,7 +7,6 @@ import environnement.Parametre;
 import environnement.Plan;
 import lejos.hardware.Button;
 import lejos.robotics.subsumption.Behavior;
-import lejos.utility.Delay;
 
 public class IntelligenceArtificielle implements Behavior, Parametre {
 
@@ -17,7 +15,6 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	private ArrayList<Noeud> lSommetMarque = new ArrayList<Noeud>();
 	private Noeud sMarque; // Dernier somment marque
 	private Noeud sFinal; // Sommet final
-
 
 	public IntelligenceArtificielle(Plan p) {
 		this.plan = p;
@@ -34,13 +31,13 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 		this.initIA();
 		this.runIA();
 	}
-	
+
 	public void initIA() {
 		this.sFinal = new Noeud(this.plan.getVilleAdversaire()[0], this.plan.getVilleAdversaire()[1],
 				this.plan.getCarte()[this.plan.getVilleAdversaire()[0]][this.plan.getVilleAdversaire()[1]].getValeur());
 		this.init();
 	}
-	
+
 	public void init() {
 		// Initialisation des noeuds
 		for (int x = 0; x < LONGUEUR_PLATEAU; x++) {
@@ -73,7 +70,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 		int cmpt = 0;
 		while (cmpt < lSommetRestant.size() && !lSommetRestant.get(cmpt).isTraite()) {
 			cmpt++;
-		}	
+		}
 		Noeud min = lSommetRestant.get(cmpt);
 		for (int i = (cmpt + 1); i < lSommetRestant.size(); i++) {
 			if ((lSommetRestant.get(i).getCoutTotal() < min.getCoutTotal()) && lSommetRestant.get(i).isTraite()) {
@@ -81,7 +78,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 			}
 		}
 		this.sMarque = min;// Devient le noeud marqué
-		lSommetMarque.add(min);	
+		lSommetMarque.add(min);
 		lSommetRestant.remove(min);// Supprimer de la liste lSommetRestant
 	}
 
@@ -168,35 +165,36 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 		}
 		return trouve;
 	}
-	
-	public void afficheCheminPlusCourt(){
-		ArrayList<Noeud> chemin = new ArrayList<>();	
-		int predecesseur_ord = this.lSommetMarque.get(this.lSommetMarque.size()-1).getPredecesseur()[0];
-		int predecesseur_abs = this.lSommetMarque.get(this.lSommetMarque.size()-1).getPredecesseur()[1];
-		chemin.add(this.lSommetMarque.get(this.lSommetMarque.size()-1));
-		this.lSommetMarque.remove(this.lSommetMarque.size()-1);
-		
-		while ((predecesseur_ord != this.plan.getPosition()[0]) || (predecesseur_abs != this.plan.getPosition()[1])){
+
+	public void afficheCheminPlusCourt() {
+		ArrayList<Noeud> chemin = new ArrayList<>();
+		int predecesseur_ord = this.lSommetMarque.get(this.lSommetMarque.size() - 1).getPredecesseur()[0];
+		int predecesseur_abs = this.lSommetMarque.get(this.lSommetMarque.size() - 1).getPredecesseur()[1];
+		chemin.add(this.lSommetMarque.get(this.lSommetMarque.size() - 1));
+		this.lSommetMarque.remove(this.lSommetMarque.size() - 1);
+
+		while ((predecesseur_ord != this.plan.getPosition()[0]) || (predecesseur_abs != this.plan.getPosition()[1])) {
 			for (int i = 0; i < lSommetMarque.size(); i++) {
-				if ((lSommetMarque.get(i).getPosition()[0] == predecesseur_ord) && (lSommetMarque.get(i).getPosition()[1] == predecesseur_abs)) {
-					predecesseur_ord = lSommetMarque.get(i).getPredecesseur()[0]; 
+				if ((lSommetMarque.get(i).getPosition()[0] == predecesseur_ord)
+						&& (lSommetMarque.get(i).getPosition()[1] == predecesseur_abs)) {
+					predecesseur_ord = lSommetMarque.get(i).getPredecesseur()[0];
 					predecesseur_abs = lSommetMarque.get(i).getPredecesseur()[1];
 					chemin.add(lSommetMarque.get(i));
 					this.lSommetMarque.remove(i);
 				}
-				
+
 			}
 		}
-		
+
 		// Changement des booleans pour afficher le nouveau chemin
 		// On vide si il y avait un ancien chemin
-		for (int x = 0; x < 7; x++) {
-			for (int y = 0; y < 5; y++) {
+		for (int x = 0; x < LONGUEUR_PLATEAU; x++) {
+			for (int y = 0; y < LARGEUR_PLATEAU; y++) {
 				this.plan.getCarte()[x][y].setChemin(false);
 			}
 		}
 		// On met les booleans poàur le nouveau chemin
-		for(int x=0;x<chemin.size();x++){
+		for (int x = 0; x < chemin.size(); x++) {
 			this.plan.getCarte()[chemin.get(x).getPosition()[0]][chemin.get(x).getPosition()[1]].setChemin(true);
 		}
 		this.plan.afficheChemin();

@@ -2,6 +2,7 @@ package comportements;
 
 import java.io.OutputStream;
 import environnement.Case;
+import environnement.Parametre;
 import environnement.Plan;
 import java.io.ObjectOutputStream;
 import lejos.hardware.Button;
@@ -14,13 +15,12 @@ import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class Emetteur implements Behavior {
+public class Emetteur implements Behavior, Parametre{
 	
 	private Plan plan; // Cartographie
 	private String bluetoothRobot1="00:16:53:43:8E:49";
 	private String nomRobot1="Jon7";
 	private String bluetoothRobot2="00:16:53:43:AD:EE";
-	//private String nomRobot2="";
 
 	private BTConnector bt;
 	
@@ -108,8 +108,8 @@ public class Emetteur implements Behavior {
 	 */
 	public static int[][] preparationEnvoi(Case [][] carte, int [] position){
 		int [][] resultat = new int[7][5];
-		for (int i = 0 ; i<7 ; i++) {
-			for (int j = 0; j<5;j++) {
+		for (int i = 0 ; i< LONGUEUR_PLATEAU ; i++) {
+			for (int j = 0; j< LARGEUR_PLATEAU;j++) {
 				if (position[0] == i && position[1] == j) {
 					resultat[i][j] = 2; //position du robot
 				}else if (carte[i][j].getDecouvert()) {

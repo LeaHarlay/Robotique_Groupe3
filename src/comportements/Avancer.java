@@ -3,18 +3,20 @@ package comportements;
 import java.util.ArrayList;
 
 import environnement.Couleur;
+import environnement.Parametre;
 import environnement.Plan;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class Avancer implements Behavior {
+public class Avancer implements Behavior, Parametre {
 
-	private ArrayList<String> listActions; // Chemin du robot vers sa destination
+	private ArrayList<String> listActions; // Chemin du robot vers sa
+											// destination
 	private MovePilot pilot;
 	private Plan plan; // Cartographie
-	private Couleur couleur; // Seuils de détection des couleurs
+	private Couleur couleur; // Seuils de dï¿½tection des couleurs
 	private ArrayList<String> direction; // Orientation du robot
 
 	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
@@ -26,7 +28,7 @@ public class Avancer implements Behavior {
 	}
 
 	public boolean takeControl() {
-		return (!this.listActions.isEmpty() && this.listActions.get(0).equals("Avancer"));
+		return (!this.listActions.isEmpty() && this.listActions.get(0).equals(AVANCER));
 	}
 
 	public void suppress() {
@@ -36,39 +38,35 @@ public class Avancer implements Behavior {
 	public void action() {
 		pilot.setLinearSpeed(60.); // Vitesse
 		pilot.travel(135); // Distance 1 case + Ligne noire
-		
+
 		this.modifPosition(); // Modifie la position dans le plan
-		
+
 		LCD.clear();
 		LCD.refresh();
 		if (this.plan.verifierCouleur(this.couleur)) {
 			System.out.println("\n\nJe suis sur");
 			System.out.println("le bon chemin");
-			//LCD.drawString("Je suis sur", 0, 4);
-			//LCD.drawString("le bon chemin", 0, 5);
 		} else {
 			System.out.println("\n\nJe suis PERDU !");
 			System.out.println("  0_o  ");
-			//LCD.drawString("Je suis PERDU !", 0, 4);
-			//LCD.drawString("  0_o  ", 0, 5);
 		}
 		Delay.msDelay(1000);
 		this.listActions.remove(0);
 	}
 
 	/**
-	 * Modification de la position 
-	 * Change la position du robot sur la cartographie
+	 * Modification de la position Change la position du robot sur la
+	 * cartographie
 	 */
-	public void modifPosition() {	
+	public void modifPosition() {
 		int[] p = new int[2];
-		if (this.direction.get(0).equalsIgnoreCase("Nord")) {
+		if (this.direction.get(0).equalsIgnoreCase(NORD)) {
 			p[0] = this.plan.getPosition()[0] - 1;
 			p[1] = this.plan.getPosition()[1];
-		} else if (this.direction.get(0).equalsIgnoreCase("Est")) {
+		} else if (this.direction.get(0).equalsIgnoreCase(EST)) {
 			p[0] = this.plan.getPosition()[0];
 			p[1] = this.plan.getPosition()[1] + 1;
-		} else if (this.direction.get(0).equalsIgnoreCase("Sud")) {
+		} else if (this.direction.get(0).equalsIgnoreCase(SUD)) {
 			p[0] = this.plan.getPosition()[0] + 1;
 			p[1] = this.plan.getPosition()[1];
 		} else {
@@ -76,7 +74,7 @@ public class Avancer implements Behavior {
 			p[1] = this.plan.getPosition()[1] - 1;
 		}
 		this.plan.setPosition(p);
-		
+
 		// DÃ©couverte de la case
 		this.plan.caseDecouverte();
 	}

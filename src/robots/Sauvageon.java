@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import comportements.ArretUrgence;
 import environnement.Couleur;
+import environnement.Parametre;
 import comportements.Avancer;
 import comportements.Emetteur;
 import comportements.IntelligenceArtificielle;
@@ -23,7 +24,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
-public class Sauvageon {
+public class Sauvageon implements Parametre {
 
 	public static void main(String[] args) {
 
@@ -52,12 +53,12 @@ public class Sauvageon {
 		// Paramètre de déplacement du garde de nuit
 		Plan plan = new Plan(); // Carte
 		plan.initPlateauSauvageon();
-		; // Initialisation du plan
+		// Initialisation du plan
 		ArrayList<String> direction = new ArrayList<>();
-		direction.add("Ouest");// direction initiale
+		direction.add(OUEST);// direction initiale
 		ArrayList<String> deplacement = new ArrayList<>();
 		for (int i = 0; i < 4; i++) {
-			deplacement.add("Avancer");
+			deplacement.add(AVANCER);
 		}
 
 		LCD.clear();
