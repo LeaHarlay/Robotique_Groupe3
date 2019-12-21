@@ -15,13 +15,18 @@ import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
+/**
+ * Comportement emeteur de donnees par bluetooth
+ * @author lea, amelie
+ *
+ */
 public class Emetteur implements Behavior, Parametre {
 
 	private Plan plan; // Cartographie
-	// Num�ro Bluetooth et nom du premier robot :
+	// Numero Bluetooth et nom du premier robot
 	private String bluetoothRobot1 = ROBOT1;
 	private String nomRobot1 = ROBOT1_NAME;
-	// Num�ro Bluetooth du deuxi�me robot
+	// Numero Bluetooth du deuxieme robot
 	private String bluetoothRobot2 = ROBOT2;
 
 	private BTConnector bt;
@@ -38,22 +43,17 @@ public class Emetteur implements Behavior, Parametre {
 	}
 
 	public void action() {
-
 		int[][] aEnvoyer = preparationEnvoi(this.plan.getCarte(), this.plan.getPosition());
-
 		LCD.clear();
 		LCD.refresh();
 		EV3 ev = LocalEV3.get();
 		System.out.println("--" + ev.getName() + "--");
-
 		try {
 			if (bt == null) {
 				bt = new BTConnector();
 			}
 		} catch (Exception e) {
-
 		}
-
 		if ((ev.getName()).equalsIgnoreCase(nomRobot1)) {
 			try {
 				LCD.clear();
@@ -80,9 +80,7 @@ public class Emetteur implements Behavior, Parametre {
 				LCD.clear();
 				LCD.drawString("connexion", 0, 0);
 				LCD.refresh();
-
 				BTConnection btc = bt.connect(bluetoothRobot1, NXTConnection.PACKET);
-
 				OutputStream requete = btc.openOutputStream();
 				ObjectOutputStream oRequete = new ObjectOutputStream(requete);
 				System.out.println("\nEnvoi de la carte");
@@ -96,11 +94,10 @@ public class Emetteur implements Behavior, Parametre {
 			} catch (Exception e) {
 			}
 		}
-
 	}
 
 	/**
-	 * Pr�pare le tableau � envoyer Met des 0,1,2 dans un tableau afin d'envoyer
+	 * Prepare le tableau a envoyer. Met des 0,1,2 dans un tableau afin d'envoyer
 	 * la carte connue et la position du robot
 	 * 
 	 */
@@ -111,9 +108,9 @@ public class Emetteur implements Behavior, Parametre {
 				if (position[0] == i && position[1] == j) {
 					resultat[i][j] = 2; // position du robot
 				} else if (carte[i][j].getDecouvert()) {
-					resultat[i][j] = 1; // case d�couverte
+					resultat[i][j] = 1; // case decouverte
 				} else {
-					resultat[i][j] = 0; // case non d�couverte
+					resultat[i][j] = 0; // case non decouverte
 				}
 			}
 		}

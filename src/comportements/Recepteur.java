@@ -10,6 +10,11 @@ import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
 import lejos.robotics.subsumption.Behavior;
 
+/**
+ * Comportement recepteur de donnees par bluetooth
+ * @author lea, amelie
+ *
+ */
 public class Recepteur implements Behavior, Parametre {
 	private NXTConnection btc;
 	private BTConnector bt;
@@ -28,7 +33,6 @@ public class Recepteur implements Behavior, Parametre {
 		if (this.bt == null) {
 			this.bt = new BTConnector();
 		}
-
 		LCD.drawString("Connection", 0, 0);
 		LCD.clear();
 		LCD.refresh();
@@ -40,11 +44,9 @@ public class Recepteur implements Behavior, Parametre {
 			this.oReponse.close();
 			this.btc.close();
 			this.bt.cancel();
-
 			// Affichage de la réponse
 			LCD.clear();
 			LCD.refresh();
-
 			affichageObjetRecu(this.valeurO);
 			LCD.clear();
 			LCD.refresh();

@@ -1,5 +1,10 @@
 package environnement;
 
+/**
+ * Gestion des constantes/paramètres du programme
+ * @author lea, amelie
+ *
+ */
 public interface Parametre {
 	// Bluetooth
 	final String ROBOT1 = "00:16:53:43:96:91";	

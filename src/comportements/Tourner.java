@@ -7,10 +7,14 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
+/**
+ * Comportement permettant au robot de tourner
+ * @author lea, amelie
+ *
+ */
 public class Tourner implements Behavior, Parametre {
 
-	private ArrayList<String> listActions; // Chemin du robot vers le poste de
-											// garde
+	private ArrayList<String> listActions; // Chemin du robot vers le poste de garde
 	private MovePilot pilot;
 	private ArrayList<String> direction; // Orientation du robot
 
@@ -38,7 +42,6 @@ public class Tourner implements Behavior, Parametre {
 		pilot.rotate(80.); // rotation du robot de environ 90°
 		Delay.msDelay(200);
 		pilot.travel(-25);
-
 		// Modifie la position du robot (coordonnées sur le plan)
 		this.modifDirection();
 		this.listActions.remove(0);

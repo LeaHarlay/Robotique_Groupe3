@@ -8,6 +8,11 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.SensorMode;
 import lejos.utility.Delay;
 
+/**
+ * Gestion et apprentissage des couleurs au robot
+ * @author lea, amelie
+ *
+ */
 public class Couleur implements Parametre {
 
 	// Seuil RGB des couleurs
@@ -25,7 +30,9 @@ public class Couleur implements Parametre {
 		this.init();
 	}
 
-	// Initialisation des seuils des couleurs
+	/**
+	 * Initialisation des seuils des couleurs
+	 */
 	public void init() {
 		LCD.clear();
 		LCD.refresh();
@@ -38,7 +45,9 @@ public class Couleur implements Parametre {
 		Delay.msDelay(1000);
 	}
 
-	// Initialisation des seuils RVB du blanc
+	/**
+	 * Initialisation des seuils RVB du blanc
+	 */
 	public void initBlanc() {
 		LCD.drawString("Blanc : ", 0, 1);
 		Button.waitForAnyPress();
@@ -51,7 +60,9 @@ public class Couleur implements Parametre {
 		LCD.drawString("Blanc : OK ", 0, 1);
 	}
 
-	// Initialisation des seuils RVB du rouge
+	/**
+	 * Initialisation des seuils RVB du rouge
+	 */
 	public void initRouge() {
 		LCD.drawString("Rouge : ", 0, 2);
 		Button.waitForAnyPress();
@@ -65,7 +76,9 @@ public class Couleur implements Parametre {
 		LCD.drawString("Rouge : OK ", 0, 2);
 	}
 
-	// Initialisation des seuils RVB du orange
+	/**
+	 * Initialisation des seuils RVB du orange
+	 */
 	public void initOrange() {
 		LCD.drawString("Orange : ", 0, 3);
 		Button.waitForAnyPress();
@@ -80,7 +93,9 @@ public class Couleur implements Parametre {
 		LCD.drawString("Orange : OK ", 0, 3);
 	}
 
-	// Initialisation des seuils RVB du bleu
+	/**
+	 * Initialisation des seuils RVB du bleu
+	 */
 	public void initBleu() {
 		LCD.drawString("Bleu : ", 0, 4);
 		Button.waitForAnyPress();
@@ -96,7 +111,9 @@ public class Couleur implements Parametre {
 		LCD.drawString("Bleu : OK ", 0, 4);
 	}
 
-	// Initialisation des seuils RVB du vert
+	/**
+	 * Initialisation des seuils RVB du vert
+	 */
 	public void initVert() {
 		LCD.drawString("Vert : ", 0, 5);
 		Button.waitForAnyPress();
@@ -113,7 +130,10 @@ public class Couleur implements Parametre {
 		LCD.drawString("Vert : OK ", 0, 5);
 	}
 
-	// Initialise la liste des seuils des valeurs de la couleur perçue
+	/**
+	 * Initialise la liste des seuils des valeurs de la couleur perçue
+	 * @return
+	 */
 	public ArrayList<int[]> creationSeuilCouleur() {
 		// Liste des valeurs qui determineront le seuil
 		ArrayList<Integer> valR = new ArrayList<Integer>();
@@ -147,7 +167,10 @@ public class Couleur implements Parametre {
 		return result;
 	}
 
-	// Retourne un tableau des valeurs RGB pour une couleur
+	/**
+	 * Retourne un tableau des valeurs RGB pour une couleur
+	 * @return
+	 */
 	public float[] colorRVB() {
 		SensorMode valeurRVB = this.capteur.getRGBMode();
 		float[] tabRVB = new float[valeurRVB.sampleSize()];
@@ -158,7 +181,11 @@ public class Couleur implements Parametre {
 		return tabRVB;
 	}
 
-	// Valeur minimal d'une liste
+	/**
+	 * Valeur minimal d'une liste
+	 * @param list
+	 * @return
+	 */
 	public int min(ArrayList<Integer> list) {
 		int valMin = list.get(0);
 		for (int i = 1; i < list.size(); i++) {
@@ -169,7 +196,11 @@ public class Couleur implements Parametre {
 		return valMin;
 	}
 
-	// Valeur maximale d'une liste
+	/**
+	 * Valeur maximale d'une liste
+	 * @param list
+	 * @return
+	 */
 	public int max(ArrayList<Integer> list) {
 		int valMax = list.get(0);
 		for (int i = 1; i < list.size(); i++) {
@@ -180,6 +211,10 @@ public class Couleur implements Parametre {
 		return valMax;
 	}
 
+	/**
+	 * Retourne le nom de la couleur détecté par le capteur
+	 * @return
+	 */
 	public String couleurTrouve() {
 		float[] valeurs = new float[3];
 		valeurs = this.colorRVB(); // On récupère les valeurs RVB de la couleur
@@ -198,18 +233,15 @@ public class Couleur implements Parametre {
 		return result;
 	}
 
+	/**
+	 * Retourne si la couleur détecté correspond ou non à une couleur que le robot connait
+	 * @param valeurs
+	 * @param seuil
+	 * @return
+	 */
 	public boolean correspondanceCouleur(float[] valeurs, ArrayList<int[]> seuil) {
 		return ((((int) valeurs[0] <= seuil.get(0)[1]) && ((int) valeurs[0] >= seuil.get(0)[0]))
 				&& (((int) valeurs[1] <= seuil.get(1)[1]) && ((int) valeurs[1] >= seuil.get(1)[0]))
 				&& (((int) valeurs[2] <= seuil.get(2)[1]) && ((int) valeurs[2] >= seuil.get(2)[0])));
 	}
-
-	public void afficheList(ArrayList<int[]> l) {
-		for (int i = 0; i < l.size(); i++) {
-			for (int x = 0; x < l.get(i).length; x++) {
-				System.out.println(l.get(i)[x]);
-			}
-		}
-	}
-
 }

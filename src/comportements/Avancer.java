@@ -10,13 +10,17 @@ import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
+/**
+ * Comportement pour avance le robot
+ * @author lea, amelie
+ *
+ */
 public class Avancer implements Behavior, Parametre {
 
-	private ArrayList<String> listActions; // Chemin du robot vers sa
-											// destination
+	private ArrayList<String> listActions; // Chemin du robot vers sa destination
 	private MovePilot pilot;
 	private Plan plan; // Cartographie
-	private Couleur couleur; // Seuils de d�tection des couleurs
+	private Couleur couleur; // Seuils de ditection des couleurs
 	private ArrayList<String> direction; // Orientation du robot
 
 	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
@@ -38,9 +42,7 @@ public class Avancer implements Behavior, Parametre {
 	public void action() {
 		pilot.setLinearSpeed(60.); // Vitesse
 		pilot.travel(135); // Distance 1 case + Ligne noire
-
 		this.modifPosition(); // Modifie la position dans le plan
-
 		LCD.clear();
 		LCD.refresh();
 		if (this.plan.verifierCouleur(this.couleur)) {
@@ -74,7 +76,7 @@ public class Avancer implements Behavior, Parametre {
 			p[1] = this.plan.getPosition()[1] - 1;
 		}
 		this.plan.setPosition(p);
-		
+
 		// Découverte de la case
 		this.plan.caseDecouverte();
 	}

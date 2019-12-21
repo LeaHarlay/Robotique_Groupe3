@@ -24,6 +24,11 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
+/**
+ * Création d'un sauvageon
+ * @author lea, amelie
+ *
+ */
 public class Sauvageon implements Parametre {
 
 	public static void main(String[] args) {
@@ -32,7 +37,6 @@ public class Sauvageon implements Parametre {
 		LCD.drawString("SAUVAGEON - O", 0, 0);
 		LCD.drawString("Appuyez sur une", 0, 1);
 		LCD.drawString("touche", 0, 2);
-
 		Button.waitForAnyPress();
 
 		// Création du chassis pour piloter le robot
@@ -46,7 +50,6 @@ public class Sauvageon implements Parametre {
 		LCD.refresh();
 		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S3);
 		Couleur couleur = new Couleur(cs); // Création des seuils des couleurs
-
 		LCD.clear();
 		LCD.refresh();
 
@@ -66,9 +69,7 @@ public class Sauvageon implements Parametre {
 		LCD.drawString("une touche", 0, 1);
 		LCD.drawString("pour lancer le", 0, 2);
 		LCD.drawString("programme", 0, 3);
-
 		Button.waitForAnyPress();
-
 		Delay.msDelay(2000);
 		LCD.clear();
 		LCD.refresh();
@@ -87,6 +88,5 @@ public class Sauvageon implements Parametre {
 			b.setArbitrator(arby);
 		}
 		arby.go();
-
 	}
 }

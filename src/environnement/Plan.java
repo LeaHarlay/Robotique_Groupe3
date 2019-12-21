@@ -2,25 +2,32 @@ package environnement;
 
 import lejos.hardware.lcd.LCD;
 
+/**
+ * Transcription numérique de la carte dans laquelle se deplace les robots
+ * @author lea, amelie
+ *
+ */
 public class Plan implements Parametre {
 
-	private Case[][] carte = new Case[LONGUEUR_PLATEAU][LARGEUR_PLATEAU];
-	private int[] position = new int[2];
-	private int[] villeAdversaire = new int[2];
+	private Case[][] carte = new Case[LONGUEUR_PLATEAU][LARGEUR_PLATEAU]; // Carte
+	private int[] position = new int[2]; // Coordonnées du robot
+	private int[] villeAdversaire = new int[2]; // Coordonnées de la ville adverse du robot
 
 	public Plan() {
 		this.init();
 	}
 
-	// initialisation du plan (nom, couleur et valeur de chacune des cases)
+	/**
+	 * Initialisation du plan (nom, couleur et valeur de chacune des cases)
+	 */
 	public void init() {
 		// camps militaires
 		this.carte[0][0] = new Case(ROUGE, 1);
 		this.carte[5][3] = new Case(ROUGE, 1);
-		// cases de d�part
+		// cases de départ
 		this.carte[0][4] = new Case(BLANC, 0);
 		this.carte[6][0] = new Case(BLANC, 0);
-		// mar�cages
+		// marécages
 		for (int i = 1; i < 4; i++) {
 			this.carte[4][i] = new Case(ORANGE, 5);
 		}
@@ -61,9 +68,10 @@ public class Plan implements Parametre {
 		}
 		return aff;
 	}
+
 	/**
 	 * Initialisation de la partie connue du plan pour le sauvageon
-	 * (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	 * (les booléens permettent de dire qu'une case est découverte = True)
 	 */
 	public void initPlateauSauvageon() {
 		this.villeAdversaire[0] = 6;
@@ -95,7 +103,7 @@ public class Plan implements Parametre {
 
 	/**
 	 * Initialisation de la partie connur du plan pour le garde de nuit
-	 * (les bool�ens permettant de dire qu'une case est d�couverte sont � True)
+	 * (les booléens permettent de dire qu'une case est découverte = True)
 	 */
 	public void initPlateauGardeNuit() {
 		this.position[0] = 6;
@@ -127,7 +135,6 @@ public class Plan implements Parametre {
 		}
 	}
 
-	// GETTER
 	public int[] getPosition() {
 		return this.position;
 	}
@@ -140,16 +147,17 @@ public class Plan implements Parametre {
 		return this.carte;
 	}
 
-	// SETTER
 	public void setPosition(int[] p) {
 		this.position = p;
 	}
 
+	/**
+	 * Affiche le chemin découvert par l'algorithme Dijkstra
+	 */
 	public void afficheChemin() {
 		String[] line = new String[5];
 		LCD.clear();
 		LCD.refresh();
-
 		for (int x = 0; x < LONGUEUR_PLATEAU; x++) {
 			for (int y = 0; y < LARGEUR_PLATEAU; y++) {
 				if ((this.getVilleAdversaire()[0] == x) && (this.getVilleAdversaire()[1] == y)) {
@@ -167,6 +175,11 @@ public class Plan implements Parametre {
 		}
 	}
 
+	/**
+	 * Vérification que le robot est bien à l'endroit où il pense être grace au capteur de couleur
+	 * @param couleur
+	 * @return
+	 */
 	public boolean verifierCouleur(Couleur couleur) {
 		LCD.clear();
 		LCD.refresh();
@@ -175,6 +188,9 @@ public class Plan implements Parametre {
 		return couleurCase.equalsIgnoreCase(couleur.couleurTrouve());
 	}
 
+	/**
+	 * Découverte d'une case
+	 */
 	public void caseDecouverte() {
 		if (!this.carte[this.position[0]][this.position[1]].getDecouvert()) {
 			this.carte[this.position[0]][this.position[1]].setDecouvert(true);

@@ -1,12 +1,17 @@
 package environnement;
 
+/**
+ * Correspond au noeud (sommet) du graphe de l'algorithme Dijkstra. Chaque case devient un noeud
+ * @author lea, amelie
+ *
+ */
 public class Noeud {
 
-	private int[] position = new int[2];
-	private int[] predecesseur = new int[2];
-	private int coutTotal;
-	private int valeurDeplacement;
-	private boolean traite;
+	private int[] position = new int[2]; // Position du noeud correspondant à la position de la case
+	private int[] predecesseur = new int[2]; // Position du noeud précédant ce dernier 
+	private int coutTotal; // Coût total du déplacement pour arriver jusqu'à lui
+	private int valeurDeplacement; // Valeur qu'il additionnera leur du déplement vers un neoud adjacent
+	private boolean traite; // Si le noeud à été traité au moins une fois
 
 	public Noeud(int x, int y, int val) {
 		this.position[0] = x;
@@ -33,13 +38,8 @@ public class Noeud {
 		if (!this.isTraite() || ((this.isTraite() && this.coutTotal > (n.getCoutTotal() + n.getValeurDeplacement()))
 				&& this.coutTotal != 0)) {
 			this.traite = true; // Le noeud aura été traité au moins une fois
-			this.coutTotal = n.getCoutTotal() + n.getValeurDeplacement(); // Son
-																			// coût
-																			// total
-																			// est
-																			// ajouté
-			this.setPredecesseur(n.getPosition()); // Ajout des coordonnées du
-													// noeud prédecesseur
+			this.coutTotal = n.getCoutTotal() + n.getValeurDeplacement(); // Son coût total est ajouté
+			this.setPredecesseur(n.getPosition()); // Ajout des coordonnées du noeud prédecesseur
 		}
 	}
 

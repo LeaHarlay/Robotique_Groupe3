@@ -5,10 +5,14 @@ import lejos.hardware.motor.Motor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-
+/**
+ * Comportement d'arrêt d'urgence du robot
+ * @author lea, amelie
+ *
+ */
 public class ArretUrgence implements Behavior {
-	private EV3ColorSensor color;
-	private Arbitrator abry;
+	private EV3ColorSensor color; // Capteur de couleur
+	private Arbitrator abry; // Arbitrateur des comportements
 
 	public ArretUrgence(EV3ColorSensor c) {
 		this.color = c;
@@ -26,11 +30,12 @@ public class ArretUrgence implements Behavior {
 	}
 
 	public void action() {
+		// Arret des moteurs
 		Motor.B.close();
 		Motor.C.close();
-		this.color.close();
-		this.abry.stop();
-		System.exit(0);
+		this.color.close(); // Arret du capteur de couleur
+		this.abry.stop(); // Arret de l'arbitrateur
+		System.exit(0); // Arret propre et sans erreure du programme
 	}
 
 }
