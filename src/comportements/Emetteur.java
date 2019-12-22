@@ -16,7 +16,7 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 /**
- * Comportement emeteur de donnees par bluetooth
+ * Comportement émetteur de donnees par bluetooth
  * @author lea, amelie
  *
  */

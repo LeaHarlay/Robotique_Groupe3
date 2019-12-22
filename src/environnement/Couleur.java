@@ -182,7 +182,7 @@ public class Couleur implements Parametre {
 	}
 
 	/**
-	 * Valeur minimal d'une liste
+	 * Valeur minimale d'une liste
 	 * @param list
 	 * @return
 	 */
@@ -212,7 +212,7 @@ public class Couleur implements Parametre {
 	}
 
 	/**
-	 * Retourne le nom de la couleur détecté par le capteur
+	 * Retourne le nom de la couleur détectée par le capteur
 	 * @return
 	 */
 	public String couleurTrouve() {
@@ -234,7 +234,7 @@ public class Couleur implements Parametre {
 	}
 
 	/**
-	 * Retourne si la couleur détecté correspond ou non à une couleur que le robot connait
+	 * Retourne si la couleur détectée correspond ou non à une couleur que le robot connait
 	 * @param valeurs
 	 * @param seuil
 	 * @return

@@ -16,7 +16,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 
 	private Plan plan; // Cartographie
 	private ArrayList<Noeud> lSommetRestant = new ArrayList<Noeud>(); // Liste des noeuds non utilisés pour trouver le chemin le plus court
-	private ArrayList<Noeud> lSommetMarque = new ArrayList<Noeud>(); // Liste des noeuds de l'arbre ayant été parcouru au moins une fois (=traité) et utilisés
+	private ArrayList<Noeud> lSommetMarque = new ArrayList<Noeud>(); // Liste des noeuds de l'arbre ayant été parcourus au moins une fois (=traité) et utilisés
 	private Noeud sMarque; // Dernier somment marqué/utilisé
 	private Noeud sFinal; // Sommet final
 
@@ -37,7 +37,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Initialisation de la ville adversaire a atteindre (noeud final)
+	 * Initialisation de la ville adversaire � atteindre (noeud final)
 	 */
 	public void initIA() {
 		this.sFinal = new Noeud(this.plan.getVilleAdversaire()[0], this.plan.getVilleAdversaire()[1],
@@ -79,7 +79,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Recherche, parmi les noeuds restant, le noeud traité avec la plus faible valeur pour y arriver. 
+	 * Recherche, parmi les noeuds restants, le noeud traité avec la plus faible valeur pour y arriver. 
 	 */
 	public void trouveMin() {
 		int cmpt = 0;
@@ -148,7 +148,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Retourne l'ensemble des déplacements possible à partir du noeud marqué
+	 * Retourne l'ensemble des déplacements possibles à partir du noeud marqué
 	 * @return
 	 */
 	public ArrayList<String> deplacementPossible() {

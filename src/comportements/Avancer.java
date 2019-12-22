@@ -11,7 +11,7 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 /**
- * Comportement pour avance le robot
+ * Comportement pour avancer le robot
  * @author lea, amelie
  *
  */
@@ -57,7 +57,7 @@ public class Avancer implements Behavior, Parametre {
 	}
 
 	/**
-	 * Modification de la position Change la position du robot sur la
+	 * Modification de la position. Change la position du robot sur la
 	 * cartographie
 	 */
 	public void modifPosition() {

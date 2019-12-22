@@ -1,7 +1,7 @@
 package environnement;
 
 /**
- * Correspond à une case de 12cm x 12cm du plateau délimité par les bandes
+ * Correspond à une case de 12cm x 12cm du plateau délimitée par les bandes
  * noires de 1,5cm
  * 
  * @author lea, amelie
