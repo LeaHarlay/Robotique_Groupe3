@@ -46,7 +46,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Initialisation de l'ensemble des noeuds de l'abre
+	 * Initialisation de l'ensemble des noeuds de l'arbre
 	 */
 	public void init() {
 		for (int x = 0; x < LONGUEUR_PLATEAU; x++) {
@@ -79,7 +79,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Recherche, parmi les noeuds restant, le noeud trait√© avec la plus faible valeur pour y arriver. 
+	 * Recherche, parmi les noeuds restant, le noeud traitÈ avec la plus faible valeur pour y arriver. 
 	 */
 	public void trouveMin() {
 		int cmpt = 0;
@@ -100,7 +100,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Traitement des noeuds adjacents au noeud marqu√©.
+	 * Traitement des noeuds adjacents au noeud marquÈ.
 	 */
 	public void traiteNoeudsAdjacent() {
 		ArrayList<String> lesDeplacementsPossibles = this.deplacementPossible(); // Recherche des d√©placements possibles depuis le noeud marqu√©
@@ -148,7 +148,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Retourne l'ensemble des d√©placements possible √† partir du noeud marqu√©
+	 * Retourne l'ensemble des dÈplacements possibles ‡ partir du noeud marquÈ
 	 * @return
 	 */
 	public ArrayList<String> deplacementPossible() {
@@ -182,7 +182,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Retourne si les coordonn√©es correspondent √† celles d'un noeud restant 
+	 * Retourne si les coordonnÈes correspondent ‡ celles d'un noeud restant 
 	 * @param x
 	 * @param y
 	 * @return

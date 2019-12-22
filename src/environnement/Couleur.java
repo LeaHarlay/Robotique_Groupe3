@@ -182,7 +182,7 @@ public class Couleur implements Parametre {
 	}
 
 	/**
-	 * Valeur minimal d'une liste
+	 * Valeur minimale d'une liste
 	 * @param list
 	 * @return
 	 */

@@ -102,7 +102,7 @@ public class Plan implements Parametre {
 	}
 
 	/**
-	 * Initialisation de la partie connur du plan pour le garde de nuit
+	 * Initialisation de la partie connue du plan pour le garde de nuit
 	 * (les booléens permettent de dire qu'une case est découverte = True)
 	 */
 	public void initPlateauGardeNuit() {

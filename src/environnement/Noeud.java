@@ -10,7 +10,7 @@ public class Noeud {
 	private int[] position = new int[2]; // Position du noeud correspondant à la position de la case
 	private int[] predecesseur = new int[2]; // Position du noeud précédant ce dernier 
 	private int coutTotal; // Coût total du déplacement pour arriver jusqu'à lui
-	private int valeurDeplacement; // Valeur qu'il additionnera leur du déplement vers un neoud adjacent
+	private int valeurDeplacement; // Valeur qu'il additionnera lors du déplement vers un neoud adjacent
 	private boolean traite; // Si le noeud à été traité au moins une fois
 
 	public Noeud(int x, int y, int val) {

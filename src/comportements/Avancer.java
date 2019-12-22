@@ -11,16 +11,16 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 /**
- * Comportement pour avance le robot
+ * Comportement pour avancer le robot
  * @author lea, amelie
  *
  */
 public class Avancer implements Behavior, Parametre {
 
 	private ArrayList<String> listActions; // Chemin du robot vers sa destination
-	private MovePilot pilot;
+	private MovePilot pilot; // Sert à déplacer le robot
 	private Plan plan; // Cartographie
-	private Couleur couleur; // Seuils de ditection des couleurs
+	private Couleur couleur; // Seuils de détection des couleurs
 	private ArrayList<String> direction; // Orientation du robot
 
 	public Avancer(MovePilot pi, Plan p, Couleur c, ArrayList<String> d, ArrayList<String> actions) {
@@ -57,7 +57,7 @@ public class Avancer implements Behavior, Parametre {
 	}
 
 	/**
-	 * Modification de la position Change la position du robot sur la
+	 * Modification de la position. Change la position du robot sur la
 	 * cartographie
 	 */
 	public void modifPosition() {

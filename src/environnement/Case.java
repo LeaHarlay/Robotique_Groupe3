@@ -1,7 +1,7 @@
 package environnement;
 
 /**
- * Correspond à une case de 12cm x 12cm du plateau délimité par les bandes
+ * Correspond � une case de 12cm x 12cm du plateau d�limit�e par les bandes
  * noires de 1,5cm
  * 
  * @author lea, amelie
@@ -12,7 +12,7 @@ public class Case {
 	private String couleur; // Sa couleur
 	private int valeur; // Sa valeur
 	private boolean decouvert; // Si elle a été découverte = TRUE
-	private boolean chemin; // Si elle fait parti du chemin le plus court trouvé
+	private boolean chemin; // Si elle fait partie du chemin le plus court trouvé
 							// par l'IA = TRUE
 
 	public Case(String c, int v) {
@@ -69,7 +69,7 @@ public class Case {
 
 	/**
 	 * Informe si une case fait partie du chemin le plus court trouvé par
-	 * l'intellience artificielle
+	 * l'intelligence artificielle
 	 * 
 	 * @return
 	 */

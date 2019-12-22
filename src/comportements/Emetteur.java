@@ -16,7 +16,7 @@ import lejos.robotics.subsumption.Behavior;
 import lejos.utility.Delay;
 
 /**
- * Comportement emeteur de donnees par bluetooth
+ * Comportement émetteur de donnees par bluetooth
  * @author lea, amelie
  *
  */
@@ -97,8 +97,8 @@ public class Emetteur implements Behavior, Parametre {
 	}
 
 	/**
-	 * Prepare le tableau a envoyer. Met des 0,1,2 dans un tableau afin d'envoyer
-	 * la carte connue et la position du robot
+	 * Prépare le tableau à envoyer. Met des 0,1,2 dans un tableau afin d'envoyer
+	 * la carte connue et la position du robot.
 	 * 
 	 */
 	public static int[][] preparationEnvoi(Case[][] carte, int[] position) {
