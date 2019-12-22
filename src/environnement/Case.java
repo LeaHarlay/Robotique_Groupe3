@@ -21,58 +21,26 @@ public class Case {
 		this.chemin = false;
 	}
 
-	/**
-	 * Modifie l'état de découverte d'une case
-	 * 
-	 * @param d
-	 */
 	public void setDecouvert(Boolean d) {
 		this.decouvert = d;
 	}
 
-	/**
-	 * Retourne si une case fait partie du chemin le plus court trouvé par
-	 * l'intellience artificielle
-	 * 
-	 * @param c
-	 */
 	public void setChemin(Boolean c) {
 		this.chemin = c;
 	}
 
-	/**
-	 * Retourne la couleur d'une case
-	 * 
-	 * @return
-	 */
 	public String getCouleur() {
 		return this.couleur;
 	}
 
-	/**
-	 * Retourne la valeur d'une case
-	 * 
-	 * @return
-	 */
 	public int getValeur() {
 		return this.valeur;
 	}
 
-	/**
-	 * Informe de l'état de découverte d'une case
-	 * 
-	 * @return
-	 */
 	public boolean getDecouvert() {
 		return this.decouvert;
 	}
 
-	/**
-	 * Informe si une case fait partie du chemin le plus court trouvé par
-	 * l'intellience artificielle
-	 * 
-	 * @return
-	 */
 	public boolean getChemin() {
 		return this.chemin;
 	}
