@@ -37,7 +37,7 @@ public class IntelligenceArtificielle implements Behavior, Parametre {
 	}
 
 	/**
-	 * Initialisation de la ville adversaire à atteindre (noeud final)
+	 * Initialisation de la ville adversaire a atteindre (noeud final)
 	 */
 	public void initIA() {
 		this.sFinal = new Noeud(this.plan.getVilleAdversaire()[0], this.plan.getVilleAdversaire()[1],
